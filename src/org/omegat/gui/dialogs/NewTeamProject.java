@@ -122,7 +122,7 @@ public class NewTeamProject extends javax.swing.JDialog {
         if (StringUtil.isEmpty(url)) {
             return;
         }
-        if (url.startsWith("git!")) {
+        if (url.startsWith("git!") || url.endsWith(".git")) {
             detectedRepoOrProjectFileLabel.setText(OStrings.getString("TEAM_DETECTED_REPO_GIT"));
             repoType = "git";
             suggestLocalFolder();
