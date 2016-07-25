@@ -27,6 +27,13 @@
 package org.omegat.core.team2.impl;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
+import java.net.ProxySelector;
+import java.net.SocketAddress;
+import java.net.URI;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
@@ -111,6 +118,26 @@ public class GITRemoteRepository2 implements IRemoteRepository2 {
             CloneCommand c = Git.cloneRepository();
             c.setURI(repositoryURL);
             c.setDirectory(localDirectory);
+
+            ProxySelector.setDefault(new ProxySelector() {
+                final ProxySelector delegate = ProxySelector.getDefault();
+                @Override
+                public List<Proxy> select(URI uri) {
+                    if (uri.toString().contains("github") && uri.toString().contains("https")) {
+                        return Arrays.asList(new Proxy(Proxy.Type.HTTP, InetSocketAddress
+                                .createUnresolved("172.16.0.25", 8080)));
+                    }
+                    return delegate == null? Arrays.asList(Proxy.NO_PROXY):delegate.select(uri);
+
+                }
+                @Override
+                public void connectFailed(URI uri, SocketAddress sa, IOException ioe) {
+                    if (uri == null || sa == null || ioe == null) {
+                        throw new IllegalArgumentException("Null argument passed.");
+                    }
+                }
+            });
+
             try {
                 c.call();
             } catch (InvalidRemoteException e) {
