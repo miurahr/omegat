@@ -85,7 +85,7 @@ import org.omegat.util.gui.OSXIntegration;
 
 import com.vlsolutions.swing.docking.DockingDesktop;
 
-/**	
+/**
  * The main OmegaT class, used to launch the program.
  * 
  * @author Keith Godfrey
@@ -196,6 +196,12 @@ public class Main {
         PluginUtils.loadPlugins(params);
         FilterMaster.setFilterClasses(PluginUtils.getFilterClasses());
         Preferences.init();
+
+        if ((!Platform.isMacOSX()) && Preferences.isPreferenceDefault(Preferences.USE_SYSTEM_PROXY, true)) {
+            // Use system proxy setting.
+            // This automatically set http.proxyHost http.proxyPort from OS's proxy settings.
+            System.setProperty("java.net.useSystemProxies", "true");
+        }
 
         int result;
         try {

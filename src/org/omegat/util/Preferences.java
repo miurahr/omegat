@@ -440,6 +440,8 @@ public class Preferences {
     public static final String PROPERTY_SRX = "srx";
     public static final String PROPERTY_FILTERS = "filters";
 
+    public static final String USE_SYSTEM_PROXY = "proxy";
+
     /** Private constructor, because this file is singleton */
     private Preferences() {
     }
