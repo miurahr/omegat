@@ -12,6 +12,7 @@ plugins {
     id 'org.hidetake.ssh' version '2.10.1'
     id 'com.diffplug.spotless' version '5.5.1'
     id 'com.github.ben-manes.versions' version '0.33.0'
+    id 'org.beryx.jlink' version '2.22.0'
 }
 
 apply from: 'gradle/utils.gradle'
@@ -20,7 +21,7 @@ applicationName = 'OmegaT'
 mainClassName = 'org.omegat.Main'
 
 ext {
-    javaVersion = '1.8'
+    javaVersion = '1.11'
     omtVersion = loadProperties(file('src/org/omegat/Version.properties'))
     omtFlavor = omtVersion.beta.empty ? 'standard' : 'latest'
     omtWebsite = 'https://omegat.org'
@@ -39,6 +40,28 @@ sourceCompatibility = javaVersion
 targetCompatibility = javaVersion
 
 version = omtVersion.version + getUpdateSuffix(omtVersion.update)
+
+jlink {
+    javaHome = "/usr/lib/jvm/java-11-openjdk-amd64"
+    targetPlatform("mac") {
+        jdkHome = "/usr/local/java/jdk/mac/Contents/Home"
+    }
+    targetPlatform("linux-x64") {
+        jdkHome = "/usr/lib/jvm/java-11-openjdk-amd64"
+    }
+    targetPlatform("windows-x64") {
+        jdkHome = "/usr/local/java/jdk/win"
+    }
+    options = ['--compress', '2', '--no-header-files', '--no-man-pages']
+     mergedModule {
+         excludeRequires 'org.junit.platform.launcher', 'java.xml.bind', 'com.sun.xml.fastinfoset', 'org.jvnet.staxex'
+         requires 'jdk.localedata'
+     }
+    launcher {
+        name = 'OmegaT'
+        jvmArgs = ["-Xmx1024M"]
+    }
+}
 
 sourceSets {
     main {
@@ -88,15 +111,15 @@ task webstartDocsJar(type: Jar) {
 configurations {
     all {
         // Temporary exclusion; see https://sourceforge.net/p/omegat/bugs/813/
-        exclude group: 'org.apache.lucene', module: 'lucene-core'
+        // exclude group: 'org.apache.lucene', module: 'lucene-core'
     }
     [testRuntime, testCompile]*.exclude group: 'org.languagetool', module: 'language-all'
 }
 
 ext {
     providedLibsDir = file('lib/provided')
-    languageToolVersion = '3.5'
-    luceneVersion = '5.2.1'
+    languageToolVersion = '4.0'
+    luceneVersion = '5.5.5'
 }
 
 dependencies {
@@ -111,9 +134,8 @@ dependencies {
         // macOS integration
         implementation 'org.madlonkay:desktopsupport:0.3.0'
 
-        implementation 'javax.xml.bind:jaxb-api:2.3.1'
-        implementation 'com.sun.xml.bind:jaxb-core:2.3.0.1'
-        implementation 'com.sun.xml.bind:jaxb-impl:2.3.2'
+        implementation "jakarta.xml.bind:jakarta.xml.bind-api:2.3.2"
+        runtimeOnly group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.3'
 
         // PDF Filter
         implementation 'org.apache.pdfbox:pdfbox:2.0.21'
@@ -139,14 +161,14 @@ dependencies {
         implementation "org.languagetool:languagetool-core:${languageToolVersion}"
         runtimeOnly("org.languagetool:language-all:${languageToolVersion}") {
             // Temporary exclusion; see https://sourceforge.net/p/omegat/bugs/814/
-            exclude module: 'lucene-gosen-ipadic'
+            // exclude module: 'lucene-gosen-ipadic'
         }
-        runtimeOnly 'org.omegat.lucene:lucene-gosen:5.0.0:ipadic'
+        // runtimeOnly 'org.omegat.lucene:lucene-gosen:6.0.0:ipadic'
         runtimeOnly 'org.languagetool:hunspell-native-libs:2.9'
 
         // Lucene for tokenizers
         // Temporary use of custom lucene-core; see https://sourceforge.net/p/omegat/bugs/813/
-        implementation "org.omegat.lucene:lucene-core:${luceneVersion}-1"
+        //implementation "org.omegat.lucene:lucene-core:${luceneVersion}-1"
         implementation "org.apache.lucene:lucene-analyzers-common:${luceneVersion}"
         implementation "org.apache.lucene:lucene-analyzers-kuromoji:${luceneVersion}"
         implementation "org.apache.lucene:lucene-analyzers-smartcn:${luceneVersion}"

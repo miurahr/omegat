@@ -539,10 +539,6 @@ public class LanguageToolConfigurationController extends BasePreferencesControll
             throw new UnsupportedOperationException();
         }
 
-        @Override
-        public void reset() {
-            throw new UnsupportedOperationException();
-        }
     }
 
     /**
