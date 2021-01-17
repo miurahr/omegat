@@ -111,8 +111,8 @@ dependencies {
         // macOS integration
         implementation 'org.madlonkay:desktopsupport:0.3.0'
 
-        implementation "jakarta.xml.bind:jakarta.xml.bind-api:2.3.2"
-        runtimeOnly group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.3'
+        compile "jakarta.xml.bind:jakarta.xml.bind-api:2.3.2"
+        implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.3'
 
         // PDF Filter
         implementation 'org.apache.pdfbox:pdfbox:2.0.21'
