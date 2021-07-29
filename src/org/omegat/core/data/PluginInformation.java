@@ -70,42 +70,41 @@ public class PluginInformation implements Comparable<PluginInformation> {
     private final URL url;
     private Status status;
 
-    public PluginInformation(final String className, final Manifest manifest, final URL mu, final Status status) {
+    public PluginInformation(String className, String name, String version, String author, String description, String category, String link, URL url, Status status) {
         this.className = className;
+        this.name = name;
+        this.version = version;
+        this.author = author;
+        this.description = description;
+        this.category = category;
+        this.link = link;
+        this.url = url;
+        this.status = status;
+    }
+
+    public static PluginInformation buildFromManifest(final String className, final Manifest manifest, final URL mu, final Status status) {
         Attributes mainAttrs = manifest.getMainAttributes();
         Attributes attrs = manifest.getEntries().get(className);
         if (attrs == null) {
               attrs = manifest.getMainAttributes();
         }
-        name = findName(attrs);
-        version = findVersion(attrs, mainAttrs);
-        author = findAuthor(mainAttrs);
-        description = attrs.getValue(PLUGIN_DESCRIPTION);
-        link = attrs.getValue(PLUGIN_LINK);
-        url = mu;
-        category = categoryName(attrs.getValue(PLUGIN_CATEGORY), attrs.getValue(PLUGIN_TYPE));
-        this.status = status;
+        return new PluginInformation(className, findName(attrs, className), findVersion(attrs, mainAttrs), findAuthor(mainAttrs),
+                attrs.getValue(PLUGIN_DESCRIPTION), categoryName(attrs.getValue(PLUGIN_CATEGORY),
+                attrs.getValue(PLUGIN_TYPE)), attrs.getValue(PLUGIN_LINK), mu, status);
     }
 
-    public PluginInformation(String className, Properties props, final String key, final URL mu, final Status status) {
-        this.className = className;
-        name = className.substring(className.lastIndexOf(".") + 1);
-        version = null;
-        author = null;
-        description = null;
-        category = categoryName(key, null);
-        link = null;
-        url = mu;
-        this.status = status;
+    public static PluginInformation buildFromProperties(String className, Properties props, final String key, final URL mu, final Status status) {
+        return new PluginInformation(className, className.substring(className.lastIndexOf(".") + 1),
+                null, null, null, categoryName(key, null), null, mu, status);
     }
 
-    private String categoryName(final String key1, final String key2) {
+    private static String categoryName(final String key1, final String key2) {
         String key = key1 != null ? key1 : key2;
         return Arrays.stream(PluginUtils.PluginType.values()).filter(v ->
                 v.getTypeValue().equals(key)).findFirst().orElse(PluginUtils.PluginType.UNKNOWN).getTypeValue();
     }
 
-    private String findName(Attributes attrs) {
+    private static String findName(Attributes attrs, String className) {
 
         if (attrs.getValue(PLUGIN_NAME) != null) {
             return attrs.getValue(PLUGIN_NAME);
@@ -118,7 +117,7 @@ public class PluginInformation implements Comparable<PluginInformation> {
         return className.substring(className.lastIndexOf(".") + 1);
     }
 
-    private String findVersion(Attributes attrs, Attributes mainAttrs) {
+    private static String findVersion(Attributes attrs, Attributes mainAttrs) {
         if (attrs.getValue(PLUGIN_VERSION) != null) {
             return attrs.getValue(PLUGIN_VERSION);
         } else if (attrs.getValue(BUNDLE_VERSION) != null) {
@@ -135,7 +134,7 @@ public class PluginInformation implements Comparable<PluginInformation> {
         return "unknown";
     }
 
-    private String findAuthor(Attributes attrs) {
+    private static String findAuthor(Attributes attrs) {
         if ("org.omegat.Main".equals(attrs.getValue("Main-Class"))) {
             return "OmegaT team";
         } else if (attrs.getValue(PLUGIN_AUTHOR) != null) {

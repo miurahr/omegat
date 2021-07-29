@@ -307,9 +307,9 @@ public final class PluginUtils {
                 }
                 if (loadClass(clazz, classLoader)) {
                     if (mu == null) {
-                        PLUGIN_INFORMATIONS.add(new PluginInformation(clazz, m, null, PluginInformation.Status.BUNDLED));
+                        PLUGIN_INFORMATIONS.add(PluginInformation.buildFromManifest(clazz, m, null, PluginInformation.Status.BUNDLED));
                     } else {
-                        PLUGIN_INFORMATIONS.add(new PluginInformation(clazz, m, mu, PluginInformation.Status.INSTALLED));
+                        PLUGIN_INFORMATIONS.add(PluginInformation.buildFromManifest(clazz, m, mu, PluginInformation.Status.INSTALLED));
                     }
                }
             }
@@ -325,14 +325,14 @@ public final class PluginUtils {
             if (key.equals("plugin")) {
                 for (String clazz : classes) {
                     if (loadClass(clazz, classLoader)) {
-                        PLUGIN_INFORMATIONS.add(new PluginInformation(clazz, props, key, null,
+                        PLUGIN_INFORMATIONS.add(PluginInformation.buildFromProperties(clazz, props, key, null,
                                 PluginInformation.Status.BUNDLED));
                     };
                 }
             } else {
                 for (String clazz : classes) {
                     if (loadClassOld(key, clazz, classLoader)) {
-                        PLUGIN_INFORMATIONS.add(new PluginInformation(clazz, props, key, null,
+                        PLUGIN_INFORMATIONS.add(PluginInformation.buildFromProperties(clazz, props, key, null,
                                 PluginInformation.Status.BUNDLED));
                     }
                 }
@@ -390,7 +390,7 @@ public final class PluginUtils {
                 continue;
             }
             if (loadClassOld(sType, key, classLoader)) {
-                PLUGIN_INFORMATIONS.add(new PluginInformation(key, m, null, PluginInformation.Status.BUNDLED));
+                PLUGIN_INFORMATIONS.add(PluginInformation.buildFromManifest(key, m, null, PluginInformation.Status.BUNDLED));
             }
         }
     }

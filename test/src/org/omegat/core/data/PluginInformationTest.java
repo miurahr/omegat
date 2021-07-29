@@ -51,7 +51,7 @@ public class PluginInformationTest {
       try (InputStream in = new FileInputStream(manifest)) {
          Manifest m = new Manifest(in);
          String pluginClass = m.getMainAttributes().getValue("OmegaT-Plugins");
-         PluginInformation pluginInformation = new PluginInformation(pluginClass, m, mu, PluginInformation.Status.INSTALLED);
+         PluginInformation pluginInformation = PluginInformation.buildFromManifest(pluginClass, m, mu, PluginInformation.Status.INSTALLED);
          assertEquals("Filters for OmegaT", pluginInformation.getName());
          assertEquals("Example Author", pluginInformation.getAuthor());
          assertEquals("filter", pluginInformation.getCategory());
