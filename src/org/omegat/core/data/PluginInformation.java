@@ -25,6 +25,10 @@
 
 package org.omegat.core.data;
 
+import static java.util.Comparator.naturalOrder;
+import static java.util.Comparator.nullsLast;
+
+import java.util.Comparator;
 import java.util.Properties;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
@@ -173,4 +177,12 @@ public class PluginInformation {
         return true;
     }
 
+    public final int compareTo(PluginInformation pluginInformation) {
+        return Comparator
+                .comparing(PluginInformation::getAuthor, nullsLast(naturalOrder()))
+                .thenComparing(PluginInformation::getClassName)
+                .thenComparing(PluginInformation::getName)
+                .thenComparing(PluginInformation::getVersion, nullsLast(naturalOrder()))
+                .compare(this, pluginInformation);
+    }
 }
