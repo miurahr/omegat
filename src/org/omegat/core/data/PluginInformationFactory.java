@@ -51,18 +51,20 @@ public final class PluginInformationFactory {
     private PluginInformationFactory() {
     }
 
-    public static PluginInformation buildFromManifest(final String className, final Manifest manifest, final URL mu, final PluginInformation.Status status) {
+    public static PluginInformation buildFromManifest(final String className, final Manifest manifest, final URL mu,
+                                                      final PluginInformation.Status status) {
         Attributes mainAttrs = manifest.getMainAttributes();
         Attributes attrs = manifest.getEntries().get(className);
         if (attrs == null) {
               attrs = manifest.getMainAttributes();
         }
-        return new PluginInformation(className, findName(attrs, className), findVersion(attrs, mainAttrs), findAuthor(mainAttrs),
-                attrs.getValue(PLUGIN_DESCRIPTION), categoryName(attrs.getValue(PLUGIN_CATEGORY),
+        return new PluginInformation(className, findName(attrs, className), findVersion(attrs, mainAttrs),
+                findAuthor(mainAttrs), attrs.getValue(PLUGIN_DESCRIPTION), categoryName(attrs.getValue(PLUGIN_CATEGORY),
                 attrs.getValue(PLUGIN_TYPE)), attrs.getValue(PLUGIN_LINK), mu, status);
     }
 
-    public static PluginInformation buildFromProperties(String className, Properties props, final String key, final URL mu, final PluginInformation.Status status) {
+    public static PluginInformation buildFromProperties(String className, Properties props, final String key,
+                                                        final URL mu, final PluginInformation.Status status) {
         return new PluginInformation(className, className.substring(className.lastIndexOf(".") + 1),
                 null, null, null, categoryName(key, null), null, mu, status);
     }
