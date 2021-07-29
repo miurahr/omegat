@@ -26,8 +26,12 @@
 
 package org.omegat.core.data;
 
+import static java.util.Comparator.naturalOrder;
+import static java.util.Comparator.nullsLast;
+
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Properties;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
@@ -241,53 +245,10 @@ public class PluginInformation implements Comparable<PluginInformation> {
 
     @Override
     public final int compareTo(PluginInformation pluginInformation) {
-        int score;
-        if (this == pluginInformation || className.equals(pluginInformation.getClass().getName())) {
-            return version.compareTo(pluginInformation.getVersion());
-        }
-        if (pluginInformation.category != null) {
-            if (category == null) {
-                if ("bundle".equals(pluginInformation.category)) {
-                    return 1;
-                } else {
-                    return -1;
-                }
-            } else {
-                score = category.compareTo(pluginInformation.getCategory());
-                if (score != 0) {
-                    return score;
-                }
-            }
-        }
-        if (pluginInformation.getAuthor() != null) {
-            if (author == null) {
-                return -1;
-            } else {
-                score = author.compareTo(pluginInformation.getAuthor());
-                if (score != 0) {
-                    return score;
-                }
-            }
-        }
-        score = className.compareTo(pluginInformation.getClassName());
-        if (score != 0) {
-            return score;
-        }
-        if (pluginInformation.getName() != null) {
-            if (name == null) {
-                return -1;
-            }
-            score = name.compareTo(pluginInformation.getName());
-            if (score != 0) {
-                return score;
-            }
-        }
-        if (pluginInformation.getVersion() != null) {
-            if (version == null) {
-                return -1;
-            }
-            return version.compareTo(pluginInformation.getVersion());
-        }
-        return 0;
+        return Comparator.comparing(PluginInformation::getCategory, nullsLast(naturalOrder()))
+                .thenComparing(PluginInformation::getAuthor, nullsLast(naturalOrder()))
+                .thenComparing(PluginInformation::getClassName)
+                .thenComparing(PluginInformation::getVersion, nullsLast(naturalOrder()))
+                .compare(this, pluginInformation);
     }
 }

@@ -26,7 +26,6 @@
 package org.omegat.gui.preferences.view;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
@@ -50,7 +49,7 @@ public class PluginInfoTableModel extends DefaultTableModel {
 
     public PluginInfoTableModel() {
         PluginUtils.getPluginInformations().stream()
-                .sorted(Comparator.comparing(PluginInformation::getClassName))
+                .sorted()
                 .forEach(info -> listPlugins.add(info));
     }
 
