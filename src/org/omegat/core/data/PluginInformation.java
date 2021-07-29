@@ -32,6 +32,8 @@ import static java.util.Comparator.nullsLast;
 import java.net.URL;
 import java.util.Comparator;
 
+import org.omegat.filters2.master.PluginUtils;
+
 public class PluginInformation implements Comparable<PluginInformation> {
 
     public enum Status {
@@ -45,13 +47,13 @@ public class PluginInformation implements Comparable<PluginInformation> {
     private final String version;
     private final String author;
     private final String description;
-    private final String category;
+    private final PluginUtils.PluginType category;
     private final String link;
     private final URL url;
     private Status status;
 
     public PluginInformation(String className, String name, String version, String author, String description,
-                             String category, String link, URL url, Status status) {
+                             PluginUtils.PluginType category, String link, URL url, Status status) {
         this.className = className;
         this.name = name;
         this.version = version;
@@ -99,9 +101,9 @@ public class PluginInformation implements Comparable<PluginInformation> {
     }
 
     /**
-     * @return category or type of plugin
+     * @return category type of plugin as PluginType enum
      */
-    public final String getCategory() {
+    public final PluginUtils.PluginType getCategory() {
         return category;
     }
 
@@ -154,9 +156,11 @@ public class PluginInformation implements Comparable<PluginInformation> {
      */
     @Override
     public String toString() {
-        return "PluginInformation [className=" + className + ", name=" + name
-                + ", version=" + version + ", author=" + author + ", description="
-                + description + "]";
+        StringBuilder builder = new StringBuilder();
+        builder.append("PluginInformation [className=").append(className).append(", name=").append(name)
+                .append(", version=").append(version).append(", author=").append(author).append(", description=")
+                .append(description).append("]");
+        return builder.toString();
     }
 
     /**

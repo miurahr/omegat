@@ -36,6 +36,7 @@ import java.net.URL;
 import java.util.jar.Manifest;
 
 import org.junit.Test;
+import org.omegat.filters2.master.PluginUtils;
 
 
 /**
@@ -54,7 +55,7 @@ public class PluginInformationTest {
          PluginInformation pluginInformation = PluginInformationFactory.buildFromManifest(pluginClass, m, mu, PluginInformation.Status.INSTALLED);
          assertEquals("Filters for OmegaT", pluginInformation.getName());
          assertEquals("Example Author", pluginInformation.getAuthor());
-         assertEquals("filter", pluginInformation.getCategory());
+         assertEquals(PluginUtils.PluginType.FILTER, pluginInformation.getCategory());
          assertEquals("https://example.com", pluginInformation.getLink());
          assertEquals(mu, pluginInformation.getUrl());
          assertEquals(pluginInformation.getStatus(), PluginInformation.Status.INSTALLED);

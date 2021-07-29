@@ -96,6 +96,18 @@ public final class PluginUtils {
         public String getTypeValue() {
             return typeValue;
         }
+
+        public static PluginType getTypeByValue(String str) {
+            String sType = str.toLowerCase(Locale.ENGLISH);
+            for(PluginType v : values())
+            {
+                if(v.getTypeValue().equals(sType))
+                {
+                    return v;
+                }
+            }
+            return UNKNOWN;
+        }
     }
 
     protected static final List<Class<?>> LOADED_PLUGINS = new ArrayList<>();
@@ -398,14 +410,8 @@ public final class PluginUtils {
 
     protected static boolean loadClassOld(String sType, String key, ClassLoader classLoader)
             throws ClassNotFoundException {
-        PluginType pType;
-        try {
-            pType = PluginType.valueOf(sType.toUpperCase(Locale.ENGLISH));
-        } catch (Exception ex) {
-            pType = PluginType.UNKNOWN;
-        }
         boolean loadOk = true;
-        switch (pType) {
+        switch (PluginType.getTypeByValue(sType)) {
         case FILTER:
             FILTER_CLASSES.add(classLoader.loadClass(key));
             Log.logInfoRB("PLUGIN_LOAD_OK", key);

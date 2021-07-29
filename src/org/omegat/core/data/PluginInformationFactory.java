@@ -26,7 +26,6 @@
 package org.omegat.core.data;
 
 import java.net.URL;
-import java.util.Arrays;
 import java.util.Properties;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
@@ -58,21 +57,18 @@ public final class PluginInformationFactory {
         if (attrs == null) {
               attrs = manifest.getMainAttributes();
         }
+        String categoryKey1 = attrs.getValue(PLUGIN_CATEGORY);
+        String categoryKey = categoryKey1 != null ? categoryKey1 : attrs.getValue(PLUGIN_TYPE);
         return new PluginInformation(className, findName(attrs, className), findVersion(attrs, mainAttrs),
-                findAuthor(mainAttrs), attrs.getValue(PLUGIN_DESCRIPTION), categoryName(attrs.getValue(PLUGIN_CATEGORY),
-                attrs.getValue(PLUGIN_TYPE)), attrs.getValue(PLUGIN_LINK), mu, status);
+                findAuthor(mainAttrs), attrs.getValue(PLUGIN_DESCRIPTION),
+                PluginUtils.PluginType.getTypeByValue(categoryKey), attrs.getValue(PLUGIN_LINK), mu, status);
     }
 
     public static PluginInformation buildFromProperties(String className, Properties props, final String key,
                                                         final URL mu, final PluginInformation.Status status) {
         return new PluginInformation(className, className.substring(className.lastIndexOf(".") + 1),
-                null, null, null, categoryName(key, null), null, mu, status);
-    }
-
-    private static String categoryName(final String key1, final String key2) {
-        String key = key1 != null ? key1 : key2;
-        return Arrays.stream(PluginUtils.PluginType.values()).filter(v ->
-                v.getTypeValue().equals(key)).findFirst().orElse(PluginUtils.PluginType.UNKNOWN).getTypeValue();
+                null, null, null, PluginUtils.PluginType.getTypeByValue(key),
+                null, mu, status);
     }
 
     private static String findName(Attributes attrs, String className) {
