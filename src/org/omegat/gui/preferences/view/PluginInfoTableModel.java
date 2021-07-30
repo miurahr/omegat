@@ -25,8 +25,8 @@
 
 package org.omegat.gui.preferences.view;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -45,12 +45,10 @@ public class PluginInfoTableModel extends DefaultTableModel {
 
     private static final String[] COLUMN_NAMES = { "NAME", "CLASS", "VERSION", "AUTHOR", "DESCRIPTION" };
 
-    private final List<PluginInformation> listPlugins = new ArrayList<>();
+    private final List<PluginInformation> listPlugins;
 
     public PluginInfoTableModel() {
-        PluginUtils.getPluginInformations().stream()
-                .sorted()
-                .forEach(info -> listPlugins.add(info));
+        listPlugins = PluginUtils.getPluginInformations().stream().sorted().collect(Collectors.toList());
     }
 
     @Override
