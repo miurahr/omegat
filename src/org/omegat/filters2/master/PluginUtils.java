@@ -34,15 +34,16 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.Set;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 import java.util.stream.Collectors;
@@ -92,14 +93,16 @@ public final class PluginUtils {
            typeValue = type;
         }
 
-        protected String getTypeValue() {
+        public String getTypeValue() {
             return typeValue;
         }
 
         public static PluginType getTypeByValue(String str) {
             String sType = str.toLowerCase(Locale.ENGLISH);
-            for (PluginType v: values()) {
-                if (v.getTypeValue().equals(sType)) {
+            for(PluginType v : values())
+            {
+                if(v.getTypeValue().equals(sType))
+                {
                     return v;
                 }
             }
@@ -108,7 +111,7 @@ public final class PluginUtils {
     }
 
     protected static final List<Class<?>> LOADED_PLUGINS = new ArrayList<>();
-    private static final SortedSet<PluginInformation> PLUGIN_INFORMATIONS = new TreeSet<>();
+    private static final Set<PluginInformation> PLUGIN_INFORMATIONS = new HashSet<>();
 
     /** Private constructor to disallow creation */
     private PluginUtils() {
@@ -441,7 +444,7 @@ public final class PluginUtils {
         return loadOk;
     }
 
-    public static SortedSet<PluginInformation> getPluginInformations() {
-        return Collections.unmodifiableSortedSet(PLUGIN_INFORMATIONS);
+    public static Collection<PluginInformation> getPluginInformations() {
+        return Collections.unmodifiableSet(PLUGIN_INFORMATIONS);
     }
 }

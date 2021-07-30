@@ -45,10 +45,12 @@ public class PluginInfoTableModel extends DefaultTableModel {
 
     private static final String[] COLUMN_NAMES = { "NAME", "CLASS", "VERSION", "AUTHOR", "DESCRIPTION" };
 
-    private final List<PluginInformation> listPlugins;
+    private final List<PluginInformation> listPlugins = new ArrayList<>();
 
     public PluginInfoTableModel() {
-        listPlugins = new ArrayList<>(PluginUtils.getPluginInformations());
+        PluginUtils.getPluginInformations().stream()
+                .sorted()
+                .forEach(info -> listPlugins.add(info));
     }
 
     @Override
