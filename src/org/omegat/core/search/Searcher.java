@@ -49,10 +49,10 @@ import java.util.regex.Pattern;
 import org.omegat.core.Core;
 import org.omegat.core.data.EntryKey;
 import org.omegat.core.data.ExternalTMX;
+import org.omegat.core.data.ExternalTMXEntry;
 import org.omegat.core.data.IProject;
 import org.omegat.core.data.IProject.FileInfo;
 import org.omegat.core.data.ParseEntry;
-import org.omegat.core.data.PrepareTMXEntry;
 import org.omegat.core.data.ProjectProperties;
 import org.omegat.core.data.ProjectTMX;
 import org.omegat.core.data.ProtectedPart;
@@ -445,8 +445,8 @@ public class Searcher {
      * @param tmxID identifier of the TMX. E.g. the filename or language code
      * @throws SearchLimitReachedException when nr of found matches exceeds requested nr of results
      */
-    private void searchEntries(Collection<PrepareTMXEntry> tmEn, final String tmxID) throws SearchLimitReachedException {
-        for (PrepareTMXEntry tm : tmEn) {
+    private void searchEntries(Collection<ExternalTMXEntry> tmEn, final String tmxID) throws SearchLimitReachedException {
+        for (ExternalTMXEntry tm : tmEn) {
             // stop searching if the max. nr of hits has been reached
             if (m_numFinds >= searchExpression.numberOfResults) {
                 throw new SearchLimitReachedException();

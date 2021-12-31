@@ -67,35 +67,8 @@ public class PrepareTMXEntry {
         note = e.note;
     }
 
-    public String getPropValue(String propType) {
-        if (otherProperties == null) {
-            return null;
-        }
-        for (int i = 0; i < otherProperties.size(); i++) {
-            TMXProp kv = otherProperties.get(i);
-            if (propType.equals(kv.getType())) {
-                return kv.getValue();
-            }
-        }
-        return null;
-    }
-
-    public boolean hasPropValue(String propType, String propValue) {
-        if (otherProperties == null) {
-            return false;
-        }
-        for (int i = 0; i < otherProperties.size(); i++) {
-            TMXProp kv = otherProperties.get(i);
-            if (propType.equals(kv.getType())) {
-                if (propValue == null) {
-                    return true;
-                }
-                if (propValue.equals(kv.getValue())) {
-                    return true;
-                }
-            }
-        }
-        return false;
+    public ExternalTMXEntry toExternalTMXEntry(final boolean defaultTranslation, final TMXEntry.ExternalLinked linked) {
+        return new ExternalTMXEntry(this, defaultTranslation, linked, otherProperties);
     }
 
     @Override
