@@ -135,6 +135,11 @@ public class PrepareTMXEntry implements ITMXEntry {
     }
 
     @Override
+    public boolean hasProperties() {
+        return otherProperties != null;
+    }
+
+    @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("PrepareTMXEntry [source=").append(source).append(", translation=").append(translation)

@@ -28,6 +28,7 @@
 
 package org.omegat.core.data;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -46,7 +47,7 @@ import org.omegat.util.TMXProp;
  * @author Aaron Madlon-Kay
  */
 public class ExternalTMXEntry extends TMXEntry {
-    public List<TMXProp> otherProperties;
+    private final List<TMXProp> otherProperties;
 
     ExternalTMXEntry(ITMXEntry from) {
         super(from);
@@ -62,10 +63,10 @@ public class ExternalTMXEntry extends TMXEntry {
         // Now compare properties
         try {
             ITMXEntry other = (ITMXEntry) obj;
-            if (other.getProperties() == null) {
+            if (!other.hasProperties()) {
                 return (this.otherProperties == null) || (this.otherProperties.size() == 0);
             } else if (this.otherProperties == null) {
-                return (other.getProperties() == null) || (other.getProperties().size() == 0);
+                return !other.hasProperties() || (other.getProperties().size() == 0);
             } else if (other.getProperties().size() != this.otherProperties.size()) {
                 return false;
             } else {
@@ -87,9 +88,13 @@ public class ExternalTMXEntry extends TMXEntry {
         return Objects.hash(changeDate / 1000, creationDate / 1000, translation, note, changer, creator,
                 source);
     }
+
+    public boolean hasProperties() {
+        return otherProperties != null;
+    }
     
     public List<TMXProp> getProperties() {
-        return otherProperties;
+        return Collections.unmodifiableList(otherProperties);
     }
     
     public String getPropValue(String propType) {

@@ -109,7 +109,11 @@ public class ProjectTMXEntry extends TMXEntry {
     public boolean hasPropValue(String propType, String propValue) {
         return false; // for the moment internal entries do not store properties
     }
-    
+
+    public boolean hasProperties() {
+        return false;
+    }
+
     public List<TMXProp> getProperties() {
         return null; // for the moment internal entries do not store properties
     }

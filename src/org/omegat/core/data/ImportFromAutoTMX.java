@@ -33,7 +33,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import org.omegat.util.StringUtil;
 import org.omegat.util.TMXProp;
 
 /**
@@ -129,7 +128,7 @@ public class ImportFromAutoTMX {
     }
 
     private boolean isAltTranslation(ITMXEntry entry) {
-        if (entry.getProperties() == null) {
+        if (!entry.hasProperties()) {
             return false;
         }
         boolean hasFileProp = false;

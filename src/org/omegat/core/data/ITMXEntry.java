@@ -61,10 +61,12 @@ public interface ITMXEntry extends ITranslationEntry {
      * Gets text note (markup &lt;note&gt; in TMX format)
      */
     String getNote();
-    
+
     String getPropValue(String propType);
     
     boolean hasPropValue(String propType, String propValue);
-    
+
+    boolean hasProperties();
+
     List<TMXProp> getProperties();
 }
