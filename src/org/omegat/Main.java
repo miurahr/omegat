@@ -59,7 +59,6 @@ import org.omegat.convert.ConvertConfigs;
 import org.omegat.core.Core;
 import org.omegat.core.CoreEvents;
 import org.omegat.core.data.NotLoadedProject;
-import org.omegat.core.data.PrepareTMXEntry;
 import org.omegat.core.data.ProjectProperties;
 import org.omegat.core.data.ProjectTMXEntry;
 import org.omegat.core.data.RealProject;
@@ -82,7 +81,7 @@ import org.omegat.util.Preferences;
 import org.omegat.util.ProjectFileStorage;
 import org.omegat.util.RuntimePreferences;
 import org.omegat.util.StringUtil;
-import org.omegat.util.TMXWriter;
+import org.omegat.util.TMXWriter2;
 import org.omegat.util.gui.OSXIntegration;
 
 import com.vlsolutions.swing.docking.DockingDesktop;
@@ -445,29 +444,26 @@ public final class Main {
             fname = "";
         }
 
-        // prepare tmx
-        Map<String, PrepareTMXEntry> data = new HashMap<>();
-        for (SourceTextEntry ste : entries) {
-            PrepareTMXEntry entry = new PrepareTMXEntry();
-            entry.source = ste.getSrcText();
-            switch (pseudoTranslateType) {
-            case EQUAL:
-                entry.translation = ste.getSrcText();
-                break;
-            case EMPTY:
-                entry.translation = "";
-                break;
-            }
-            data.put(ste.getSrcText(), entry);
-        }
-
+        TMXWriter2 wr = new TMXWriter2(new File(fname), config.getSourceLanguage(), config.getTargetLanguage(),
+                    config.isSentenceSegmentingEnabled(), false, false);
         try {
             // Write OmegaT-project-compatible TMX:
-            TMXWriter.buildTMXFile(fname, false, false, config, data);
+            for (SourceTextEntry ste : entries) {
+                switch (pseudoTranslateType) {
+                    case EQUAL:
+                        wr.writeEntry(ste.getSrcText(), ste.getSrcText(), null, null, 0, null, 0, null);
+                        break;
+                    case EMPTY:
+                        wr.writeEntry(ste.getSrcText(), "", null, null, 0, null, 0, null);
+                        break;
+                }
+            }
         } catch (IOException e) {
             Log.logErrorRB("CT_ERROR_CREATING_TMX");
             Log.log(e);
             throw new IOException(OStrings.getString("CT_ERROR_CREATING_TMX") + "\n" + e.getMessage());
+        } finally {
+            wr.close();
         }
         p.closeProject();
         System.out.println(OStrings.getString("CONSOLE_FINISHED"));
@@ -497,16 +493,19 @@ public final class Main {
 
         System.out.println(StringUtil.format(OStrings.getString("CONSOLE_ALIGN_AGAINST"), dir));
 
-        Map<String, ProjectTMXEntry> data = p.align(p.getProjectProperties(), new File(dir));
-        Map<String, PrepareTMXEntry> result = new TreeMap<>();
-        for (Map.Entry<String, ProjectTMXEntry> en : data.entrySet()) {
-            result.put(en.getKey(), new PrepareTMXEntry(en.getValue()));
-        }
-
         String tmxFile = p.getProjectProperties().getProjectInternal() + "align.tmx";
+        ProjectProperties config = p.getProjectProperties();
 
-        TMXWriter.buildTMXFile(tmxFile, false, false, p.getProjectProperties(), result);
-
+        TMXWriter2 wr = new TMXWriter2(new File(tmxFile), config.getSourceLanguage(), config.getTargetLanguage(),
+                config.isSentenceSegmentingEnabled(), false, false);
+        Map<String, ProjectTMXEntry> data = p.align(p.getProjectProperties(), new File(dir));
+        try {
+            for (Map.Entry<String, ProjectTMXEntry> en : data.entrySet()) {
+                wr.writeEntry(en.getKey(), en.getValue().getTranslationText(), en.getValue(), null);
+            }
+        } finally {
+            wr.close();
+        }
         p.closeProject();
         System.out.println(OStrings.getString("CONSOLE_FINISHED"));
         return 0;
