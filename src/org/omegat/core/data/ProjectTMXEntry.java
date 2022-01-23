@@ -28,10 +28,12 @@
 
 package org.omegat.core.data;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 import org.omegat.util.TMXProp;
+import org.omegat.util.TMXWriter2;
 
 /**
  * Storage for TMX entry for project memory
@@ -53,12 +55,14 @@ public class ProjectTMXEntry extends TMXEntry {
 
     public final boolean defaultTranslation;
     public final ExternalLinked linked;
+    public final String mtsource;
 
     ProjectTMXEntry(ITMXEntry from, boolean defaultTranslation, ExternalLinked linked) {
         super(from);
 
         this.defaultTranslation = defaultTranslation;
         this.linked = linked;
+        this.mtsource = from.getPropValue(TMXWriter2.PROP_MTSOURCE);
     }
 
     @Override
@@ -101,20 +105,33 @@ public class ProjectTMXEntry extends TMXEntry {
         }
         return true;
     }
-    
+
     public boolean hasProperties() {
+        if (mtsource != null) {
+            return true;
+        }
         return false;
     }
     
     public String getPropValue(String propType) {
-        return null; // for the moment internal entries do not store properties
+        if (mtsource != null && propType.equals(TMXWriter2.PROP_MTSOURCE)) {
+            return mtsource;
+        }
+        return null;
     }
     
     public boolean hasPropValue(String propType, String propValue) {
-        return false; // for the moment internal entries do not store properties
+        if (mtsource != null && propType.equals(TMXWriter2.PROP_MTSOURCE)) {
+            return mtsource.equals(propValue);
+        }
+        return false;
     }
     
     public List<TMXProp> getProperties() {
-        return null; // for the moment internal entries do not store properties
+        if (mtsource != null) {
+            return Collections.singletonList(new TMXProp(TMXWriter2.PROP_MTSOURCE, mtsource));
+        }
+        return null;
     }
+
 }

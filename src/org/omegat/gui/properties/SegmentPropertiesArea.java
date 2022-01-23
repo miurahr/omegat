@@ -66,6 +66,7 @@ import org.omegat.util.Log;
 import org.omegat.util.OStrings;
 import org.omegat.util.Preferences;
 import org.omegat.util.StringUtil;
+import org.omegat.util.TMXWriter2;
 import org.omegat.util.gui.IPaneMenu;
 import org.omegat.util.gui.Styles;
 
@@ -91,6 +92,7 @@ public class SegmentPropertiesArea implements IPaneMenu {
     private static final String KEY_CREATOR = "creator";
     private static final String KEY_ISALT = "isAlt";
     private static final String KEY_LINKED = "linked";
+    private static final String KEY_MTSOURCE = "mtsource";
 
     final List<String> properties = new ArrayList<>();
 
@@ -349,5 +351,10 @@ public class SegmentPropertiesArea implements IPaneMenu {
             setProperty(KEY_ISALT, true);
         }
         setProperty(KEY_LINKED, entry.linked);
+        if (entry.getPropValue(TMXWriter2.PROP_MTSOURCE) != null) {
+            setProperty(KEY_MTSOURCE, entry.getPropValue(TMXWriter2.PROP_MTSOURCE));
+        } else {
+            setProperty(KEY_MTSOURCE, OStrings.getString("SEGPROP_MT_USED_UNKNOWN"));
+        }
     }
 }
