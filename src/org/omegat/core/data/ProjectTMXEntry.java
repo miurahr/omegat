@@ -7,6 +7,7 @@
                2012 Guido Leenders, Thomas Cordonnier
                2013 Aaron Madlon-Kay
                2014 Alex Buloichik, Aaron Madlon-Kay
+               2022  Thomas Cordonnier, Hiroshi Miura
                Home page: http://www.omegat.org/
                Support center: https://omegat.org/support
 
@@ -106,27 +107,46 @@ public class ProjectTMXEntry extends TMXEntry {
         return true;
     }
 
+    /**
+     * We only hold mtsource property in ProjectTMXEntry.
+     * @return true when has mtsource property, otherwise false.
+     */
     public boolean hasProperties() {
         if (mtsource != null) {
             return true;
         }
         return false;
     }
-    
+
+    /**
+     * Retrun mtsource property when requested.
+     * @param propType property type. Currently we just support mtsource.
+     * @return mtsource when requested, otherwise null.
+     */
     public String getPropValue(String propType) {
         if (mtsource != null && propType.equals(TMXWriter2.PROP_MTSOURCE)) {
             return mtsource;
         }
         return null;
     }
-    
+
+    /**
+     * Query specified property type/value combination.
+     * @param propType property type.
+     * @param propValue expected value.
+     * @return true when hold a queried type/value, otherwise false.
+     */
     public boolean hasPropValue(String propType, String propValue) {
         if (mtsource != null && propType.equals(TMXWriter2.PROP_MTSOURCE)) {
             return mtsource.equals(propValue);
         }
         return false;
     }
-    
+
+    /**
+     * Rereturn properties.
+     * @return singletonList of mtsource when it has, otherwise null.
+     */
     public List<TMXProp> getProperties() {
         if (mtsource != null) {
             return Collections.singletonList(new TMXProp(TMXWriter2.PROP_MTSOURCE, mtsource));
