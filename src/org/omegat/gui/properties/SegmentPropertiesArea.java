@@ -92,7 +92,8 @@ public class SegmentPropertiesArea implements IPaneMenu {
     private static final String KEY_CREATOR = "creator";
     private static final String KEY_ISALT = "isAlt";
     private static final String KEY_LINKED = "linked";
-    private static final String KEY_MTSOURCE = "mtsource";
+    private static final String KEY_ORIGIN = "origin";
+    private static final String PROP_ORIGIN = TMXWriter2.PROP_ORIGIN;
 
     final List<String> properties = new ArrayList<>();
 
@@ -351,10 +352,10 @@ public class SegmentPropertiesArea implements IPaneMenu {
             setProperty(KEY_ISALT, true);
         }
         setProperty(KEY_LINKED, entry.linked);
-        if (entry.getPropValue(TMXWriter2.PROP_MTSOURCE) != null) {
-            setProperty(KEY_MTSOURCE, entry.getPropValue(TMXWriter2.PROP_MTSOURCE));
+        if (entry.getPropValue(PROP_ORIGIN) != null) {
+            setProperty(KEY_ORIGIN, entry.getPropValue(PROP_ORIGIN));
         } else {
-            setProperty(KEY_MTSOURCE, OStrings.getString("SEGPROP_MT_USED_UNKNOWN"));
+            setProperty(KEY_ORIGIN, OStrings.getString("SEGPROP_ORIGIN_UNKNOWN"));
         }
     }
 }

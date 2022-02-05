@@ -111,6 +111,8 @@ import org.omegat.util.gui.DesktopWrapper;
  * @author Aaron Madlon-Kay
  */
 public final class MainWindowMenuHandler {
+    private static final String PROP_ORIGIN = TMXWriter2.PROP_ORIGIN;
+
     private final MainWindow mainWindow;
 
     public MainWindowMenuHandler(final MainWindow mainWindow) {
@@ -490,7 +492,7 @@ public final class MainWindowMenuHandler {
             if (prepareTMXEntry.otherProperties == null) {
                 prepareTMXEntry.otherProperties = new ArrayList<>();
             }
-            prepareTMXEntry.otherProperties.add(new TMXProp(TMXWriter2.PROP_MTSOURCE, tr.translatorName));
+            prepareTMXEntry.otherProperties.add(new TMXProp(PROP_ORIGIN, tr.translatorName));
             Core.getProject().setTranslation(ste, prepareTMXEntry,true, null);
             Core.getEditor().replaceEditText(tr.result);
         }

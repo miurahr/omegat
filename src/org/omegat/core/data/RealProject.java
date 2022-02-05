@@ -62,6 +62,7 @@ import java.util.stream.Collectors;
 
 import org.madlonkay.supertmxmerge.StmProperties;
 import org.madlonkay.supertmxmerge.SuperTmxMerge;
+import org.xml.sax.SAXParseException;
 
 import org.omegat.CLIParameters;
 import org.omegat.core.Core;
@@ -105,7 +106,6 @@ import org.omegat.util.TMXReader2;
 import org.omegat.util.TMXWriter2;
 import org.omegat.util.TagUtil;
 import org.omegat.util.gui.UIThreadsUtil;
-import org.xml.sax.SAXParseException;
 
 import gen.core.filters.Filters;
 
@@ -1483,12 +1483,12 @@ public class RealProject implements IProject {
         } else {
             trans.creationDate = prevTrEntry.creationDate;
             trans.creator = prevTrEntry.creator;
-            if (prevTrEntry.getPropValue(TMXWriter2.PROP_MTSOURCE) != null) {
+            if (prevTrEntry.getPropValue(TMXWriter2.PROP_ORIGIN) != null) {
                 if (trans.otherProperties == null) {
                     trans.otherProperties = new ArrayList<>();
                 }
                 trans.otherProperties.add(
-                        new TMXProp(TMXWriter2.PROP_MTSOURCE, prevTrEntry.getPropValue(TMXWriter2.PROP_MTSOURCE)));
+                        new TMXProp(TMXWriter2.PROP_ORIGIN, prevTrEntry.getPropValue(TMXWriter2.PROP_ORIGIN)));
             }
         }
 

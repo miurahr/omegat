@@ -54,16 +54,18 @@ public class ProjectTMXEntry extends TMXEntry {
         xICE, x100PC, xAUTO, xENFORCED
     };
 
+    private static final String PROP_ORIGIN = TMXWriter2.PROP_ORIGIN;
+
     public final boolean defaultTranslation;
     public final ExternalLinked linked;
-    public final String mtsource;
+    public final String origin;
 
     ProjectTMXEntry(ITMXEntry from, boolean defaultTranslation, ExternalLinked linked) {
         super(from);
 
         this.defaultTranslation = defaultTranslation;
         this.linked = linked;
-        this.mtsource = from.getPropValue(TMXWriter2.PROP_MTSOURCE);
+        this.origin = from.getPropValue(PROP_ORIGIN);
     }
 
     @Override
@@ -108,24 +110,24 @@ public class ProjectTMXEntry extends TMXEntry {
     }
 
     /**
-     * We only hold mtsource property in ProjectTMXEntry.
-     * @return true when has mtsource property, otherwise false.
+     * We only hold origin property in ProjectTMXEntry.
+     * @return true when has origin property, otherwise false.
      */
     public boolean hasProperties() {
-        if (mtsource != null) {
+        if (origin != null) {
             return true;
         }
         return false;
     }
 
     /**
-     * Retrun mtsource property when requested.
-     * @param propType property type. Currently we just support mtsource.
+     * Return origin property when requested.
+     * @param propType property type. Currently we just support origin.
      * @return mtsource when requested, otherwise null.
      */
     public String getPropValue(String propType) {
-        if (mtsource != null && propType.equals(TMXWriter2.PROP_MTSOURCE)) {
-            return mtsource;
+        if (origin != null && propType.equals(PROP_ORIGIN)) {
+            return origin;
         }
         return null;
     }
@@ -137,19 +139,19 @@ public class ProjectTMXEntry extends TMXEntry {
      * @return true when hold a queried type/value, otherwise false.
      */
     public boolean hasPropValue(String propType, String propValue) {
-        if (mtsource != null && propType.equals(TMXWriter2.PROP_MTSOURCE)) {
-            return mtsource.equals(propValue);
+        if (origin != null && propType.equals(PROP_ORIGIN)) {
+            return origin.equals(propValue);
         }
         return false;
     }
 
     /**
-     * Rereturn properties.
+     * return properties.
      * @return singletonList of mtsource when it has, otherwise null.
      */
     public List<TMXProp> getProperties() {
-        if (mtsource != null) {
-            return Collections.singletonList(new TMXProp(TMXWriter2.PROP_MTSOURCE, mtsource));
+        if (origin != null) {
+            return Collections.singletonList(new TMXProp(PROP_ORIGIN, origin));
         }
         return null;
     }
