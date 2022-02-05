@@ -60,7 +60,6 @@ public class TMXWriter2 {
     static String lineSeparator = System.lineSeparator();
 
     public static final String PROP_ID = "id";
-    public static final String PROP_ORIGIN = "origin";
 
     private static final XMLOutputFactory FACTORY;
 

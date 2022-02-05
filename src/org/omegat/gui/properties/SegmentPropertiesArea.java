@@ -51,13 +51,15 @@ import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 
 import org.apache.commons.lang.StringUtils;
+
 import org.omegat.core.Core;
 import org.omegat.core.CoreEvents;
 import org.omegat.core.data.EntryKey;
 import org.omegat.core.data.IProject;
+import org.omegat.core.data.ProjectTMX;
+import org.omegat.core.data.ProjectTMXEntry;
 import org.omegat.core.data.SourceTextEntry;
 import org.omegat.core.data.SourceTextEntry.DUPLICATE;
-import org.omegat.core.data.ProjectTMXEntry;
 import org.omegat.core.events.IEntryEventListener;
 import org.omegat.core.events.IProjectEventListener;
 import org.omegat.gui.main.DockableScrollPane;
@@ -66,7 +68,6 @@ import org.omegat.util.Log;
 import org.omegat.util.OStrings;
 import org.omegat.util.Preferences;
 import org.omegat.util.StringUtil;
-import org.omegat.util.TMXWriter2;
 import org.omegat.util.gui.IPaneMenu;
 import org.omegat.util.gui.Styles;
 
@@ -93,7 +94,7 @@ public class SegmentPropertiesArea implements IPaneMenu {
     private static final String KEY_ISALT = "isAlt";
     private static final String KEY_LINKED = "linked";
     private static final String KEY_ORIGIN = "origin";
-    private static final String PROP_ORIGIN = TMXWriter2.PROP_ORIGIN;
+    private static final String PROP_ORIGIN = ProjectTMX.PROP_ORIGIN;
 
     final List<String> properties = new ArrayList<>();
 

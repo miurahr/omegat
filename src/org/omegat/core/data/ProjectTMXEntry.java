@@ -34,7 +34,6 @@ import java.util.List;
 import java.util.Objects;
 
 import org.omegat.util.TMXProp;
-import org.omegat.util.TMXWriter2;
 
 /**
  * Storage for TMX entry for project memory
@@ -54,7 +53,7 @@ public class ProjectTMXEntry extends TMXEntry {
         xICE, x100PC, xAUTO, xENFORCED
     };
 
-    private static final String PROP_ORIGIN = TMXWriter2.PROP_ORIGIN;
+    private static final String PROP_ORIGIN = ProjectTMX.PROP_ORIGIN;
 
     public final boolean defaultTranslation;
     public final ExternalLinked linked;

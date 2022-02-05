@@ -53,6 +53,7 @@ import org.omegat.core.CoreEvents;
 import org.omegat.core.KnownException;
 import org.omegat.core.data.PrepareTMXEntry;
 import org.omegat.core.data.ProjectFactory;
+import org.omegat.core.data.ProjectTMX;
 import org.omegat.core.data.SourceTextEntry;
 import org.omegat.core.data.TMXEntry;
 import org.omegat.core.matching.NearString;
@@ -89,7 +90,6 @@ import org.omegat.util.RecentProjects;
 import org.omegat.util.StaticUtils;
 import org.omegat.util.StringUtil;
 import org.omegat.util.TMXProp;
-import org.omegat.util.TMXWriter2;
 import org.omegat.util.TagUtil;
 import org.omegat.util.TagUtil.Tag;
 import org.omegat.util.gui.DesktopWrapper;
@@ -111,7 +111,7 @@ import org.omegat.util.gui.DesktopWrapper;
  * @author Aaron Madlon-Kay
  */
 public final class MainWindowMenuHandler {
-    private static final String PROP_ORIGIN = TMXWriter2.PROP_ORIGIN;
+    private static final String PROP_ORIGIN = ProjectTMX.PROP_ORIGIN;
 
     private final MainWindow mainWindow;
 

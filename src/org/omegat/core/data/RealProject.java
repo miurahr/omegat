@@ -1483,12 +1483,12 @@ public class RealProject implements IProject {
         } else {
             trans.creationDate = prevTrEntry.creationDate;
             trans.creator = prevTrEntry.creator;
-            if (prevTrEntry.getPropValue(TMXWriter2.PROP_ORIGIN) != null) {
+            if (prevTrEntry.getPropValue(ProjectTMX.PROP_ORIGIN) != null) {
                 if (trans.otherProperties == null) {
                     trans.otherProperties = new ArrayList<>();
                 }
                 trans.otherProperties.add(
-                        new TMXProp(TMXWriter2.PROP_ORIGIN, prevTrEntry.getPropValue(TMXWriter2.PROP_ORIGIN)));
+                        new TMXProp(ProjectTMX.PROP_ORIGIN, prevTrEntry.getPropValue(ProjectTMX.PROP_ORIGIN)));
             }
         }
 
