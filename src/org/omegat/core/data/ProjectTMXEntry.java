@@ -51,7 +51,7 @@ public class ProjectTMXEntry extends TMXEntry {
     public enum ExternalLinked {
         // declares how this entry linked to external TMX in the tm/auto/
         xICE, x100PC, xAUTO, xENFORCED
-    };
+    }
 
     private static final String PROP_ORIGIN = ProjectTMX.PROP_ORIGIN;
 
@@ -74,10 +74,7 @@ public class ProjectTMXEntry extends TMXEntry {
         }
         try {
             ProjectTMXEntry other = (ProjectTMXEntry) obj;
-            if (defaultTranslation != other.defaultTranslation) {
-                return false;
-            }
-            return true;
+            return defaultTranslation == other.defaultTranslation;
         } catch (ClassCastException cc) {
             return false;
         }
@@ -113,10 +110,7 @@ public class ProjectTMXEntry extends TMXEntry {
      * @return true when has origin property, otherwise false.
      */
     public boolean hasProperties() {
-        if (origin != null) {
-            return true;
-        }
-        return false;
+        return origin != null;
     }
 
     /**
