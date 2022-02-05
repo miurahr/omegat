@@ -29,6 +29,8 @@ package org.omegat.core.dictionaries;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -62,7 +64,9 @@ public class LingvoDSL implements IDictionaryFactory {
 
     @Override
     public final IDictionary loadDict(final File file) throws Exception {
-        return new LingvoDSLDict(file);
+        Path dictPath = Paths.get(file.toURI());
+        Path indexPath = Paths.get(dictPath + ".idx");
+        return new LingvoDSLDict(dictPath, indexPath, false);
     }
 
     static class LingvoDSLDict implements IDictionary {
@@ -71,12 +75,13 @@ public class LingvoDSL implements IDictionaryFactory {
 
         /**
          * Constructor of LingvoDSL Dictionary driver.
-         * @param file *.dsl file object.
+         * @param dictPath *.dsl file object.
+         * @param indexPath index cache file.
          * @throws Exception when loading dictionary failed.
          */
-        LingvoDSLDict(final File file) throws Exception {
-            data = DslDictionary.loadDictionary(file);
-            htmlVisitor = new HtmlVisitor(file.getParent());
+        LingvoDSLDict(final Path dictPath, final Path indexPath, final boolean validateIndexAbsPath) throws Exception {
+            data = DslDictionary.loadDictionary(dictPath, indexPath, validateIndexAbsPath);
+            htmlVisitor = new HtmlVisitor(dictPath.getParent().toString());
         }
 
         /**
@@ -87,7 +92,7 @@ public class LingvoDSL implements IDictionaryFactory {
          * @return list of results.
          */
         @Override
-        public List<DictionaryEntry> readArticles(final String word) {
+        public List<DictionaryEntry> readArticles(final String word) throws IOException {
             return readEntries(data.lookup(word));
         }
 
@@ -99,7 +104,7 @@ public class LingvoDSL implements IDictionaryFactory {
          * @return list of results.
          */
         @Override
-        public List<DictionaryEntry> readArticlesPredictive(final String word) {
+        public List<DictionaryEntry> readArticlesPredictive(final String word) throws IOException {
             return readEntries(data.lookupPredictive(word));
         }
 
@@ -207,7 +212,7 @@ public class LingvoDSL implements IDictionaryFactory {
                 }
             } else if (tag.isTagName("'")) {
                 sb.append("<span style=\"color: red\">");
-            } else if (tag.isTagName("url") || tag.isTagName("s") || tag.isTagName("video")) {
+            } else if (tag.isTagName("url") || tag.isTagName("s") || tag.isTagName("video") || tag.isTagName("*")) {
                 delayText = true;
             }
             // no output for t
@@ -248,6 +253,11 @@ public class LingvoDSL implements IDictionaryFactory {
                     }
                 } else if (endTag.isTagName("url")) {
                     sb.append("<a href=\"").append(previousText).append("\">").append(previousText).append("</a>");
+                } else if (endTag.isTagName("*")) {
+                    // you can set detailed content such like sb.append("<details>").append(previousText).append
+                    // ("</details>"); when jTextPane can support details tag.
+                    // Now we skip contents of [*]..[/*] and just put [*]
+                    sb.append("[*]");
                 }
                 delayText = false;
                 previousText = null;
