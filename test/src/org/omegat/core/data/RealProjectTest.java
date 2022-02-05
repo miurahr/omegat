@@ -265,7 +265,7 @@ public class RealProjectTest {
         String source = "List of sections in %s";
         String translation = "Liste des sections de %s";
         SourceTextEntry ste = setDefault2(source, translation);
-        project.setNote(ste, getTMXEntry(source, translation), "Note");
+        project.setNote(ste, getProjectTMXEntry(source, translation), "Note");
         TMXEntry entry = project.getTranslationInfo(ste);
         assertTrue(entry.hasNote());
         assertEquals("Note", entry.note);
@@ -278,8 +278,8 @@ public class RealProjectTest {
         return ste;
     }
 
-    private TMXEntry getTMXEntry(final String source, final String translation) {
-        return new TMXEntry(getPrepareTMXEntry(source, translation), true, null);
+    private ProjectTMXEntry getProjectTMXEntry(final String source, final String translation) {
+        return new ProjectTMXEntry(getPrepareTMXEntry(source, translation), true, null);
     }
 
     private PrepareTMXEntry getPrepareTMXEntry(final String source, final String translation) {
