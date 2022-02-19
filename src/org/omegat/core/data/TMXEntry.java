@@ -28,26 +28,22 @@
 
 package org.omegat.core.data;
 
+import java.util.List;
 import java.util.Objects;
 
+import org.omegat.util.TMXProp;
+
 /**
- * Storage for TMX entry.
+ * Immutable storage for TMX entry.
  *
- * Variables in this class can be changed only before store to ProjectTMX. After that, all values must be
+ * Variables in this class can be changed only before they are stored. After that, all values must be
  * unchangeable.
- *
- * Only RealProject can create and change TMXEntry objects.
  *
  * @author Alex Buloichik (alex73mail@gmail.com)
  * @author Guido Leenders
  * @author Aaron Madlon-Kay
  */
-public class TMXEntry {
-    public enum ExternalLinked {
-        // declares how this entry linked to external TMX in the tm/auto/
-        xICE, x100PC, xAUTO, xENFORCED
-    };
-
+public abstract class TMXEntry implements ITMXEntry {
     public final String source;
     public final String translation;
     public final String changer;
@@ -55,24 +51,43 @@ public class TMXEntry {
     public final String creator;
     public final long creationDate;
     public final String note;
-    public final boolean defaultTranslation;
-    public final ExternalLinked linked;
 
-    TMXEntry(PrepareTMXEntry from, boolean defaultTranslation, ExternalLinked linked) {
-        this.source = from.source;
-        this.translation = from.translation;
-        this.changer = from.changer;
-        this.changeDate = from.changeDate;
-        this.creator = from.creator;
-        this.creationDate = from.creationDate;
-        this.note = from.note;
-
-        this.defaultTranslation = defaultTranslation;
-        this.linked = linked;
+    TMXEntry(ITMXEntry from) {
+        this.source = from.getSourceText();
+        this.translation = from.getTranslationText();
+        this.changer = from.getChanger();
+        this.changeDate = from.getChangeDate();
+        this.creator = from.getCreator();
+        this.creationDate = from.getCreationDate();
+        this.note = from.getNote();
     }
 
-    public boolean isTranslated() {
-        return translation != null;
+    public String getSourceText() {
+        return source;
+    }
+
+    public String getTranslationText() {
+        return translation;
+    }
+    
+    public String getCreator() {
+        return creator;
+    }
+
+    public long getCreationDate() {
+        return creationDate;
+    }
+
+    public String getChanger() {
+        return changer;
+    }
+
+    public long getChangeDate() {
+        return changeDate;
+    }
+
+    public String getNote() {
+        return note;
     }
 
     public boolean hasNote() {
@@ -110,19 +125,10 @@ public class TMXEntry {
         if (!Objects.equals(creator, other.creator)) {
             return false;
         }
-        if (defaultTranslation != other.defaultTranslation) {
-            return false;
-        }
         if (!Objects.equals(source, other.source)) {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(changeDate / 1000, creationDate / 1000, translation, note, linked, changer, creator,
-                defaultTranslation, source);
     }
 
     /**
@@ -137,9 +143,6 @@ public class TMXEntry {
             return false;
         }
         if (!Objects.equals(note, other.note)) {
-            return false;
-        }
-        if (!Objects.equals(linked, other.linked)) {
             return false;
         }
         return true;
