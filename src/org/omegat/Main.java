@@ -8,6 +8,7 @@
                2012 Aaron Madlon-Kay
                2013 Kyle Katarn, Aaron Madlon-Kay
                2014 Alex Buloichik
+               2018 Enrique Estevez Fernandez
                Home page: http://www.omegat.org/
                Support center: https://omegat.org/support
 
@@ -58,10 +59,7 @@ import org.omegat.CLIParameters.TAG_VALIDATION_MODE;
 import org.omegat.convert.ConvertConfigs;
 import org.omegat.core.Core;
 import org.omegat.core.CoreEvents;
-import org.omegat.core.data.NotLoadedProject;
-import org.omegat.core.data.ProjectProperties;
-import org.omegat.core.data.RealProject;
-import org.omegat.core.data.SourceTextEntry;
+import org.omegat.core.data.*;
 import org.omegat.core.events.IProjectEventListener;
 import org.omegat.core.tagvalidation.ErrorReport;
 import org.omegat.core.team2.TeamTool;
@@ -490,10 +488,22 @@ public final class Main {
 
         String tmxFile = p.getProjectProperties().getProjectInternal() + "align.tmx";
         ProjectProperties config = p.getProjectProperties();
+        File filename = new File(tmxFile);
+        File directory = new File(dir);
 
-        try (TMXWriter2 wr = new TMXWriter2(new File(tmxFile), config.getSourceLanguage(), config.getTargetLanguage(),
-                config.isSentenceSegmentingEnabled(), false, false)) {
-            wr.writeEntries(p.align(p.getProjectProperties(), new File(dir)));
+        // If the project is not configured to propagate the translations,
+        // it generates tmx with multiples translations
+        if (p.getProjectProperties().isSupportDefaultTranslations()) {
+            try (TMXWriter2 wr = new TMXWriter2(filename, config.getSourceLanguage(), config.getTargetLanguage(),
+                    config.isSentenceSegmentingEnabled(), false, false)) {
+                wr.writeEntries(p.align(config, directory));
+            }
+        } else {
+            // Generation of the alternative tmx file
+            try (TMXWriter2 wr = new TMXWriter2(filename, config.getSourceLanguage(), config.getTargetLanguage(),
+                    config.isSentenceSegmentingEnabled(), true, true)) {
+                wr.writeEntriesMultiple(p.alignAlt(config, directory));
+            }
         }
         p.closeProject();
         System.out.println(OStrings.getString("CONSOLE_FINISHED"));
