@@ -31,17 +31,16 @@
 
 package org.omegat.util;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+
 import org.omegat.core.data.ProjectProperties;
 import org.omegat.filters2.TranslationException;
 import org.omegat.filters2.master.PluginUtils;
@@ -71,21 +70,14 @@ public final class ProjectFileStorage {
      */
     public static final String DEFAULT_FOLDER_MARKER = "__DEFAULT__";
 
-    private static final JAXBContext CONTEXT;
-    static {
-        try {
-            CONTEXT = JAXBContext.newInstance(Omegat.class);
-        } catch (Exception ex) {
-            throw new ExceptionInInitializerError(ex);
-        }
-    }
-
     public static Omegat parseProjectFile(File file) throws Exception {
         return parseProjectFile(FileUtils.readFileToByteArray(file));
     }
 
     public static Omegat parseProjectFile(byte[] projectFile) throws Exception {
-        return (Omegat) CONTEXT.createUnmarshaller().unmarshal(new ByteArrayInputStream(projectFile));
+        XmlMapper mapper = new XmlMapper();
+        mapper.registerModule(new JaxbAnnotationModule());
+        return mapper.readValue(projectFile, Omegat.class);
     }
 
     /**
@@ -238,9 +230,9 @@ public final class ProjectFileStorage {
             om.getProject().getRepositories().getRepository().addAll(props.getRepositories());
         }
 
-        Marshaller m = CONTEXT.createMarshaller();
-        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        m.marshal(om, outFile);
+        XmlMapper mapper = new XmlMapper();
+        mapper.registerModule(new JaxbAnnotationModule());
+        mapper.writeValue(outFile, om);
     }
 
     private static String normalizeLoadedPath(String path, String defaultValue) {
