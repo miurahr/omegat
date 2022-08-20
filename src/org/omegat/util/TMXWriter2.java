@@ -30,10 +30,10 @@ package org.omegat.util;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -66,7 +66,7 @@ public class TMXWriter2 implements AutoCloseable {
 
     public static final String PROP_ID = "id";
 
-    private static final XMLOutputFactory FACTORY;
+    private final XMLOutputFactory factory;
 
     private final OutputStream out;
     private final XMLStreamWriter xml;
@@ -82,10 +82,6 @@ public class TMXWriter2 implements AutoCloseable {
      */
     private final SimpleDateFormat tmxDateFormat;
 
-    static {
-        FACTORY = XMLOutputFactory.newInstance();
-    }
-
     /**
      *
      * @param file to write TMX entries.
@@ -100,9 +96,10 @@ public class TMXWriter2 implements AutoCloseable {
             boolean sentenceSegmentingEnabled, boolean levelTwo, boolean forceValidTMX) throws Exception {
         this.levelTwo = levelTwo;
         this.forceValidTMX = forceValidTMX;
+        factory = XMLOutputFactory.newInstance();
 
-        out = new BufferedOutputStream(new FileOutputStream(file));
-        xml = FACTORY.createXMLStreamWriter(out, StandardCharsets.UTF_8.name());
+        out = new BufferedOutputStream(Files.newOutputStream(file.toPath()));
+        xml = factory.createXMLStreamWriter(out, StandardCharsets.UTF_8.name());
 
         xml.writeStartDocument(StandardCharsets.UTF_8.name(), "1.0");
         xml.writeCharacters(lineSeparator);

@@ -38,14 +38,17 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.TimeZone;
 
-import javax.xml.bind.JAXB;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SequenceWriter;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import org.omegat.util.OStrings;
 import org.omegat.util.StaticUtils;
 import org.omegat.util.gui.TextUtil;
@@ -248,11 +251,12 @@ public class StatsResult {
      * @return XML expression of stats data as String.
      */
     @JsonIgnore
-    public String getXmlData() {
+    public String getXmlData() throws JsonProcessingException {
         setDate();
-        StringWriter result = new StringWriter();
-        JAXB.marshal(this, result);
-        return result.toString();
+        XmlMapper mapper = new XmlMapper();
+        mapper.registerModule(new JaxbAnnotationModule());
+        mapper.enable(MapperFeature.USE_WRAPPER_NAME_AS_PROPERTY_NAME);
+        return mapper.writeValueAsString(this);
     }
 
     private void setDate() {

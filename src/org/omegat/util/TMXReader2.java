@@ -62,7 +62,6 @@ import javax.xml.stream.events.XMLEvent;
 import org.apache.commons.io.input.XmlStreamReader;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 /**
  * Helper for read TMX files, using StAX.
@@ -276,7 +275,7 @@ public class TMXReader2 {
         // find 'lang' or 'xml:lang' attribute
         for (Iterator<?> it = element.getAttributes(); it.hasNext();) {
             Attribute a = (Attribute) it.next();
-            if ("lang".equals(a.getName().getLocalPart())) {
+            if ("lang".equals(a.getName().getLocalPart()) || "xml:lang".equals(a.getName().getLocalPart())) {
                 tuv.lang = a.getValue();
                 break;
             }
@@ -681,7 +680,7 @@ public class TMXReader2 {
     }
 
     public static final EntityResolver TMX_DTD_RESOLVER = new EntityResolver() {
-        public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
+        public InputSource resolveEntity(String publicId, String systemId) {
             if (systemId.endsWith("tmx11.dtd")) {
                 return new InputSource(TMXReader2.class.getResourceAsStream("/schemas/tmx11.dtd"));
             } else if (systemId.endsWith("tmx14.dtd")) {
