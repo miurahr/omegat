@@ -77,6 +77,7 @@ import org.eclipse.jgit.treewalk.FileTreeIterator;
 import org.omegat.core.team2.IRemoteRepository2;
 import org.omegat.core.team2.ProjectTeamSettings;
 import org.omegat.util.Log;
+import org.omegat.util.Preferences;
 import org.omegat.util.StringUtil;
 
 import gen.core.project.RepositoryDefinition;
@@ -126,7 +127,7 @@ public class GITRemoteRepository2 implements IRemoteRepository2 {
             // already cloned
             repository = Git.open(localDirectory).getRepository();
             String defaultBranch = getDefaultBranchName(repository);
-            branch = repo.getBranch() == null? defaultBranch : repo.getBranch();
+            branch = repo.getBranch() == null ? defaultBranch : repo.getBranch();
             trackBranch = !(branch.equals(defaultBranch));
             if (trackBranch) {
                 repository.resolve(branch);
@@ -156,29 +157,30 @@ public class GITRemoteRepository2 implements IRemoteRepository2 {
                 }
                 throw e;
             }
-	    repository = Git.open(localDirectory).getRepository();
-    	    String defaultBranch = getDefaultBranchName(repository);
-	    branch = repo.getBranch() == null? defaultBranch : repo.getBranch();
-	    trackBranch = !(branch.equals(defaultBranch));
-	    try (Git git = new Git(repository)) {
-	        if (trackBranch) {
-	    	    git.branchCreate().setName(branch)
-			.setUpstreamMode(CreateBranchCommand.SetupUpstreamMode.TRACK)
-			.setStartPoint(String.join("/", REMOTE, branch))
-			.call();
-		    CheckoutCommand checkout = git.checkout();
-		    checkout.setName(branch);
-		    checkout.call();
-	        }
-	        git.submoduleInit().call();
-	        git.submoduleUpdate().setTimeout(TIMEOUT).call();
-	    }
+            repository = Git.open(localDirectory).getRepository();
+            String defaultBranch = getDefaultBranchName(repository);
+            branch = repo.getBranch() == null ? defaultBranch : repo.getBranch();
+            trackBranch = !(branch.equals(defaultBranch));
+            try (Git git = new Git(repository)) {
+                if (trackBranch) {
+                    git.branchCreate().setName(branch)
+                            .setUpstreamMode(CreateBranchCommand.SetupUpstreamMode.TRACK)
+                            .setStartPoint(String.join("/", REMOTE, branch))
+                            .call();
+                    CheckoutCommand checkout = git.checkout();
+                    checkout.setName(branch);
+                    checkout.call();
+                }
+                git.submoduleInit().call();
+                git.submoduleUpdate().setTimeout(TIMEOUT).call();
+            }
             configRepo();
             Log.logInfoRB("GIT_FINISH", "clone");
         }
 
-        String signingkey  = repository.getConfig().getString("user", null, "signingkey");
-        if (!StringUtil.isEmpty(signingkey)) {
+        boolean signing = Preferences.isPreferenceDefault(Preferences.TEAM_SIGNING_COMMITS, false) |
+                !StringUtil.isEmpty(repository.getConfig().getString("user", null, "signingkey"));
+        if (signing) {
             GpgSigner.setDefault(new GITExternalGpgSigner());
         }
 

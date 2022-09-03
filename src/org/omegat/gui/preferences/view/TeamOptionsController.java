@@ -61,17 +61,21 @@ public class TeamOptionsController extends BasePreferencesController {
 
     @Override
     protected void initFromPrefs() {
-        panel.authorText
-                .setText(Preferences.getPreferenceDefault(Preferences.TEAM_AUTHOR, System.getProperty("user.name")));
+        panel.authorText.setText(
+                Preferences.getPreferenceDefault(Preferences.TEAM_AUTHOR, System.getProperty("user.name")));
+        panel.signingCommitCB.setSelected(
+                Preferences.isPreferenceDefault(Preferences.TEAM_SIGNING_COMMITS, false));
     }
 
     @Override
     public void restoreDefaults() {
         panel.authorText.setText(System.getProperty("user.name"));
+        panel.signingCommitCB.setSelected(false);
     }
 
     @Override
     public void persist() {
         Preferences.setPreference(Preferences.TEAM_AUTHOR, panel.authorText.getText());
+        Preferences.setPreference(Preferences.TEAM_SIGNING_COMMITS, panel.signingCommitCB.isSelected());
     }
 }

@@ -56,6 +56,7 @@ public class TeamOptionsPanel extends JPanel {
         authorLabel = new javax.swing.JLabel();
         authorText = new javax.swing.JTextField();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
+        signingCommitCB = new javax.swing.JCheckBox();
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setLayout(new java.awt.GridBagLayout());
@@ -94,6 +95,9 @@ public class TeamOptionsPanel extends JPanel {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         add(filler1, gridBagConstraints);
+
+        org.openide.awt.Mnemonics.setLocalizedText(signingCommitCB, OStrings.getString("WF_OPTION_SIGNING_COMMITS")); // NOI18N
+        add(signingCommitCB, new java.awt.GridBagConstraints());
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -101,5 +105,6 @@ public class TeamOptionsPanel extends JPanel {
     javax.swing.JTextField authorText;
     private javax.swing.JLabel descriptionLabel;
     private javax.swing.Box.Filler filler1;
+    javax.swing.JCheckBox signingCommitCB;
     // End of variables declaration//GEN-END:variables
 }

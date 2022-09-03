@@ -288,6 +288,8 @@ public final class Preferences {
 
     /** Team option: author ID */
     public static final String TEAM_AUTHOR = "team_Author";
+    /** Team option: signing commits */
+    public static final String TEAM_SIGNING_COMMITS = "team_signing_commits";
 
     /**
      * allow automatic spell checking or not
