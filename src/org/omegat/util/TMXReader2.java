@@ -681,28 +681,23 @@ public class TMXReader2 {
         public String text;
     }
 
-    public static final EntityResolver TMX_DTD_RESOLVER = new EntityResolver() {
-        public InputSource resolveEntity(String publicId, String systemId) {
-            if (systemId.endsWith("tmx11.dtd")) {
-                return new InputSource(TMXReader2.class.getResourceAsStream("/schemas/tmx11.dtd"));
-            } else if (systemId.endsWith("tmx14.dtd")) {
-                return new InputSource(TMXReader2.class.getResourceAsStream("/schemas/tmx14.dtd"));
-            } else {
-                return null;
-            }
+    public static final EntityResolver TMX_DTD_RESOLVER = (publicId, systemId) -> {
+        if (systemId.endsWith("tmx11.dtd")) {
+            return new InputSource(TMXReader2.class.getResourceAsStream("/schemas/tmx11.dtd"));
+        } else if (systemId.endsWith("tmx14.dtd")) {
+            return new InputSource(TMXReader2.class.getResourceAsStream("/schemas/tmx14.dtd"));
+        } else {
+            return null;
         }
     };
 
-    public static final XMLResolver TMX_DTD_RESOLVER_2 = new XMLResolver() {
-        public Object resolveEntity(String publicId, String systemId,
-                String baseURI, String namespace) throws XMLStreamException {
-            if (systemId.endsWith("tmx11.dtd")) {
-                return TMXReader2.class.getResourceAsStream("/schemas/tmx11.dtd");
-            } else if (systemId.endsWith("tmx14.dtd")) {
-                return TMXReader2.class.getResourceAsStream("/schemas/tmx14.dtd");
-            } else {
-                return null;
-            }
+    public static final XMLResolver TMX_DTD_RESOLVER_2 = (publicId, systemId, baseURI, namespace) -> {
+        if (systemId.endsWith("tmx11.dtd")) {
+            return TMXReader2.class.getResourceAsStream("/schemas/tmx11.dtd");
+        } else if (systemId.endsWith("tmx14.dtd")) {
+            return TMXReader2.class.getResourceAsStream("/schemas/tmx14.dtd");
+        } else {
+            return null;
         }
     };
 }

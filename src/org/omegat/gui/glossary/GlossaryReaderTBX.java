@@ -5,6 +5,8 @@
 
  Copyright (C) 2010 Alex Buloichik, Didier Briel
                2011 Didier Briel, Guido Leenders
+               2019-2020 Thomas Cordonnier
+               2022 Hiroshi Miura
                Home page: http://www.omegat.org/
                Support center: https://omegat.org/support
 
@@ -28,36 +30,20 @@ package org.omegat.gui.glossary;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.StringReader;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import javax.xml.transform.sax.SAXSource;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 
 import org.omegat.core.Core;
 import org.omegat.util.Language;
-import org.omegat.util.OStrings;
 import org.omegat.util.Preferences;
-import org.xml.sax.InputSource;
-import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.XMLFilterImpl;
-
-import gen.core.tbx.Descrip;
-import gen.core.tbx.DescripGrp;
-import gen.core.tbx.Hi;
-import gen.core.tbx.LangSet;
-import gen.core.tbx.Martif;
-import gen.core.tbx.Note;
-import gen.core.tbx.Ntig;
-import gen.core.tbx.TermEntry;
-import gen.core.tbx.TermNote;
-import gen.core.tbx.Tig;
 
 /**
  * Reader for TBX glossaries.
@@ -67,145 +53,177 @@ import gen.core.tbx.Tig;
  * @author Guido Leenders
  */
 public final class GlossaryReaderTBX {
+    private static final XMLInputFactory factory;
+
+    static {
+        factory = XMLInputFactory.newInstance();
+        factory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
+    }
 
     private GlossaryReaderTBX() {
     }
 
-    protected static final JAXBContext TBX_CONTEXT;
-    static {
-        try {
-            TBX_CONTEXT = JAXBContext.newInstance(Martif.class);
-        } catch (Exception ex) {
-            throw new ExceptionInInitializerError(OStrings.getString("STARTUP_JAXB_LINKAGE_ERROR"));
-        }
-    }
-
-    static final SAXParserFactory SAX_FACTORY = SAXParserFactory.newInstance();
-    static {
-        SAX_FACTORY.setNamespaceAware(true);
-        SAX_FACTORY.setValidating(false);
-    }
-
     public static List<GlossaryEntry> read(final File file, boolean priorityGlossary) throws Exception {
-        Martif tbx = load(file);
-        return readMartif(tbx, priorityGlossary, file.getPath());
-    }
-
-    public static List<GlossaryEntry> read(final String data, boolean priorityGlossary, String origin)
-            throws Exception {
-        Martif tbx = loadFromString(data);
-        return readMartif(tbx, priorityGlossary, origin);
-    }
-
-    public static List<GlossaryEntry> readMartif(final Martif tbx, boolean priorityGlossary, String origin)
-            throws Exception {
-        if (tbx.getText() == null) {
-            return Collections.emptyList();
+        try (InputStream is = Files.newInputStream(file.toPath())) {
+            return readMartif(is, priorityGlossary, file.getName());
         }
+    }
+
+    public static List<GlossaryEntry> read(final String data, boolean priorityGlossary, String origin) {
+        try (InputStream is = new ByteArrayInputStream(data.getBytes(StandardCharsets.UTF_8))) {
+            return readMartif(is, priorityGlossary, origin);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static List<GlossaryEntry> readMartif(final InputStream is, boolean priorityGlosary,
+            String origin) throws Exception {
+        XMLStreamReader reader = factory.createXMLStreamReader(is);
+        List<GlossaryEntry> entries = new ArrayList<>();
+        while (reader.hasNext()) {
+            if (reader.next() == XMLStreamConstants.START_ELEMENT) {
+                if (reader.getLocalName().equals("termEntry")
+                        || reader.getLocalName().equals("conceptEntry")) {
+                    readTermEntry(entries, reader, priorityGlosary, origin);
+                }
+            }
+        }
+        return entries;
+    }
+
+    private static void readTermEntry(List<GlossaryEntry> result, final XMLStreamReader reader,
+            boolean priorityGlossary, String origin) throws Exception {
         String sLang = Core.getProject().getProjectProperties().getSourceLanguage().getLanguageCode();
         String tLang = Core.getProject().getProjectProperties().getTargetLanguage().getLanguageCode();
 
         StringBuilder note = new StringBuilder();
         StringBuilder descTerm = new StringBuilder();
-        StringBuilder descTig = new StringBuilder();
-        List<GlossaryEntry> result = new ArrayList<GlossaryEntry>();
-        List<String> sTerms = new ArrayList<String>();
-        List<String> tTerms = new ArrayList<String>();
-        for (TermEntry te : tbx.getText().getBody().getTermEntry()) {
-            note.setLength(0);
-            descTerm.setLength(0);
-            descTig.setLength(0);
-            appendDescOrNote(te.getDescripOrDescripGrpOrAdmin(), descTerm);
-            for (LangSet ls : te.getLangSet()) {
-                Language termLanguage = new Language(ls.getLang());
-                // We use only the language code
-                String lang = termLanguage.getLanguageCode();
-                appendDescOrNote(ls.getDescripOrDescripGrpOrAdmin(), descTig);
-                for (Object o : ls.getTigOrNtig()) {
-                    if (o instanceof Tig) {
-                        Tig t = (Tig) o;
-                        if (sLang.equalsIgnoreCase(lang)) {
-                            sTerms.add(readContent(t.getTerm().getContent()));
-                        } else if (tLang.equalsIgnoreCase(lang)) {
-                            tTerms.add(readContent(t.getTerm().getContent()));
-                            appendDescOrNote(t.getTermNote(), note);
-                        }
-                        appendDescOrNote(t.getDescripOrDescripGrpOrAdmin(), descTig);
-                    } else if (o instanceof Ntig) {
-                        Ntig n = (Ntig) o;
-                        if (sLang.equalsIgnoreCase(lang)) {
-                            sTerms.add(readContent(n.getTermGrp().getTerm().getContent()));
-                        } else if (tLang.equalsIgnoreCase(lang)) {
-                            tTerms.add(readContent(n.getTermGrp().getTerm().getContent()));
-                            appendDescOrNote(n.getTermGrp().getTermNoteOrTermNoteGrp(), note);
-                        }
-                        appendDescOrNote(n.getDescripOrDescripGrpOrAdmin(), descTig);
-                    }
-                }
-            }
-            StringBuilder comment = new StringBuilder();
-            appendLine(comment, descTerm.toString());
-            appendLine(comment, descTig.toString());
-            appendLine(comment, note.toString());
-            for (String s : sTerms) {
-                boolean addedForLang = false;
-                for (String t : tTerms) {
-                    result.add(new GlossaryEntry(s, t, comment.toString(), priorityGlossary, origin));
-                    addedForLang = true;
-                }
-                if (!addedForLang) { // An entry is created just to get the definition
-                    result.add(new GlossaryEntry(s, "", comment.toString(), priorityGlossary, origin));
-                }
-            }
-            sTerms.clear();
-            tTerms.clear();
-        }
+        List<String> sTerms = new ArrayList<>();
+        List<String> tTerms = new ArrayList<>();
 
-        return result;
-    }
-
-    /**
-     * Add description or note into StringBuilder.
-     */
-    protected static void appendDescOrNote(final List<?> list, StringBuilder str) {
-        for (Object o : list) {
-            String line = null;
-            if (o instanceof Descrip) {
-                Descrip d = (Descrip) o;
-                if ("context".equalsIgnoreCase(d.getType())) {
-                    if (Preferences.isPreferenceDefault(Preferences.GLOSSARY_TBX_DISPLAY_CONTEXT,
-                            Preferences.GLOSSARY_TBX_DISPLAY_CONTEXT_DEFAULT)) {
-                        line = d.getType() + ": " + readContent(d.getContent());
+        while (reader.hasNext()) {
+            int next = reader.next();
+            if ((next == XMLStreamConstants.END_ELEMENT) && (reader.getLocalName().equals("termEntry")
+                    || reader.getLocalName().equals("conceptEntry"))) {
+                for (String s : sTerms) {
+                    boolean addedForLang = false;
+                    StringBuilder comment = new StringBuilder();
+                    appendLine(comment, descTerm.toString());
+                    appendLine(comment, note.toString());
+                    for (String t : tTerms) {
+                        result.add(new GlossaryEntry(s, t, comment.toString(), priorityGlossary, origin));
+                        addedForLang = true;
                     }
-                } else {
-                    line = d.getType() + ": " + readContent(d.getContent());
-                }
-            } else if (o instanceof DescripGrp) {
-                DescripGrp dg = (DescripGrp) o;
-                if (dg.getDescrip() != null) {
-                    if ("context".equalsIgnoreCase(dg.getDescrip().getType())) {
-                        if (Preferences.isPreferenceDefault(Preferences.GLOSSARY_TBX_DISPLAY_CONTEXT,
-                                Preferences.GLOSSARY_TBX_DISPLAY_CONTEXT_DEFAULT)) {
-                            line = dg.getDescrip().getType() + ": " + readContent(dg.getDescrip().getContent());
-                        }
-                    } else {
-                        line = dg.getDescrip().getType() + ": " + readContent(dg.getDescrip().getContent());
+                    if (!addedForLang) { // An entry is created just to get the
+                                         // definition
+                        result.add(new GlossaryEntry(s, "", comment.toString(), priorityGlossary, origin));
                     }
                 }
-            } else if (o instanceof TermNote) {
-                TermNote tn = (TermNote) o;
-                line = readContent(tn.getContent());
-            } else if (o instanceof Note) {
-                Note n = (Note) o;
-                line = readContent(n.getContent());
+                return;
             }
-            if (line != null) {
-                appendLine(str, line);
+
+            if (next == XMLStreamConstants.START_ELEMENT) {
+                if (reader.getLocalName().equals("note")) {
+                    appendLine(note, readContent(reader, "note"));
+                } else if (reader.getLocalName().equals("descripGrp")) {
+                    appendProperty(descTerm, "", reader);
+                } else if (reader.getLocalName().equals("descrip")) {
+                    appendProperty(descTerm, "", reader);
+                } else if (reader.getLocalName().equals("langSet")
+                        || reader.getLocalName().equals("langSec")) {
+                    String lang = reader.getAttributeValue(null, "lang");
+                    lang = new Language(lang).getLanguageCode();
+                    while (reader.hasNext()) {
+                        next = reader.next();
+                        if ((next == XMLStreamConstants.END_ELEMENT)
+                                && ((reader.getLocalName().equals("langSet")
+                                        || reader.getLocalName().equals("langSec")))) {
+                            break;
+                        }
+
+                        if (next == XMLStreamConstants.START_ELEMENT) {
+                            if (reader.getLocalName().equals("tig") || reader.getLocalName().equals("ntig")
+                                    || reader.getLocalName().equals("termSec")) {
+                                if (sLang.equalsIgnoreCase(lang)) {
+                                    sTerms.add(readContent(reader, "term"));
+                                } else if (tLang.equalsIgnoreCase(lang)) {
+                                    tTerms.add(readContent(reader, "term"));
+                                }
+                            } else if (reader.getLocalName().equals("termNote")) {
+                                if (sLang.equalsIgnoreCase(lang)) {
+                                    appendProperty(descTerm, "", reader);
+                                } else if (tLang.equalsIgnoreCase(lang)) {
+                                    appendProperty(descTerm, "", reader);
+                                }
+                            } else if (reader.getLocalName().equals("descripGrp")) {
+                                if (sLang.equalsIgnoreCase(lang)) {
+                                    appendProperty(descTerm, "", reader);
+                                } else if (tLang.equalsIgnoreCase(lang)) {
+                                    appendProperty(descTerm, "", reader);
+                                }
+                            } else if (reader.getLocalName().equals("descrip")) {
+                                if (sLang.equalsIgnoreCase(lang)) {
+                                    appendProperty(descTerm, "", reader);
+                                } else if (tLang.equalsIgnoreCase(lang)) {
+                                    appendProperty(descTerm, "", reader);
+                                }
+                            } else if (reader.getLocalName().equals("admin")) {
+                                if (sLang.equalsIgnoreCase(lang)) {
+                                    appendProperty(descTerm, "", reader);
+                                } else if (tLang.equalsIgnoreCase(lang)) {
+                                    appendProperty(descTerm, "", reader);
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
 
-    protected static void appendLine(final StringBuilder str, String line) {
+    private static void appendProperty(StringBuilder str, final String prefix, final XMLStreamReader reader)
+            throws XMLStreamException {
+        if (reader.getLocalName().equals("descrip")) {
+            if ("context".equals(reader.getAttributeValue(null, "type"))) {
+                if (Preferences.isPreferenceDefault(Preferences.GLOSSARY_TBX_DISPLAY_CONTEXT, true)) {
+                    appendLine(str, prefix + "context: " + readContent(reader, "descrip"));
+                }
+            } else {
+                appendLine(str, prefix + reader.getAttributeValue(null, "type") + ": "
+                        + readContent(reader, "descrip"));
+            }
+        }
+        if (reader.getLocalName().equals("descripGrp")) {
+            String prefix2 = "";
+            if (reader.getAttributeValue(null, "id") != null) {
+                prefix2 = reader.getAttributeValue(null, "id") + ".";
+            }
+            while (reader.hasNext()) {
+                int next = reader.next();
+                if (next == XMLStreamConstants.END_ELEMENT) {
+                    if (reader.getLocalName().equals("descripGrp")) {
+                        break;
+                    }
+                }
+                if (next == XMLStreamConstants.START_ELEMENT) {
+                    if (reader.getLocalName().equals("descrip")) {
+                        appendProperty(str, prefix2 + prefix, reader);
+                    }
+                }
+            }
+        }
+        if (reader.getLocalName().equals("termNote")) {
+            appendLine(str,
+                    prefix + reader.getAttributeValue(null, "type") + ": " + readContent(reader, "termNote"));
+        }
+        if (reader.getLocalName().equals("admin")) {
+            appendLine(str,
+                    prefix + reader.getAttributeValue(null, "type") + ": " + readContent(reader, "admin"));
+        }
+    }
+
+    private static void appendLine(final StringBuilder str, String line) {
         if (line.isEmpty()) { // No need to append empty lines
             return;
         }
@@ -215,60 +233,36 @@ public final class GlossaryReaderTBX {
         str.append(line);
     }
 
-    protected static String readContent(final List<Object> content) {
+    private static String readContent(final XMLStreamReader reader, String mark) throws XMLStreamException {
         StringBuilder res = new StringBuilder();
-        for (Object o : content) {
-            if (o instanceof Hi) {
-                Hi hi = (Hi) o;
-                res.append(" *").append(hi.getContent()).append("* ");
-            } else {
-                res.append(o.toString());
+        boolean in = reader.getLocalName().equals(mark);
+        int next;
+        while (reader.hasNext()) {
+            next = reader.next();
+            if (next == XMLStreamConstants.END_ELEMENT) {
+                if (reader.getLocalName().equals(mark)) {
+                    break;
+                } else if (reader.getLocalName().equals("hi")) {
+                    if (in) {
+                        res.append("* ");
+                    }
+                }
+            }
+            if (next == XMLStreamConstants.START_ELEMENT) {
+                if (reader.getLocalName().equals(mark)) {
+                    in = true;
+                } else if (reader.getLocalName().equals("hi")) {
+                    if (in) {
+                        res.append(" *");
+                    }
+                }
+            }
+            if (next == XMLStreamConstants.CHARACTERS) {
+                if (in) {
+                    res.append(reader.getText());
+                }
             }
         }
         return res.toString();
-    }
-
-    /**
-     * Load tbx file, but skip DTD resolving.
-     */
-    static Martif load(File f) throws Exception {
-        Unmarshaller unm = TBX_CONTEXT.createUnmarshaller();
-
-        SAXParser parser = SAX_FACTORY.newSAXParser();
-
-        NamespaceFilter xmlFilter = new NamespaceFilter(parser.getXMLReader());
-        xmlFilter.setContentHandler(unm.getUnmarshallerHandler());
-
-        try (FileInputStream in = new FileInputStream(f)) {
-            SAXSource source = new SAXSource(xmlFilter, new InputSource(in));
-            return (Martif) unm.unmarshal(source);
-        }
-    }
-
-    static Martif loadFromString(String data) throws Exception {
-        Unmarshaller unm = TBX_CONTEXT.createUnmarshaller();
-
-        SAXParser parser = SAX_FACTORY.newSAXParser();
-
-        NamespaceFilter xmlFilter = new NamespaceFilter(parser.getXMLReader());
-        xmlFilter.setContentHandler(unm.getUnmarshallerHandler());
-
-        try (StringReader in = new StringReader(data)) {
-            SAXSource source = new SAXSource(xmlFilter, new InputSource(in));
-            return (Martif) unm.unmarshal(source);
-        }
-    }
-
-    public static class NamespaceFilter extends XMLFilterImpl {
-        private static final InputSource EMPTY_INPUT_SOURCE = new InputSource(new ByteArrayInputStream(new byte[0]));
-
-        public NamespaceFilter(XMLReader xmlReader) {
-            super(xmlReader);
-        }
-
-        @Override
-        public InputSource resolveEntity(String publicId, String systemId) {
-            return EMPTY_INPUT_SOURCE;
-        }
     }
 }
