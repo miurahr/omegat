@@ -5,6 +5,8 @@
 
  Copyright (C) 2000-2006 Keith Godfrey and Maxym Mykhalchuk
                2008 Alex Buloichik
+               2017-2018 Thomas Cordonnier
+               2022 Hiroshi Miura
                Home page: http://www.omegat.org/
                Support center: https://omegat.org/support
 
@@ -27,28 +29,27 @@
 package org.omegat.core.segmentation;
 
 import java.beans.ExceptionListener;
-import java.beans.XMLDecoder;
-import java.beans.XMLEncoder;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.io.Serializable;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.XMLStreamWriter;
 
 import org.omegat.util.Language;
 import org.omegat.util.Log;
-import org.omegat.util.OStrings;
-
-import gen.core.segmentation.Languagemap;
-import gen.core.segmentation.Languagerule;
-import gen.core.segmentation.Srx;
 
 /**
  * The class with all the segmentation data possible -- rules, languages, etc.
@@ -59,34 +60,15 @@ import gen.core.segmentation.Srx;
 public class SRX implements Serializable {
 
     private static final long serialVersionUID = 2182125877925944613L;
-
+    private static final XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
+    private static final XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
     public static final String CONF_SENTSEG = "segmentation.conf";
-
-    /** Context for JAXB rules processing. */
-    protected static final JAXBContext SRX_JAXB_CONTEXT;
-
-    static {
-        try {
-            SRX_JAXB_CONTEXT = JAXBContext.newInstance(Srx.class);
-        } catch (LinkageError ex) {
-            throw new ExceptionInInitializerError(OStrings.getString("STARTUP_JAXB_LINKAGE_ERROR"));
-        } catch (JAXBException ex) {
-            if (ex.getMessage() != null) {
-                throw new ExceptionInInitializerError(ex.getMessage());
-            }
-            if (ex.getCause() != null) {
-                throw new ExceptionInInitializerError(ex.getCause().getClass().getName() + ": "
-                        + ex.getCause().getMessage());
-            }
-            throw new ExceptionInInitializerError(ex.getClass().getName());
-        }
-    }
 
     /**
      * Initializes SRX rules to defaults.
      */
     private void init() {
-        this.mappingRules = new ArrayList<MapRule>();
+        this.mappingRules = new ArrayList<>();
         this.includeEndingTags = true;
         this.segmentSubflows = true;
         initDefaults();
@@ -102,7 +84,7 @@ public class SRX implements Serializable {
 
     public SRX copy() {
         SRX result = new SRX();
-        result.mappingRules = new ArrayList<MapRule>(mappingRules.size());
+        result.mappingRules = new ArrayList<>(mappingRules.size());
         for (MapRule rule : mappingRules) {
             result.mappingRules.add(rule.copy());
         }
@@ -114,18 +96,72 @@ public class SRX implements Serializable {
      */
     public static void saveTo(SRX srx, File outFile) throws IOException {
         if (srx == null) {
-            outFile.delete();
+            boolean ignored = outFile.delete();
             return;
         }
-        try {
-            srx.setVersion(CURRENT_VERSION);
-            XMLEncoder xmlenc = new XMLEncoder(new FileOutputStream(outFile));
-            xmlenc.writeObject(srx);
-            xmlenc.close();
-        } catch (IOException ioe) {
+        saveToSrx(srx, outFile);
+    }
+
+    private static void saveToSrx(SRX srx, File outFile) throws IOException {
+        try (OutputStreamWriter fos = new OutputStreamWriter(Files.newOutputStream(outFile.toPath()),
+                StandardCharsets.UTF_8)) {
+            XMLStreamWriter writer = xmlOutputFactory.createXMLStreamWriter(fos);
+            writer.writeStartDocument("UTF-8", "1.0");
+            writer.writeStartElement("srx");
+            writer.writeDefaultNamespace("http://www.lisa.org/srx20");
+            writer.writeAttribute("version", "2.0");
+
+            writer.writeCharacters("\n    ");
+            writer.writeEmptyElement("header");
+            writer.writeAttribute("segmentsubflows", srx.segmentSubflows ? "yes" : "no");
+
+            writer.writeCharacters("\n    ");
+            writer.writeStartElement("body");
+            writer.writeCharacters("\n        ");
+            writer.writeStartElement("languagerules");
+            for (MapRule mr : srx.getMappingRules()) {
+                writer.writeCharacters("\n            ");
+                writer.writeStartElement("languagerule");
+                writer.writeAttribute("languagerulename", mr.getLanguage());
+                for (Rule rule : mr.getRules()) {
+                    writer.writeCharacters("\n                ");
+                    writer.writeStartElement("rule");
+                    writer.writeAttribute("break", rule.isBreakRule() ? "yes" : "no");
+                    writer.writeCharacters("\n                    ");
+                    writer.writeStartElement("beforebreak");
+                    writer.writeCharacters(rule.getBeforebreak());
+                    writer.writeEndElement();
+                    writer.writeCharacters("\n                    ");
+                    writer.writeStartElement("afterbreak");
+                    writer.writeCharacters(rule.getAfterbreak());
+                    writer.writeEndElement();
+                    writer.writeCharacters("\n                ");
+                    writer.writeEndElement(/* "rule" */);
+                }
+                writer.writeCharacters("\n            ");
+                writer.writeEndElement(/* "languagerule" */);
+            }
+            writer.writeCharacters("\n        ");
+            writer.writeEndElement(/* "languagerules" */);
+            writer.writeCharacters("\n        ");
+            writer.writeStartElement("maprules");
+            for (MapRule mr : srx.getMappingRules()) {
+                writer.writeCharacters("\n            ");
+                writer.writeEmptyElement("languagemap");
+                writer.writeAttribute("languagerulename", mr.getLanguage());
+                writer.writeAttribute("languagepattern", mr.getPattern());
+            }
+            writer.writeCharacters("\n        ");
+            writer.writeEndElement(/* "maprules" */);
+            writer.writeCharacters("\n    ");
+            writer.writeEndElement(/* "body" */);
+            writer.writeCharacters("\n");
+            writer.writeEndElement(/* "srx" */);
+            writer.close();
+
+        } catch (Exception e) {
             Log.logErrorRB("CORE_SRX_ERROR_SAVING_SEGMENTATION_CONFIG");
-            Log.log(ioe);
-            throw ioe;
+            throw new IOException(e);
         }
     }
 
@@ -141,51 +177,81 @@ public class SRX implements Serializable {
         if (!configFile.exists()) {
             return null;
         }
-        SRX res;
         try {
-
-            MyExceptionListener myel = new MyExceptionListener();
-            XMLDecoder xmldec = new XMLDecoder(new FileInputStream(configFile), null, myel);
-            res = (SRX) xmldec.readObject();
-            xmldec.close();
-
-            if (myel.isExceptionOccured()) {
-                StringBuilder sb = new StringBuilder();
-                for (Exception ex : myel.getExceptionsList()) {
-                    sb.append("    ");
-                    sb.append(ex);
-                    sb.append("\n");
-                }
-                Log.logErrorRB("CORE_SRX_EXC_LOADING_SEG_RULES", sb.toString());
-                res = new SRX();
-                res.initDefaults();
-                return res;
-            }
-
-            // checking the version
-            if (CURRENT_VERSION.compareTo(res.getVersion()) > 0) {
-                // yeap, the segmentation config file is of the older version
-
-                // initing defaults
-                SRX defaults = new SRX();
-                defaults.initDefaults();
-                // and merging them into loaded rules
-                res = merge(res, defaults);
-            }
-        } catch (Exception e) {
-            // silently ignoring FNF
-            if (!(e instanceof FileNotFoundException)) {
-                Log.log(e);
-            }
-            res = new SRX();
-            res.initDefaults();
+            SRX res = new SRX();
+            loadSrx(res, configFile.toURI().toURL());
+            return res;
+        } catch (MalformedURLException e) {
+            return null;
         }
-        return res;
+    }
+
+    private static void loadSrx(SRX res, URL rulesUrl) {
+        List<MapRule> newMap = new ArrayList<>();
+        res.setMappingRules(newMap);
+        try (InputStream io = rulesUrl.openStream()) {
+            Log.log("using segmentation rules from " + rulesUrl);
+
+            XMLStreamReader reader = xmlInputFactory.createXMLStreamReader(io);
+            List<Rule> rulesList = null;
+            HashMap<String, List<Rule>> mapping = new HashMap<>();
+            while (reader.hasNext()) {
+                if (reader.next() == XMLStreamReader.START_ELEMENT) {
+                    if (reader.getName().getLocalPart().equals("header")) {
+                        res.setSegmentSubflows(
+                                !"no".equals(reader.getAttributeValue(null, "segmentsubflows")));
+                    } else if (reader.getName().getLocalPart().equals("languagerule")) {
+                        rulesList = new ArrayList<Rule>();
+                        mapping.put(reader.getAttributeValue(null, "languagerulename"), rulesList);
+                    } else if (reader.getName().getLocalPart().equals("rule")) {
+                        boolean isBreak = !("no".equals(reader.getAttributeValue(null, "break")));
+                        StringBuilder before = new StringBuilder(), after = new StringBuilder();
+                        byte pos = 0;
+                        while (reader.hasNext()) {
+                            int next = reader.next();
+                            if (next == XMLStreamReader.START_ELEMENT) {
+                                if (reader.getName().getLocalPart().equals("beforebreak")) {
+                                    pos = -1;
+                                } else if (reader.getName().getLocalPart().equals("afterbreak")) {
+                                    pos = +1;
+                                } else {
+                                    pos = 0;
+                                }
+                            } else if (next == XMLStreamReader.END_ELEMENT) {
+                                if (reader.getName().getLocalPart().equals("beforebreak")) {
+                                    pos = 0;
+                                } else if (reader.getName().getLocalPart().equals("afterbreak")) {
+                                    pos = 0;
+                                } else if (reader.getName().getLocalPart().equals("rule")) {
+                                    break;
+                                }
+                            } else if (reader.hasText()) {
+                                if (pos == -1) {
+                                    before.append(reader.getText());
+                                }
+                                if (pos == +1) {
+                                    after.append(reader.getText());
+                                }
+                            }
+                        }
+                        rulesList.add(new Rule(isBreak, before.toString(), after.toString()));
+                    } else if (reader.getName().getLocalPart().equals("languagemap")) {
+                        newMap.add(new MapRule(reader.getAttributeValue(null, "languagerulename"),
+                                reader.getAttributeValue(null, "languagepattern"),
+                                mapping.get(reader.getAttributeValue(null, "languagerulename"))));
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            Log.log(ex);
+        }
     }
 
     /**
      * Does a config file already exists for the project at the given location?
-     * @param configDir the project directory for storage of settings file
+     * 
+     * @param configDir
+     *            the project directory for storage of settings file
      */
     public static boolean projectConfigFileExists(String configDir) {
         File configFile = new File(configDir + CONF_SENTSEG);
@@ -264,9 +330,12 @@ public class SRX implements Serializable {
                 MapRule maprule = current.getMappingRules().get(i);
                 if (def.equals(maprule.getLanguageCode())) {
                     maprule.setLanguage(LanguageCodes.DEFAULT_CODE);
-                    maprule.getRules().removeAll(getRulesForLanguage(defaults, LanguageCodes.ENGLISH_CODE));
-                    maprule.getRules().removeAll(getRulesForLanguage(defaults, LanguageCodes.F_TEXT_CODE));
-                    maprule.getRules().removeAll(getRulesForLanguage(defaults, LanguageCodes.F_HTML_CODE));
+                    maprule.getRules().removeAll(Objects
+                            .requireNonNull(getRulesForLanguage(defaults, LanguageCodes.ENGLISH_CODE)));
+                    maprule.getRules().removeAll(
+                            Objects.requireNonNull(getRulesForLanguage(defaults, LanguageCodes.F_TEXT_CODE)));
+                    maprule.getRules().removeAll(
+                            Objects.requireNonNull(getRulesForLanguage(defaults, LanguageCodes.F_HTML_CODE)));
                 }
             }
         }
@@ -296,23 +365,23 @@ public class SRX implements Serializable {
      * configuration.
      */
     static class MyExceptionListener implements ExceptionListener {
-        private List<Exception> exceptionsList = new ArrayList<Exception>();
-        private boolean exceptionOccured = false;
+        private final List<Exception> exceptionsList = new ArrayList<>();
+        private boolean exceptionOccurred = false;
 
         public void exceptionThrown(Exception e) {
-            exceptionOccured = true;
+            exceptionOccurred = true;
             exceptionsList.add(e);
         }
 
         /**
-         * Returns whether any exceptions occured.
+         * Returns whether any exceptions occurred.
          */
-        public boolean isExceptionOccured() {
-            return exceptionOccured;
+        public boolean isExceptionOccurred() {
+            return exceptionOccurred;
         }
 
         /**
-         * Returns the list of occured exceptions.
+         * Returns the list of occurred exceptions.
          */
         public List<Exception> getExceptionsList() {
             return exceptionsList;
@@ -327,31 +396,8 @@ public class SRX implements Serializable {
      */
     private void initDefaults() {
         try {
-            List<MapRule> newMap = new ArrayList<MapRule>();
             URL rulesUrl = this.getClass().getResource("defaultRules.srx");
-            Srx data = (Srx) SRX_JAXB_CONTEXT.createUnmarshaller().unmarshal(rulesUrl);
-
-            for (Languagerule rules : data.getBody().getLanguagerules().getLanguagerule()) {
-
-                String lang = rules.getLanguagerulename();
-                String pattern = DEFAULT_RULES_PATTERN;
-                for (Languagemap lm : data.getBody().getMaprules().getLanguagemap()) {
-                    if (lm.getLanguagerulename().equals(rules.getLanguagerulename())) {
-                        pattern = lm.getLanguagepattern();
-                        break;
-                    }
-                }
-                List<Rule> rulesList = new ArrayList<Rule>(rules.getRule().size());
-                for (gen.core.segmentation.Rule r : rules.getRule()) {
-                    boolean isBreak = "yes".equalsIgnoreCase(r.getBreak());
-                    rulesList.add(new Rule(isBreak, r.getBeforebreak().getContent(), r.getAfterbreak()
-                            .getContent()));
-                }
-
-                newMap.add(new MapRule(lang, pattern, rulesList));
-            }
-            // set rules only if no errors
-            getMappingRules().addAll(newMap);
+            loadSrx(this, rulesUrl);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -374,7 +420,7 @@ public class SRX implements Serializable {
      * rules.
      */
     public List<Rule> lookupRulesForLanguage(Language srclang) {
-        List<Rule> rules = new ArrayList<Rule>();
+        List<Rule> rules = new ArrayList<>();
         for (int i = 0; i < getMappingRules().size(); i++) {
             MapRule maprule = getMappingRules().get(i);
             if (maprule.getCompiledPattern().matcher(srclang.getLanguage()).matches()) {
@@ -489,7 +535,7 @@ public class SRX implements Serializable {
      * Correspondences between languages and their segmentation rules. Each
      * element is of class {@link MapRule}.
      */
-    private List<MapRule> mappingRules = new ArrayList<MapRule>();
+    private List<MapRule> mappingRules = new ArrayList<>();
 
     /**
      * Returns all mapping rules (of class {@link MapRule}) at once:
