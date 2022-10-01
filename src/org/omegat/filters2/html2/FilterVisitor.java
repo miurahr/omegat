@@ -47,6 +47,7 @@ import org.htmlparser.Text;
 import org.htmlparser.nodes.TextNode;
 import org.htmlparser.visitors.NodeVisitor;
 import org.omegat.core.Core;
+import org.omegat.util.HtmlUtils;
 import org.omegat.util.OStrings;
 import org.omegat.util.PatternConsts;
 import org.omegat.util.StringUtil;
@@ -261,8 +262,8 @@ public class FilterVisitor extends NodeVisitor {
         if (attr != null) {
             String comment = OStrings.getString("HTMLFILTER_TAG") + " " + tag.getTagName() + " "
                     + OStrings.getString("HTMLFILTER_ATTRIBUTE") + " " + key;
-            String trans = filter.privateProcessEntry(HTMLUtils.entitiesToChars(attr), comment);
-            tag.setAttribute(key, HTMLUtils.charsToEntities(trans, filter.getTargetEncoding(), sShortcuts));
+            String trans = filter.privateProcessEntry(HtmlUtils.entitiesToChars(attr), comment);
+            tag.setAttribute(key, HtmlUtils.charsToEntities(trans, filter.getTargetEncoding(), sShortcuts));
         }
     }
 
@@ -278,7 +279,7 @@ public class FilterVisitor extends NodeVisitor {
     public void visitStringNode(Text string) {
         recurse = true;
         // nbsp is special case - process it like usual spaces
-        String trimmedtext = HTMLUtils.entitiesToChars(string.getText()).replace((char) 160, ' ').trim();
+        String trimmedtext = HtmlUtils.entitiesToChars(string.getText()).replace((char) 160, ' ').trim();
         if (!trimmedtext.isEmpty()) {
             // Hack around HTMLParser not being able to handle XHTML
             // RFE pending:
@@ -580,7 +581,7 @@ public class FilterVisitor extends NodeVisitor {
             if (node instanceof Tag) {
                 shortcut((Tag) node, paragraph);
             } else { // node instanceof Text
-                paragraph.append(HTMLUtils.entitiesToChars(node.toHtml()));
+                paragraph.append(HtmlUtils.entitiesToChars(node.toHtml()));
             }
         }
 
@@ -601,8 +602,8 @@ public class FilterVisitor extends NodeVisitor {
         // not checked.)
         if (!preformatting) {
 
-            spacePrefix = HTMLUtils.getSpacePrefix(uncompressed, options.getCompressWhitespace());
-            spacePostfix = HTMLUtils.getSpacePostfix(uncompressed, options.getCompressWhitespace());
+            spacePrefix = HtmlUtils.getSpacePrefix(uncompressed, options.getCompressWhitespace());
+            spacePostfix = HtmlUtils.getSpacePostfix(uncompressed, options.getCompressWhitespace());
 
             if (Core.getFilterMaster().getConfig().isRemoveSpacesNonseg()) {
                 compressed = StringUtil.compressSpaces(uncompressed);
@@ -624,7 +625,7 @@ public class FilterVisitor extends NodeVisitor {
 
         // converting & < and > into &amp; &lt; and &gt; respectively
         // note that this doesn't change < and > of tag shortcuts
-        translation = HTMLUtils.charsToEntities(translation, filter.getTargetEncoding(), sShortcuts);
+        translation = HtmlUtils.charsToEntities(translation, filter.getTargetEncoding(), sShortcuts);
         // expands tag shortcuts into full-blown tags
         translation = unshorcutize(translation);
         // writing out the paragraph into target file

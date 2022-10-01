@@ -45,7 +45,7 @@ import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 
 import org.omegat.core.Core;
-import org.omegat.filters2.html2.HTMLUtils;
+import org.omegat.util.HtmlUtils;
 import org.omegat.gui.exttrans.MTConfigDialog;
 import org.omegat.tokenizer.ITokenizer;
 import org.omegat.util.DeNormalize;
@@ -112,7 +112,7 @@ public class MosesTranslate extends BaseTranslate {
     }
 
     private String mosesPostprocess(String text, Language targetLanguage) {
-        String result = HTMLUtils.entitiesToChars(text);
+        String result = HtmlUtils.entitiesToChars(text);
 
         result = DeNormalize.processSingleLine(result).replaceAll("\\s+", " ").trim();
 
