@@ -49,7 +49,6 @@ import org.openide.awt.Mnemonics;
 import org.omegat.core.Core;
 import org.omegat.core.data.SourceTextEntry;
 import org.omegat.gui.common.EntryInfoThreadPane;
-import org.omegat.gui.editor.EditorPopups;
 import org.omegat.gui.editor.IPopupMenuConstructor;
 import org.omegat.gui.editor.SegmentBuilder;
 import org.omegat.gui.main.DockableScrollPane;
@@ -74,7 +73,7 @@ public class MultipleTransPane extends EntryInfoThreadPane<List<MultipleTransFou
 
     private static final String EXPLANATION = OStrings.getString("GUI_MULTIPLETRANSLATIONSWINDOW_explanation");
 
-    private List<DisplayedEntry> entries = new ArrayList<DisplayedEntry>();
+    private List<DisplayedEntry> entries = new ArrayList<>();
 
     private final DockableScrollPane scrollPane;
 
@@ -127,13 +126,21 @@ public class MultipleTransPane extends EntryInfoThreadPane<List<MultipleTransFou
     }
 
     @Override
+    protected void abortSearch(String reason) {
+        stopProgressNotification(scrollPane);
+        Core.getMainWindow().showTimedStatusMessageRB("MULT_ABORT_SEARCH", reason);
+    }
+
+    @Override
     protected void setFoundResult(SourceTextEntry processedEntry, List<MultipleTransFoundEntry> data) {
         UIThreadsUtil.mustBeSwingThread();
 
         clear();
 
-        // Check case if current segment has default translation and there are no alternative translations.
+        // Check a case if the current segment has default translation
+        // and there are no alternative translations.
         if (data.size() == 1 && data.get(0).key == null) {
+            stopProgressNotification(scrollPane);
             return;
         }
 
@@ -169,6 +176,7 @@ public class MultipleTransPane extends EntryInfoThreadPane<List<MultipleTransFou
         }
 
         setText(o.toString());
+        stopProgressNotification(scrollPane);
     }
 
     @Override
@@ -194,6 +202,7 @@ public class MultipleTransPane extends EntryInfoThreadPane<List<MultipleTransFou
 
     @Override
     protected void startSearchThread(SourceTextEntry newEntry) {
+        startProgressNotification(scrollPane);
         new MultipleTransFindThread(this, Core.getProject(), newEntry).start();
     }
 

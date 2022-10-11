@@ -28,6 +28,7 @@ package org.omegat.gui.common;
 import org.omegat.core.CoreEvents;
 import org.omegat.core.data.SourceTextEntry;
 import org.omegat.core.events.IEntryEventListener;
+import org.omegat.gui.main.DockableScrollPane;
 
 /**
  * Base class for show information about currently selected entry, searched by separate thread. It can be used
@@ -91,10 +92,25 @@ public abstract class EntryInfoThreadPane<T> extends EntryInfoPane<T> implements
     protected abstract void setFoundResult(SourceTextEntry processedEntry, T data);
 
     /**
-     * Callback from search thread if error occured.
+     * Callback from search thread if error occurred.
      *
-     * @param ex
+     * @param ex exception
      */
     protected void setError(Exception ex) {
+        this.abortSearch(ex.getLocalizedMessage());
+    }
+
+    /**
+     * Callback from search thread if search is aborted.
+     */
+    protected void abortSearch(String reason) {
+    }
+
+    protected void startProgressNotification(DockableScrollPane scrollPane) {
+        scrollPane.startProgressNotification(null, false);
+    }
+
+    protected void stopProgressNotification(DockableScrollPane scrollPane) {
+        scrollPane.stopProgressNotification(null, false);
     }
 }

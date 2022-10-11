@@ -183,6 +183,7 @@ public class GlossaryTextArea extends EntryInfoThreadPane<List<GlossaryEntry>>
 
     @Override
     protected void startSearchThread(SourceTextEntry newEntry) {
+        startProgressNotification(scrollPane);
         new FindGlossaryThread(GlossaryTextArea.this, newEntry, Core.getGlossaryManager()).start();
     }
 
@@ -231,6 +232,7 @@ public class GlossaryTextArea extends EntryInfoThreadPane<List<GlossaryEntry>>
         for (GlossaryEntry entry : entries) {
             entryRenderer.render(entry, getStyledDocument());
         }
+        stopProgressNotification(scrollPane);
     }
 
     @Override

@@ -181,6 +181,7 @@ public class MatchesTextArea extends EntryInfoThreadPane<List<NearString>> imple
 
     @Override
     protected void startSearchThread(SourceTextEntry newEntry) {
+        startProgressNotification(scrollPane);
         new FindMatchesThread(MatchesTextArea.this, Core.getProject(), newEntry).start();
     }
 
@@ -195,6 +196,7 @@ public class MatchesTextArea extends EntryInfoThreadPane<List<NearString>> imple
         clear();
 
         if (newMatches == null) {
+            stopProgressNotification(scrollPane);
             return;
         }
 
@@ -230,6 +232,13 @@ public class MatchesTextArea extends EntryInfoThreadPane<List<NearString>> imple
         setActiveMatch(0);
 
         checkForReplaceTranslation();
+        stopProgressNotification(scrollPane);
+    }
+
+    @Override
+    protected void abortSearch(String reason) {
+        scrollPane.stopProgressNotification(null, false);
+        Core.getMainWindow().showTimedStatusMessageRB("GUI_MATCHWINDOW_ABORT_SEARCH", reason);
     }
 
     @Override
