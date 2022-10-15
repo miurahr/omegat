@@ -22,7 +22,7 @@ mainClassName = 'org.omegat.Main'
 
 ext {
     javaVersion = '1.8'
-    omtVersion = loadProperties(file('src/org/omegat/Version.properties'))
+    omtVersion = loadProperties(file('src/core/org/omegat/Version.properties'))
     omtFlavor = omtVersion.beta.empty ? 'standard' : 'latest'
     omtWebsite = 'https://omegat.org'
     envIsCi = project.hasProperty('envIsCi')
@@ -44,10 +44,13 @@ version = omtVersion.version + getUpdateSuffix(omtVersion.update)
 sourceSets {
     main {
         java {
-            srcDir 'src'
+            srcDir 'src/api'
+            srcDir 'src/core'
+            srcDir 'src/plugins'
         }
         resources {
-            srcDir 'src'
+            srcDir 'src/core'
+            srcDir 'src/plugins'
         }
     }
     test {
@@ -354,7 +357,7 @@ distributions {
         contents {
             from(rootDir) {
                 include 'config/**', 'docs/**', 'images/**', 'lib/**', 'release/**',
-                    'src/**', 'test/**', 'doc_src/**', 'docs_devel/**', 'scripts/**',
+                    'src/**','test/**', 'doc_src/**', 'docs_devel/**', 'scripts/**',
                     'gradle/**', 'gradlew*', '*.gradle', 'README.md', '*.properties'
                 exclude '**/build/**', 'doc_src/**/pdf/**', 'local.properties'
             }
@@ -421,7 +424,7 @@ distributions {
                 into 'source/doc_src'
             }
             from('src') {
-                include 'org/omegat/Bundle.properties'
+                include 'core/org/omegat/Bundle.properties'
                 into 'source/src'
             }
             from('release') {
@@ -786,10 +789,10 @@ ext.makeJaxbTask = { args ->
     genJAXB.dependsOn taskName
 }
 
-makeJaxbTask(name: 'filters', outdir: 'src/gen/core/filters',
-             args: ['-no-header', '-d', 'src', '-p', 'gen.core.filters', 'src/schemas/filters.xsd'])
-makeJaxbTask(name: 'project', outdir: 'src/gen/core/project',
-             args: ['-no-header', '-d', 'src', '-p', 'gen.core.project', 'src/schemas/project_properties.xsd'])
+makeJaxbTask(name: 'filters', outdir: 'src/core/gen/core/filters',
+             args: ['-no-header', '-d', 'src', '-p', 'gen.core.filters', 'src/core/schemas/filters.xsd'])
+makeJaxbTask(name: 'project', outdir: 'src/core/gen/core/project',
+             args: ['-no-header', '-d', 'src', '-p', 'gen.core.project', 'src/core/schemas/project_properties.xsd'])
 
 task genMac {
     description = 'Generate the Mac .app skeleton. Requires AppBundler (https://bitbucket.org/infinitekind/appbundler) ' +
