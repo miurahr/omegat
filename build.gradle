@@ -10,7 +10,6 @@ plugins {
     id 'checkstyle'
     id 'jacoco'
     id 'com.github.spotbugs' version '4.7.10'
-    id 'de.gliderpilot.jnlp' version '1.2.6'
     id 'org.hidetake.ssh' version '2.10.1'
     id 'com.diffplug.spotless' version '6.0.0'
     id 'com.github.ben-manes.versions' version '0.39.0'
@@ -23,7 +22,7 @@ mainClassName = 'org.omegat.Main'
 
 ext {
     javaVersion = '1.8'
-    omtVersion = loadProperties(file('src/org/omegat/Version.properties'))
+    omtVersion = loadProperties(file('src/core/org/omegat/Version.properties'))
     omtFlavor = omtVersion.beta.empty ? 'standard' : 'latest'
     omtWebsite = 'https://omegat.org'
     envIsCi = project.hasProperty('envIsCi')
@@ -45,10 +44,13 @@ version = omtVersion.version + getUpdateSuffix(omtVersion.update)
 sourceSets {
     main {
         java {
-            srcDir 'src'
+            srcDir 'src/api'
+            srcDir 'src/core'
+            srcDir 'src/plugins'
         }
         resources {
-            srcDir 'src'
+            srcDir 'src/core'
+            srcDir 'src/plugins'
         }
     }
     test {
@@ -114,9 +116,6 @@ dependencies {
 
         // macOS integration
         implementation 'org.madlonkay:desktopsupport:0.6.0'
-
-        api 'javax.xml.bind:jaxb-api:2.3.1'
-        implementation 'com.sun.xml.bind:jaxb-impl:2.3.4'
 
         // Data: inline data URL handler
         implementation 'tokyo.northside:url-protocol-handler:0.1.4'
@@ -191,6 +190,9 @@ dependencies {
         runtimeOnly 'org.codehaus.groovy:groovy-dateutil:3.0.9'
         runtimeOnly 'org.apache.ivy:ivy:2.5.0'
 
+        // Javascript used for scripts
+        implementation 'org.openjdk.nashorn:nashorn-core:15.4'
+
         // Script editor
         implementation 'com.fifesoft:rsyntaxtextarea:3.2.0'
         implementation 'com.fifesoft:rstaui:3.2.0'
@@ -202,9 +204,10 @@ dependencies {
         // Moses MT connector
         implementation 'org.apache.xmlrpc:xmlrpc-client:3.1.3'
 
-        // JSON parser
+        // XML/JSON parser
         implementation "com.fasterxml.jackson.core:jackson-core:2.12.3"
         implementation "com.fasterxml.jackson.core:jackson-databind:2.12.3"
+        implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.12.3"
     }
 
     // Test dependencies
@@ -218,9 +221,6 @@ dependencies {
         testImplementation "org.languagetool:language-${it}:${languageToolVersion}"
     }
     testRuntimeOnly "org.languagetool:language-pl:${languageToolVersion}"
-
-    // WebStart-only
-    jnlp webstartDocsJar.outputs.files
 
     // JAXB codegen only
     jaxb 'com.sun.xml.bind:jaxb-xjc:2.3.4'
@@ -357,7 +357,7 @@ distributions {
         contents {
             from(rootDir) {
                 include 'config/**', 'docs/**', 'images/**', 'lib/**', 'release/**',
-                    'src/**', 'test/**', 'doc_src/**', 'docs_devel/**', 'scripts/**',
+                    'src/**','test/**', 'doc_src/**', 'docs_devel/**', 'scripts/**',
                     'gradle/**', 'gradlew*', '*.gradle', 'README.md', '*.properties'
                 exclude '**/build/**', 'doc_src/**/pdf/**', 'local.properties'
             }
@@ -424,7 +424,7 @@ distributions {
                 into 'source/doc_src'
             }
             from('src') {
-                include 'org/omegat/Bundle.properties'
+                include 'core/org/omegat/Bundle.properties'
                 into 'source/src'
             }
             from('release') {
@@ -744,51 +744,6 @@ tasks.findAll { it.name =~ /[dD]istTar$/ && !it.name.contains('linux') }.each { 
 // Disable .zip distributions for Linux
 tasks.findAll { it.name =~ /[dD]istZip$/ && it.name.contains('linux') }.each { it.enabled = false }
 
-jnlp {
-    href "${applicationName}.jnlp"
-    codebase findProperty('jwsCodebase')
-    withXml {
-        information {
-            title applicationName
-            vendor "${applicationName} Development Team"
-            homepage href: omtWebsite
-            shortcut(online: false) {
-                desktop()
-                menu submenu: "${applicationName} from WebStart"
-            }
-        }
-        'offline-allowed'()
-        association 'mime-type': 'application/x-omegat-project', extensions: 'project'
-        security {
-            'all-permissions'()
-        }
-        resources {
-            property name: 'javaws.cfg.jauthenticator', value: true
-        }
-    }
-    signJarAddedManifestEntries = [
-        'Codebase': findProperty('jwsCodebase'),
-        'Permissions': 'all-permissions',
-        'Application-Name': applicationName
-    ]
-    signJarParams = ['keystore', 'storetype', 'alias', 'storepass', 'keypass', 'tsaurl'].collectEntries {
-        [it, findProperty("jws${it.capitalize()}")]
-    }
-}
-
-[webstartDistZip, signJars, generateJnlp].each { task ->
-    task.configure {
-        def requiredProps = ['jwsCodebase', 'jwsKeystore', 'jwsAlias']
-        onlyIf {
-            condition(requiredProps.every { project.hasProperty(it) },
-                      'Java Web Start properties not set')
-        }
-        requiredProps.each {
-            inputs.property it, findProperty(it)
-        }
-    }
-}
-
 processResources {
     def revision = detectRevision()
     inputs.property 'revision', revision
@@ -834,16 +789,10 @@ ext.makeJaxbTask = { args ->
     genJAXB.dependsOn taskName
 }
 
-makeJaxbTask(name: 'segmentation', outdir: 'src/gen/core/segmentation',
-             args: ['-no-header', '-d', 'src', '-p', 'gen.core.segmentation', 'src/schemas/srx20.xsd'])
-makeJaxbTask(name: 'filters', outdir: 'src/gen/core/filters',
-             args: ['-no-header', '-d', 'src', '-p', 'gen.core.filters', 'src/schemas/filters.xsd'])
-makeJaxbTask(name: 'tbx', outdir: 'src/gen/core/tbx',
-             args: ['-no-header', '-d', 'src', '-p', 'gen.core.tbx', 'src/schemas/tbx.xsd'])
-makeJaxbTask(name: 'project', outdir: 'src/gen/core/project',
-             args: ['-no-header', '-d', 'src', '-p', 'gen.core.project', 'src/schemas/project_properties.xsd'])
-makeJaxbTask(name: 'tmx14', outdir: 'src/gen/core/tmx14',
-             args: ['-no-header', '-d', 'src', '-p', 'gen.core.tmx14', '-b', 'src/schemas/tmx14.xjb', 'src/schemas/tmx14.xsd'])
+makeJaxbTask(name: 'filters', outdir: 'src/core/gen/core/filters',
+             args: ['-no-header', '-d', 'src', '-p', 'gen.core.filters', 'src/core/schemas/filters.xsd'])
+makeJaxbTask(name: 'project', outdir: 'src/core/gen/core/project',
+             args: ['-no-header', '-d', 'src', '-p', 'gen.core.project', 'src/core/schemas/project_properties.xsd'])
 
 task genMac {
     description = 'Generate the Mac .app skeleton. Requires AppBundler (https://bitbucket.org/infinitekind/appbundler) ' +

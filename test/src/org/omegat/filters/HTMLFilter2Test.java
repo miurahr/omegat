@@ -39,7 +39,7 @@ import org.omegat.core.data.IProject;
 import org.omegat.filters2.FilterContext;
 import org.omegat.filters2.html2.HTMLFilter2;
 import org.omegat.filters2.html2.HTMLOptions;
-import org.omegat.filters2.html2.HTMLUtils;
+import org.omegat.util.HtmlUtils;
 import org.omegat.util.Language;
 import org.omegat.util.OStrings;
 
@@ -111,7 +111,7 @@ public class HTMLFilter2Test extends TestFilterBase {
     @Test
     public void testHtmlEntityDecode() {
         // Should decode &apos; (was missing for some reason)
-        assertEquals("foo 'bar'", HTMLUtils.entitiesToChars("foo &apos;bar&apos;"));
+        assertEquals("foo 'bar'", HtmlUtils.entitiesToChars("foo &apos;bar&apos;"));
     }
 
     @Test

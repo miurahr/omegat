@@ -60,7 +60,7 @@ public class CopyrightTest {
         list(new File("test"), sourceFiles);
         ByteArrayOutputStream fdata = new ByteArrayOutputStream();
         for (File f : sourceFiles) {
-            if (f.getPath().replace('\\', '/').startsWith("src/gen/")) {
+            if (f.getPath().replace('\\', '/').startsWith("src/core/gen/")) {
                 // skip jaxb generated files
                 continue;
             }
