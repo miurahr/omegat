@@ -168,7 +168,7 @@
               classname="com.icl.saxon.StyleSheet" >
             <arg value="-o" />
             <arg value="../docs/${language}/instantStartGuideNoTOC.html" />
-            <arg value="${language}/InstantStartGuide.xml" />
+            <arg value="${language}/introduction.xml" />
             <arg value="../../docbook-utf8.xsl" />
             <arg value="base.dir=../docs/${language}/" />
             <arg value="chunk.section.depth=0" />

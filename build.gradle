@@ -423,7 +423,7 @@ distributions {
         contents {
             from 'release/l10n-project'
             from('doc_src') {
-                include 'en/InstantStartGuide.xml',
+                include 'en/introduction.xml',
                     'en/images/InstantGuide_1.png',
                     'en/images/InstantGuide_2.png'
                 into 'source/doc_src'
@@ -958,22 +958,22 @@ manualIndexXmls.each { xml ->
     manualHtmls.dependsOn htmlTaskName
 }
 
-task instantStartGuides {
-    description = 'Build Instant Start guides for all languages. Requires Docker.'
+task introductions {
+    description = 'Build Introduction pane contents for all languages. Requires Docker.'
     group = 'omegat workflow'
 }
 
 task updateManuals {
     group = 'omegat workflow'
     description = 'Update Instant Start guides and HTML manuals.'
-    dependsOn manualHtmls, instantStartGuides
+    dependsOn manualHtmls, introductions
     finalizedBy genDocIndex
 }
 
-ext.instantStartXmls = fileTree(dir: 'doc_src', include: '**/InstantStartGuide.xml')
-instantStartXmls.each { xml ->
+ext.introductionXmls = fileTree(dir: 'doc_src', include: '**/introduction.xml')
+introductionXmls.each { xml ->
     def lang = xml.parentFile.name
-    def taskName = "instantStartGuide${lang.capitalize()}"
+    def taskName = "introduction${lang.capitalize()}"
     task(taskName) {
         inputs.files fileTree(dir: "doc_src/${lang}", include: '**/*.xml')
         doLast {
@@ -983,7 +983,7 @@ instantStartXmls.each { xml ->
             }
         }
     }
-    instantStartGuides.dependsOn taskName
+    introductions.dependsOn taskName
 }
 
 task debug(type: JavaExec) {
