@@ -518,13 +518,38 @@ return this;
 var wh = (function () {
 var toc_entries = [
 ["Installation und Ausführung von OmegaT\n                     ","chapter.installing.and.running.html",[
-["Windows-Benutzer","chapter.installing.and.running.html#d0e17",null],
-["Linux-Benutzer (Intel)","chapter.installing.and.running.html#Linux.Intel.users",null],
-["macOS-Benutzer","chapter.installing.and.running.html#MAC.OSX.users",null],
-["Andere Systeme","chapter.installing.and.running.html#other.systems",null],
+["Windows-Benutzer","chapter.installing.and.running.html#d0e17",[
+["Paket herunterladen","chapter.installing.and.running.html#d0e20",null],
+["\n                                    OmegaT installieren\n                                 ","chapter.installing.and.running.html#OmegaT.installation.Windows",null],
+["\n                                    OmegaT ausführen","chapter.installing.and.running.html#running.OmegaT.Windows",null],
+["OmegaT aktualisieren","chapter.installing.and.running.html#d0e91",null]
+]],
+["Linux-Benutzer (Intel)","chapter.installing.and.running.html#Linux.Intel.users",[
+["Das richtige Paket herunterladen","chapter.installing.and.running.html#which.package.to.download.Linux",null],
+["\n                                    OmegaT installieren\n                                 ","chapter.installing.and.running.html#OmegaT.installation.Linux",null],
+["\n                                    OmegaT zu Ihren Menüs (KDE) oder Panels (Gnome) hinzufügen","chapter.installing.and.running.html#adding.OmegaT.to.your.menus.or.panels",null],
+["\n                                    OmegaT ausführen","chapter.installing.and.running.html#running.OmegaT.Linux",null]
+]],
+["macOS-Benutzer","chapter.installing.and.running.html#MAC.OSX.users",[
+["Paket herunterladen","chapter.installing.and.running.html#which.package.to.download.OSX",null],
+["\n                                    OmegaT installieren","chapter.installing.and.running.html#OmegaT.installation.OSX",null],
+["\n                                    OmegaT zum Dock hinzufügen","chapter.installing.and.running.html#adding.OmegaT.to.the.dock",null],
+["\n                                    OmegaT ausführen","chapter.installing.and.running.html#running.OmegaT.OSX",null],
+["macOS-Goodies","chapter.installing.and.running.html#Mac.OSX.goodies",null]
+]],
+["Andere Systeme","chapter.installing.and.running.html#other.systems",[
+["Das richtige Paket herunterladen","chapter.installing.and.running.html#d0e463",null],
+["\n                                    OmegaT installieren","chapter.installing.and.running.html#OmegaT.installation.other",null],
+["Verknüpfungen installieren","chapter.installing.and.running.html#installing.convenient.shortcuts",null],
+["\n                                    OmegaT ausführen","chapter.installing.and.running.html#running.OmegaT.other",null]
+]],
 ["Drag-und-Drop","chapter.installing.and.running.html#drag.and.drop",null],
 ["Java Web Start verwenden","chapter.installing.and.running.html#using.Java.Web.Start",null],
-["OmegaT über die Befehlszeile starten","chapter.installing.and.running.html#commandline.launching",null],
+["OmegaT über die Befehlszeile starten","chapter.installing.and.running.html#commandline.launching",[
+["Ein Befehlszeilenfenster öffnen","chapter.installing.and.running.html#method1.opening.commandline.window",null],
+["Startbefehlsargumente","chapter.installing.and.running.html#launch.command.arguments",null],
+["OmegaT im Befehlszeilenmodus","chapter.installing.and.running.html#omegat.command.arguments",null]
+]],
 ["\n                              OmegaT anhand des Quellcodes kompilieren","chapter.installing.and.running.html#building.OmegaT.from.source",null]
 ]],
 ["Menüs","menus.html",[
@@ -537,13 +562,52 @@ var toc_entries = [
 ["Hilfe","menus.html#menus.help",null]
 ]],
 ["Fenster und Dialogfenster","windows.and.dialogs.html",[
-["Projekteigenschaften","windows.and.dialogs.html#dialogs.projectproperties",null],
+["Projekteigenschaften","windows.and.dialogs.html#dialogs.projectproperties",[
+["Sprachen","windows.and.dialogs.html#d0e2137",null],
+["Optionen","windows.and.dialogs.html#d0e2144",null],
+["Speicherorte für Dateien","windows.and.dialogs.html#d0e2243",null]
+]],
 ["Projektdateien","windows.and.dialogs.html#windows.projectfiles",null],
-["Textsuche","windows.and.dialogs.html#windows.textsearch",null],
-["Textersetzung","windows.and.dialogs.html#windows.textreplace",null],
-["Aligner","windows.and.dialogs.html#windows.aligner",null],
-["Skripte","windows.and.dialogs.html#windows.scripts",null],
-["Allgemeine Einstellungen","windows.and.dialogs.html#dialogs.preferences",null]
+["Textsuche","windows.and.dialogs.html#windows.textsearch",[
+["Platzhalterzeichen verwenden","windows.and.dialogs.html#using.wild.cards",null],
+["Suchmethoden und -optionen","windows.and.dialogs.html#search.methoids",null],
+["Anzeige der Suchergebnisse","windows.and.dialogs.html#search.result.display",null],
+["Segmente im Editor gemäß der aktuellen Suche filtern","windows.and.dialogs.html#search.filter",null]
+]],
+["Textersetzung","windows.and.dialogs.html#windows.textreplace",[
+["Suchoptionen","windows.and.dialogs.html#d0e2766",null]
+]],
+["Aligner","windows.and.dialogs.html#windows.aligner",[
+["Schritt 1: Ausrichtungsparameter anpassen","windows.and.dialogs.html#d0e2794",null],
+["Schritt 2: Manuelle Korrekturen vornehmen","windows.and.dialogs.html#d0e2828",null]
+]],
+["Skripte","windows.and.dialogs.html#windows.scripts",[
+["Benutzung","windows.and.dialogs.html#d0e2896",null],
+["Skriptsprachen","windows.and.dialogs.html#d0e2945",null]
+]],
+["Allgemeine Einstellungen","windows.and.dialogs.html#dialogs.preferences",[
+["Allgemein","windows.and.dialogs.html#d0e2979",null],
+["Maschinelle Übersetzung","windows.and.dialogs.html#d0e2995",null],
+["Glossar","windows.and.dialogs.html#d0e3039",null],
+["Wörterbuch","windows.and.dialogs.html#dialogs.preferences.dictionary",null],
+["Darstellung","windows.and.dialogs.html#d0e3131",null],
+["Dateifilter","windows.and.dialogs.html#dialogs.preferences.filefilters",null],
+["Segmentierung","windows.and.dialogs.html#dialogs.preferences.segmentationsetup",null],
+["Autovervollständigung","windows.and.dialogs.html#d0e3752",null],
+["Rechtschreibprüfung","windows.and.dialogs.html#d0e3780",null],
+["LanguageTool-Plugin","windows.and.dialogs.html#d0e3788",null],
+["Externe Suche","windows.and.dialogs.html#dialogs.preferences.externalsearch",null],
+["Editor","windows.and.dialogs.html#dialogs.preferences.editor",null],
+["Tag-Verarbeitung","windows.and.dialogs.html#dialogs.preferences.tagprocessing",null],
+["Team","windows.and.dialogs.html#d0e4003",null],
+["TM-Matches","windows.and.dialogs.html#d0e4013",null],
+["Ansicht","windows.and.dialogs.html#d0e4116",null],
+["Speichern und Ausgabe","windows.and.dialogs.html#dialogs.preferences.savingandoutput",null],
+["Proxy-Login","windows.and.dialogs.html#d0e4165",null],
+["Sichere Datenspeicherung","windows.and.dialogs.html#d0e4170",null],
+["Plugins","windows.and.dialogs.html#d0e4175",null],
+["Updates","windows.and.dialogs.html#d0e4183",null]
+]]
 ]],
 ["Fensterbereiche","panes.html",[
 ["Editor","panes.html#editor.pane",null],
@@ -559,7 +623,12 @@ var toc_entries = [
 ["Projektordner","project.folder.html",[
 ["source","project.folder.html#d0e4511",null],
 ["target","project.folder.html#d0e4516",null],
-["tm","project.folder.html#d0e4539",null],
+["tm","project.folder.html#d0e4539",[
+["tm/auto","project.folder.html#d0e4564",null],
+["tm/enforce","project.folder.html#d0e4591",null],
+["tm/mt","project.folder.html#d0e4629",null],
+["tm/penalty-xxx","project.folder.html#d0e4637",null]
+]],
 ["dictionary","project.folder.html#d0e4648",null],
 ["glossary","project.folder.html#d0e4656",null],
 ["omegat","project.folder.html#folder.omegat",null],
@@ -567,15 +636,36 @@ var toc_entries = [
 [".repositories","project.folder.html#d0e4732",null]
 ]],
 ["Anleitungen","howtos.html",[
-["Ein Teamprojekt einrichten","howtos.html#howto.setupteamproject",null],
-["Ein Teamprojekt verwenden","howtos.html#howto.useteamproject",null],
-["Translation Memories wiederverwenden","howtos.html#howto.reusetm",null],
-["Datenverlust vermeiden","howtos.html#howto.preventdataloss",null],
-["Eine PDF-Datei übersetzen","howtos.html#howto.translatepdf",null],
-["Rechts-nach-Links-Sprachen verwalten","howtos.html#howto.managerighttoleft",null]
+["Ein Teamprojekt einrichten","howtos.html#howto.setupteamproject",[
+["Schritt 1: Erstellen Sie ein leeres Projekt auf einem Server","howtos.html#d0e4751",null],
+["Schritt 2: Zu übersetzende Dateien und andere Ressourcen hinzufügen","howtos.html#d0e4817",null],
+["Schritt 3: Senden Sie eine Einladung an den Übersetzer","howtos.html#d0e4858",null],
+["Sonderfall: Selektive Zugriffsberechtigung","howtos.html#d0e4898",null],
+["Zuordnungsparameter","howtos.html#howto.setupteamproject.mappingparameters",null],
+["Beispielzuordnungen","howtos.html#d0e4972",null],
+["Hinweis zu omegat.project und Zuordnungen","howtos.html#d0e5049",null]
 ]],
-["Appendices","appendix.dictionaries.html",[
-["A. Wörterbücher","appendix.dictionaries.html",null],
+["Ein Teamprojekt verwenden","howtos.html#howto.useteamproject",null],
+["Translation Memories wiederverwenden","howtos.html#howto.reusetm",[
+["Translation Memories importieren und exportieren","howtos.html#d0e5212",null],
+["Ein Translation Memory für ausgewählte Dokumente erzeugen","howtos.html#d0e5223",null],
+["Translation Memories mit anderen teilen","howtos.html#d0e5267",null],
+["TMX mit alternativer Sprache verwenden","howtos.html#d0e5274",null]
+]],
+["Datenverlust vermeiden","howtos.html#howto.preventdataloss",null],
+["Eine PDF-Datei übersetzen","howtos.html#howto.translatepdf",[
+["Andere Dateiformate","howtos.html#other.file.formats",null]
+]],
+["Rechts-nach-Links-Sprachen verwalten","howtos.html#howto.managerighttoleft",[
+["RTL- und LTR-Texte in Segmenten mischen","howtos.html#d0e5496",null],
+["\n                                    OmegaT-Tags in RTL-Segmenten","howtos.html#d0e5504",null],
+["Übersetzte RTL-Dokumente erstellen","howtos.html#d0e5513",null]
+]]
+]],
+["A. Wörterbücher","appendix.dictionaries.html",[
+["Wie man Wörterbücher herunterlädt und installiert","appendix.dictionaries.html#d0e5531",null],
+["Probleme mit Wörterbüchern","appendix.dictionaries.html#d0e5600",null]
+]],
 ["B. Glossare","appendix.glossaries.html",[
 ["Standardglossar","appendix.glossaries.html#d0e5635",null],
 ["Verwendung","appendix.glossaries.html#d0e5659",null],
@@ -599,7 +689,6 @@ var toc_entries = [
 ["Tools-Menü","appendix.shortcut.custom.html#ch04.shortcuts.ToolsMenu",null],
 ["Optionen-Menü","appendix.shortcut.custom.html#ch04.shortcuts.OptionsMenu",null],
 ["Hilfe-Menü","appendix.shortcut.custom.html#ch04.shortcuts.HelpMenu",null]
-]]
 ]]];
 var toc_initiallyCollapsed = false;
 var messages = [
@@ -874,7 +963,7 @@ message = translation[index];
 }
 return message;
 }
-var storageId = "-s6tmiun1s297-1wv1ppc6crwri";
+var storageId = "12gej49t2w3xt-1kmccjqfq2zdj";
 function storageSet(key, value) {
 window.sessionStorage.setItem(key + storageId, String(value));
 }

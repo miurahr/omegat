@@ -529,23 +529,79 @@ var toc_entries = [
 ["Još nekoliko bitnih pojedinosti","chapter.instant.start.guide.html#d0e313",null]
 ]],
 ["Instaliranje i pokretanje programa OmegaT\n                     ","chapter.installing.and.running.html",[
-["Korisnici sustava Windows","chapter.installing.and.running.html#d0e402",null],
-["Korisnici sustava Linux (Intel)","chapter.installing.and.running.html#Linux.Intel.users",null],
-["Korisnici sustava Mac OS X","chapter.installing.and.running.html#MAC.OSX.users",null],
-["Ostali sustavi","chapter.installing.and.running.html#other.systems",null],
+["Korisnici sustava Windows","chapter.installing.and.running.html#d0e402",[
+["Preuzimanje paketa","chapter.installing.and.running.html#d0e410",null],
+["\n                                    Instaliranje programa OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.Windows",null],
+["Pokretanje programa OmegaT","chapter.installing.and.running.html#running.OmegaT.Windows",null],
+["Nadogradnja programa OmegaT","chapter.installing.and.running.html#d0e501",null]
+]],
+["Korisnici sustava Linux (Intel)","chapter.installing.and.running.html#Linux.Intel.users",[
+["Preuzimanje odgovarajućega paketa","chapter.installing.and.running.html#which.package.to.download.Linux",null],
+["\n                                    Instaliranje programa OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.Linux",null],
+["Dodavanje programa OmegaT izbornicima (KDE) ili pločama (Gnome)","chapter.installing.and.running.html#adding.OmegaT.to.your.menus.or.panels",null],
+["Pokretanje programa OmegaT","chapter.installing.and.running.html#running.OmegaT.Linux",null]
+]],
+["Korisnici sustava Mac OS X","chapter.installing.and.running.html#MAC.OSX.users",[
+["Preuzimanje paketa","chapter.installing.and.running.html#which.package.to.download.OSX",null],
+["\n                                    Instaliranje programa OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.OSX",null],
+["Dodavanje programa OmegaT u Dock","chapter.installing.and.running.html#adding.OmegaT.to.the.dock",null],
+["Pokretanje programa OmegaT","chapter.installing.and.running.html#running.OmegaT.OSX",null],
+["Dodatni sadržaji za Mac OS X","chapter.installing.and.running.html#Mac.OSX.goodies",null]
+]],
+["Ostali sustavi","chapter.installing.and.running.html#other.systems",[
+["Preuzimanje odgovarajućega paketa","chapter.installing.and.running.html#d0e899",null],
+["\n                                    Instaliranje programa OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.other",null],
+["Postavljanje odgovarajućih prečaca","chapter.installing.and.running.html#installing.convenient.shortcuts",null],
+["Pokretanje programa OmegaT","chapter.installing.and.running.html#running.OmegaT.other",null]
+]],
 ["Odvlačenje i ispuštanje","chapter.installing.and.running.html#drag.and.drop",null],
 ["Korištenje tehnologije Java Web Start","chapter.installing.and.running.html#using.Java.Web.Start",null],
-["Pokretanje programa OmegaT naredbenim retkom","chapter.installing.and.running.html#d0e1067",null],
+["Pokretanje programa OmegaT naredbenim retkom","chapter.installing.and.running.html#d0e1067",[
+["Otvaranje prozora naredbenoga retka","chapter.installing.and.running.html#method1.opening.commandline.window",null],
+["Naredbeni argumenti za pokretanje","chapter.installing.and.running.html#launch.command.arguments",null],
+["OmegaT u načinu rada naredbenim retkom","chapter.installing.and.running.html#omegat.command.arguments",null]
+]],
 ["Sastavljanje programa OmegaT iz izvornoga koda","chapter.installing.and.running.html#building.OmegaT.from.source",null]
 ]],
 ["Korisničko sučelje","chapter.user.interface.html",[
 ["Glavni prozor programa OmegaT i ostali prozori i dijaloški okviri","chapter.user.interface.html#user.interface.items",null],
-["\n                              OmegaT – glavni prozor","chapter.user.interface.html#OmegaT.main.window",null],
-["Ostali prozori","chapter.user.interface.html#other.windows",null]
+["\n                              OmegaT – glavni prozor","chapter.user.interface.html#OmegaT.main.window",[
+["Okno za obradu","chapter.user.interface.html#editor.pane",null],
+["Okno djelomičnih podudaranja","chapter.user.interface.html#match.viewer",null],
+["Okno glosara","chapter.user.interface.html#d0e2514",null],
+["Okno rječnika","chapter.user.interface.html#dictionaries",null],
+["Okno višestrukih prijevoda","chapter.user.interface.html#Multiple.Translations",null],
+["Okno bilješki","chapter.user.interface.html#d0e2570",null],
+["Okno komentara","chapter.user.interface.html#d0e2581",null],
+["Okno strojnoga prijevoda","chapter.user.interface.html#Google.Translate",null],
+["Glavni izbornik","chapter.user.interface.html#d0e2614",null],
+["Traka stanja","chapter.user.interface.html#status.bar",null]
+]],
+["Ostali prozori","chapter.user.interface.html#other.windows",[
+["Datoteke projekta","chapter.user.interface.html#section.project.files",null],
+["Prozor za pretraživanje","chapter.user.interface.html#section.search.window",null],
+["Provjera valjanosti oznaka teksta","chapter.user.interface.html#section.tag.validation",null],
+["Statistika","chapter.user.interface.html#d0e2800",null],
+["Statistika podudaranja","chapter.user.interface.html#d0e2850",null],
+["Preglednik pomoći","chapter.user.interface.html#d0e2914",null]
+]]
 ]],
 ["Izbornik i tipkovni prečaci","chapter.menu.html",[
-["Glavni izbornik","chapter.menu.html#ch04.main.menu",null],
-["Tipkovni prečaci","chapter.menu.html#keyboard.shortcuts",null]
+["Glavni izbornik","chapter.menu.html#ch04.main.menu",[
+["Projekt","chapter.menu.html#submenu.Project",null],
+["Obrada","chapter.menu.html#d0e3197",null],
+["Idi na","chapter.menu.html#submenu.GoTo",null],
+["Prikaz","chapter.menu.html#submenu.View",null],
+["Alati","chapter.menu.html#submenu.Tools",null],
+["Mogućnosti","chapter.menu.html#submenu.Options",null],
+["Pomoć","chapter.menu.html#submenu.Help",null]
+]],
+["Tipkovni prečaci","chapter.menu.html#keyboard.shortcuts",[
+["Upravljanje projektima","chapter.menu.html#d0e4268",null],
+["Obrađivanje","chapter.menu.html#keyboard.editing",null],
+["Prebacivanje","chapter.menu.html#keyboard.moving.around",null],
+["Ostalo","chapter.menu.html#keyboard.other",null]
+]]
 ]],
 ["Svojstva projekta","chapter.project.properties.html",[
 ["Općenito","chapter.project.properties.html#properties.dialog",null],
@@ -556,17 +612,36 @@ var toc_entries = [
 ["Datotečni filtri","chapter.file.filters.html",[
 ["Dijaloški okvir datotečnih filtara","chapter.file.filters.html#file.filters.dialog",null],
 ["Mogućnosti filtara","chapter.file.filters.html#filters.options",null],
-["Dijaloški okvir za obradu filtara","chapter.file.filters.html#edit.filter.dialog",null]
+["Dijaloški okvir za obradu filtara","chapter.file.filters.html#edit.filter.dialog",[
+["Vrsta izvorišne datoteke, uzorak naziva datoteke","chapter.file.filters.html#source.filetype.and.filename.pattern",null],
+["Kodiranje izvorišnih i odredišnih datoteka","chapter.file.filters.html#source.and.target.files.encoding",null],
+["Naziv odredišne datoteke","chapter.file.filters.html#target.name",null]
+]]
 ]],
 ["Datoteke i mape programa OmegaT\n                     ","chapter.files.and.folders.html",[
-["Datoteke prijevodnoga projekta","chapter.files.and.folders.html#translation.project.files",null],
+["Datoteke prijevodnoga projekta","chapter.files.and.folders.html#translation.project.files",[
+["Glavna mapa","chapter.files.and.folders.html#file.omegat.project",null],
+["Podmapa rječnika","chapter.files.and.folders.html#d0e5433",null],
+["Podmapa glosara","chapter.files.and.folders.html#d0e5441",null],
+["Podmapa omegat","chapter.files.and.folders.html#folder.OmegaT",null],
+["Podmapa izvorišnih datoteka","chapter.files.and.folders.html#folder.source",null],
+["Podmapa odredišnih datoteka","chapter.files.and.folders.html#folder.target",null]
+]],
 ["Datoteke korisničkih postavki","chapter.files.and.folders.html#user.files",null],
 ["Programske datoteke","chapter.files.and.folders.html#application.files",null]
 ]],
 ["Datoteke za prijevod","chapter.files.to.translate.html",[
-["Datotečni formati","chapter.files.to.translate.html#file.formats",null],
+["Datotečni formati","chapter.files.to.translate.html#file.formats",[
+["Datoteke običnoga teksta","chapter.files.to.translate.html#d0e5812",null],
+["Datoteke oblikovanoga teksta","chapter.files.to.translate.html#d0e5890",null],
+["Datoteke PDF","chapter.files.to.translate.html#d0e5991",null]
+]],
 ["Ostali datotečni formati","chapter.files.to.translate.html#other.file.formats",null],
-["Jezici koji se pišu zdesna nalijevo","chapter.files.to.translate.html#right.to.left.languages",null]
+["Jezici koji se pišu zdesna nalijevo","chapter.files.to.translate.html#right.to.left.languages",[
+["Kombiniranje nizova RTL i LTR u segmentima","chapter.files.to.translate.html#d0e6162",null],
+["Oznake programa OmegaT u segmentima RTL","chapter.files.to.translate.html#d0e6185",null],
+["Izrada prevedenih dokumenata RTL","chapter.files.to.translate.html#d0e6200",null]
+]]
 ]],
 ["Funkcioniranje obrade","chapter.translation.editing.html",null],
 ["Rad na običnome tekstu","chapter.plain.text.html",[
@@ -583,8 +658,18 @@ var toc_entries = [
 ["Savjeti za upravljanje oznakama teksta","chapter.formatted.text.html#hints.for.tag.management",null]
 ]],
 ["Prijevodne memorije","chapter.translation.memories.html",[
-["Prijevodne memorije u programu OmegaT","chapter.translation.memories.html#OmegaT.and.tmx.files",null],
-["Korištenje postojećih prijevodnih memorija","chapter.translation.memories.html#using.translation.memories.from.previous.projects",null],
+["Prijevodne memorije u programu OmegaT","chapter.translation.memories.html#OmegaT.and.tmx.files",[
+["mape datoteka tmx – lokacija i namjena","chapter.translation.memories.html#tmx.files.location.and.purpose",null],
+["sigurnosna kopija TMX-a","chapter.translation.memories.html#tmx.backup",null],
+["datoteke TMX i jezik","chapter.translation.memories.html#tmx.files.and.language",null],
+["Segmenti „siročići”","chapter.translation.memories.html#d0e7266",null]
+]],
+["Korištenje postojećih prijevodnih memorija","chapter.translation.memories.html#using.translation.memories.from.previous.projects",[
+["Uvoz i izvoz prijevodnih memorija","chapter.translation.memories.html#importing.and.exporting.translation.memories",null],
+["Izrada prijevodne memorije za odabrane dokumente","chapter.translation.memories.html#Creating.a.translation.memory.for.selected.documents",null],
+["Zajedničko korištenje prijevodnih memorija","chapter.translation.memories.html#sharing.translation.memories",null],
+["Korištenje TMX-ova s alternativnim jezičnim parovima","chapter.translation.memories.html#d0e7416",null]
+]],
 ["Izvorišni segmenti s postojećim prijevodima","chapter.translation.memories.html#d0e7432",null],
 ["Pseudoprevedena memorija","chapter.translation.memories.html#pseudo.translated.memory",null],
 ["Nadogradnja prijevodnih memorija","chapter.translation.memories.html#upgrading.translation.memories",null]
@@ -603,7 +688,9 @@ var toc_entries = [
 ["Filtriranje pojavnica prilikom pretraživanja u oknu za obradu","chapter.searches.html#search.filter",null]
 ]],
 ["Pretraživanje i zamjena","chapter.searchandreplace.html",[
-["Prozor za pretraživanje","chapter.searchandreplace.html#section.searchreplace.window",null]
+["Prozor za pretraživanje","chapter.searchandreplace.html#section.searchreplace.window",[
+["Mogućnosti pretraživanja","chapter.searchandreplace.html#d0e8185",null]
+]]
 ]],
 ["Regularni izrazi","chapter.regexp.html",[
 ["Alati za regex i primjeri korištenja","chapter.regexp.html#regex.tools.and.examples.of.use",null]
@@ -642,17 +729,24 @@ var toc_entries = [
 ["Savjeti","chapter.spellchecker.html#hints",null]
 ]],
 ["Razne teme","chapter.misc.html",[
-["OmegaT Konzolni način rada","chapter.misc.html#omegat.misc.console.mode",null],
+["OmegaT Konzolni način rada","chapter.misc.html#omegat.misc.console.mode",[
+["Preduvjeti","chapter.misc.html#misc.console.mode.prerequisites",null],
+["Pokretanje programa OmegaT u konzolnome načinu rada","chapter.misc.html#starting.in.misc.console.mode",null],
+["Tihi način rada","chapter.misc.html#misc.console.mode.option.quiet",null],
+["Provjera valjanosti oznaka teksta","chapter.misc.html#misc.console.mode.option.validatetags",null]
+]],
 ["Alat za automatsko sravnjivanje za svojstva jezika Java","chapter.misc.html#d0e9744",null],
 ["Postavke fonta","chapter.misc.html#font.settings",null],
 ["Sprječavanje gubitka podataka","chapter.misc.html#preventing.data.loss",null]
 ]],
-["Appendices","appendix.languages.html",[
 ["A. Jezici – popis oznaka ISO 639\n  \n  \n  ","appendix.languages.html",null],
 ["B. Tipkovni prečaci u oknu za obradu","appendix.keyboard.html",null],
 ["C. OmegaT – timski projekti","appendix.TeamProjects.html",[
 ["Nadziranje inačica – uvod","appendix.TeamProjects.html#d0e11496",null],
-["Suradnja na projektima s pomoću SVN-a","appendix.TeamProjects.html#d0e11567",null],
+["Suradnja na projektima s pomoću SVN-a","appendix.TeamProjects.html#d0e11567",[
+["Izrada repozitorija","appendix.TeamProjects.html#d0e11588",null],
+["Uvoz projekta u repozitorij SVN-a – sustav Windows","appendix.TeamProjects.html#d0e11648",null]
+]],
 ["Korištenje timskih projekata u programu OmegaT","appendix.TeamProjects.html#d0e11785",null]
 ]],
 ["D. Tokenizatori","appendix.Tokenizers.inOmegaT.html",[
@@ -689,7 +783,6 @@ var toc_entries = [
 ]],
 ["J. Zahvale","appendix.acknowledgements.html",[
 ["Hvala svima!","appendix.acknowledgements.html#d0e13273",null]
-]]
 ]],
 ["Index","ix01.html",null]];
 var toc_initiallyCollapsed = false;
@@ -965,7 +1058,7 @@ message = translation[index];
 }
 return message;
 }
-var storageId = "-7tnmcgbmduxw-1rrq1lo5jhx8x";
+var storageId = "gjuz2d8h5uxk-17wrp3pcaqql2";
 function storageSet(key, value) {
 window.sessionStorage.setItem(key + storageId, String(value));
 }

@@ -518,13 +518,38 @@ return this;
 var wh = (function () {
 var toc_entries = [
 ["\n                        OmegaT:n asennus ja ajaminen","chapter.installing.and.running.html",[
-["Windows-käyttäjät","chapter.installing.and.running.html#d0e17",null],
-["Linux (Intel) -käyttäjät","chapter.installing.and.running.html#Linux.Intel.users",null],
-["Macin käyttäjät","chapter.installing.and.running.html#MAC.OSX.users",null],
-["Muut järjestelmät","chapter.installing.and.running.html#other.systems",null],
+["Windows-käyttäjät","chapter.installing.and.running.html#d0e17",[
+["Oikeanlaisen paketin lataaminen","chapter.installing.and.running.html#d0e20",null],
+["\n                                    OmegaT:n asentaminen\n                                 ","chapter.installing.and.running.html#OmegaT.installation.Windows",null],
+["\n                                    OmegaT-ohjelman ajaminen","chapter.installing.and.running.html#running.OmegaT.Windows",null],
+["OmegaT:n päivittäminen","chapter.installing.and.running.html#d0e91",null]
+]],
+["Linux (Intel) -käyttäjät","chapter.installing.and.running.html#Linux.Intel.users",[
+["Oikeanlaisen paketin lataaminen","chapter.installing.and.running.html#which.package.to.download.Linux",null],
+["\n                                    OmegaT:n asentaminen\n                                 ","chapter.installing.and.running.html#OmegaT.installation.Linux",null],
+["\n                                    OmegaT:n lisääminen valikkoihin (KDE) tai paneeleihin (Gnome)","chapter.installing.and.running.html#adding.OmegaT.to.your.menus.or.panels",null],
+["\n                                    OmegaT-ohjelman ajaminen","chapter.installing.and.running.html#running.OmegaT.Linux",null]
+]],
+["Macin käyttäjät","chapter.installing.and.running.html#MAC.OSX.users",[
+["Oikeanlaisen paketin lataaminen","chapter.installing.and.running.html#which.package.to.download.OSX",null],
+["\n                                    OmegaT:n asentaminen","chapter.installing.and.running.html#OmegaT.installation.OSX",null],
+["\n                                    OmegaT:n lisääminen Dockiin.","chapter.installing.and.running.html#adding.OmegaT.to.the.dock",null],
+["\n                                    OmegaT-ohjelman ajaminen","chapter.installing.and.running.html#running.OmegaT.OSX",null],
+["macOS-herkut","chapter.installing.and.running.html#Mac.OSX.goodies",null]
+]],
+["Muut järjestelmät","chapter.installing.and.running.html#other.systems",[
+["Oikeanlaisen paketin lataaminen","chapter.installing.and.running.html#d0e463",null],
+["\n                                    OmegaT:n asentaminen","chapter.installing.and.running.html#OmegaT.installation.other",null],
+["Käytännöllisten oikoteiden luominen","chapter.installing.and.running.html#installing.convenient.shortcuts",null],
+["\n                                    OmegaT-ohjelman ajaminen","chapter.installing.and.running.html#running.OmegaT.other",null]
+]],
 ["Vedä ja pudota","chapter.installing.and.running.html#drag.and.drop",null],
 ["Java Web Startin käyttö","chapter.installing.and.running.html#using.Java.Web.Start",null],
-["OmegaT:n käynnistäminen komentoriviltä","chapter.installing.and.running.html#commandline.launching",null],
+["OmegaT:n käynnistäminen komentoriviltä","chapter.installing.and.running.html#commandline.launching",[
+["Komentoikkunan avaaminen","chapter.installing.and.running.html#method1.opening.commandline.window",null],
+["Käynnistyskomennon argumentit","chapter.installing.and.running.html#launch.command.arguments",null],
+["Komentorivimuotoinen OmegaT","chapter.installing.and.running.html#omegat.command.arguments",null]
+]],
 ["\n                              OmegaT:n rakentaminen lähdekoodista","chapter.installing.and.running.html#building.OmegaT.from.source",null]
 ]],
 ["Valikot","menus.html",[
@@ -537,13 +562,52 @@ var toc_entries = [
 ["Ohjeet","menus.html#menus.help",null]
 ]],
 ["Ikkunat ja valintaikkunat","windows.and.dialogs.html",[
-["Projektin ominaisuudet","windows.and.dialogs.html#dialogs.projectproperties",null],
+["Projektin ominaisuudet","windows.and.dialogs.html#dialogs.projectproperties",[
+["Kielet","windows.and.dialogs.html#d0e2127",null],
+["Valinnat","windows.and.dialogs.html#d0e2134",null],
+["Tiedostosijainnit","windows.and.dialogs.html#d0e2232",null]
+]],
 ["Projektin tiedostot","windows.and.dialogs.html#windows.projectfiles",null],
-["Tekstihaku","windows.and.dialogs.html#windows.textsearch",null],
-["Tekstin korvaus","windows.and.dialogs.html#windows.textreplace",null],
-["Kohdistaja","windows.and.dialogs.html#windows.aligner",null],
-["Komentosarjat","windows.and.dialogs.html#windows.scripts",null],
-["Yleiset asetukset","windows.and.dialogs.html#dialogs.preferences",null]
+["Tekstihaku","windows.and.dialogs.html#windows.textsearch",[
+["Jokerimerkkien käyttö","windows.and.dialogs.html#using.wild.cards",null],
+["Hakumenetelmät ja asetukset","windows.and.dialogs.html#search.methoids",null],
+["Hakutulosten näyttö","windows.and.dialogs.html#search.result.display",null],
+["Sisällön suodattaminen editorissa haun mukaan","windows.and.dialogs.html#search.filter",null]
+]],
+["Tekstin korvaus","windows.and.dialogs.html#windows.textreplace",[
+["Hakuasetukset","windows.and.dialogs.html#d0e2754",null]
+]],
+["Kohdistaja","windows.and.dialogs.html#windows.aligner",[
+["1. vaihe: Muokkaa kohdistusparametrejä.","windows.and.dialogs.html#d0e2781",null],
+["2. vaihe: Tee manuaalisia korjauksia.","windows.and.dialogs.html#d0e2812",null]
+]],
+["Komentosarjat","windows.and.dialogs.html#windows.scripts",[
+["Käyttö","windows.and.dialogs.html#d0e2879",null],
+["Komentosarjakielet","windows.and.dialogs.html#d0e2928",null]
+]],
+["Yleiset asetukset","windows.and.dialogs.html#dialogs.preferences",[
+["Yleistä","windows.and.dialogs.html#d0e2961",null],
+["Konekäännös","windows.and.dialogs.html#d0e2977",null],
+["Sanasto","windows.and.dialogs.html#d0e3020",null],
+["Sanakirja","windows.and.dialogs.html#dialogs.preferences.dictionary",null],
+["Ulkonäkö","windows.and.dialogs.html#d0e3112",null],
+["Tiedostosuodattimet","windows.and.dialogs.html#dialogs.preferences.filefilters",null],
+["Segmentointiasetukset","windows.and.dialogs.html#dialogs.preferences.segmentationsetup",null],
+["Automaattinen täydennys","windows.and.dialogs.html#d0e3733",null],
+["Oikeinkirjoituksen tarkistaja","windows.and.dialogs.html#d0e3761",null],
+["LanguageTool-laajennus","windows.and.dialogs.html#d0e3769",null],
+["Ulkoinen haku","windows.and.dialogs.html#dialogs.preferences.externalsearch",null],
+["Editori","windows.and.dialogs.html#dialogs.preferences.editor",null],
+["Tägien käsittely","windows.and.dialogs.html#dialogs.preferences.tagprocessing",null],
+["Ryhmä","windows.and.dialogs.html#d0e3984",null],
+["Käännösmuistiosumat","windows.and.dialogs.html#d0e3994",null],
+["Näkymä","windows.and.dialogs.html#d0e4094",null],
+["Tallentaminen ja tuotos","windows.and.dialogs.html#dialogs.preferences.savingandoutput",null],
+["Välityspalvelinkirjautuminen","windows.and.dialogs.html#d0e4143",null],
+["Suojattu säilö","windows.and.dialogs.html#d0e4148",null],
+["Liitännäiset","windows.and.dialogs.html#d0e4153",null],
+["Päivitykset","windows.and.dialogs.html#d0e4161",null]
+]]
 ]],
 ["Ruudut","panes.html",[
 ["Editori","panes.html#editor.pane",null],
@@ -559,7 +623,12 @@ var toc_entries = [
 ["Projektikansio","project.folder.html",[
 ["source","project.folder.html#d0e4489",null],
 ["target","project.folder.html#d0e4494",null],
-["tm","project.folder.html#d0e4517",null],
+["tm","project.folder.html#d0e4517",[
+["tm/auto","project.folder.html#d0e4542",null],
+["tm/enforce","project.folder.html#d0e4569",null],
+["tm/mt","project.folder.html#d0e4609",null],
+["tm/penalty-xxx","project.folder.html#d0e4617",null]
+]],
 ["dictionary","project.folder.html#d0e4628",null],
 ["glossary","project.folder.html#d0e4636",null],
 ["omegat","project.folder.html#folder.omegat",null],
@@ -567,15 +636,36 @@ var toc_entries = [
 [".repositories","project.folder.html#d0e4712",null]
 ]],
 ["Miten…","howtos.html",[
-["Määritä ryhmäprojektin asetukset","howtos.html#howto.setupteamproject",null],
-["Ryhmäprojektin käyttäminen","howtos.html#howto.useteamproject",null],
-["Vanhojen käännösmuistien hyödyntäminen","howtos.html#howto.reusetm",null],
-["Tietojen menetyksen estäminen","howtos.html#howto.preventdataloss",null],
-["PDF-tiedoston kääntäminen","howtos.html#howto.translatepdf",null],
-["Oikealta vasemmalle luettavien kielien hallinta","howtos.html#howto.managerighttoleft",null]
+["Määritä ryhmäprojektin asetukset","howtos.html#howto.setupteamproject",[
+["1. vaihe: Luo palvelimelle tyhjä projekti","howtos.html#d0e4731",null],
+["2. vaihe: Lisää käännettävät tiedostot ja muut resurssit","howtos.html#d0e4797",null],
+["3. vaihe: Kutsu kääntäjä mukaan projektiin","howtos.html#d0e4839",null],
+["Erityistapaus: Valikoiva jako","howtos.html#d0e4879",null],
+["Yhdistämisparametrit","howtos.html#howto.setupteamproject.mappingparameters",null],
+["Yhdistämisesimerkkejä","howtos.html#d0e4953",null],
+["Huomaa tämä omegat.project-tiedostosta ja yhdistämisistä:","howtos.html#d0e5030",null]
 ]],
-["Appendices","appendix.dictionaries.html",[
-["A. Sanakirjat","appendix.dictionaries.html",null],
+["Ryhmäprojektin käyttäminen","howtos.html#howto.useteamproject",null],
+["Vanhojen käännösmuistien hyödyntäminen","howtos.html#howto.reusetm",[
+["Käännösmuistien tuonti ja vienti","howtos.html#d0e5195",null],
+["Valittujen asiakirjojen käännösmuistin luominen","howtos.html#d0e5206",null],
+["Käännösmuistien jakaminen","howtos.html#d0e5250",null],
+["Käännösmuistin käyttäminen vaihtoehtoisella kielellä","howtos.html#d0e5257",null]
+]],
+["Tietojen menetyksen estäminen","howtos.html#howto.preventdataloss",null],
+["PDF-tiedoston kääntäminen","howtos.html#howto.translatepdf",[
+["Muut tiedostomuodot","howtos.html#other.file.formats",null]
+]],
+["Oikealta vasemmalle luettavien kielien hallinta","howtos.html#howto.managerighttoleft",[
+["RTL- ja LTR-merkkijonojen yhdistäminen yhdessä ja samassa segmentissä","howtos.html#d0e5478",null],
+["RTL-segmenteissä olevat OmegaT-tägit","howtos.html#d0e5486",null],
+["Käännettyjen RTL-asiakirjojen luonti","howtos.html#d0e5496",null]
+]]
+]],
+["A. Sanakirjat","appendix.dictionaries.html",[
+["Kuinka sanakirjoja ladataan ja asennetaan","appendix.dictionaries.html#d0e5514",null],
+["Ongelmia sanakirjojen käytössä","appendix.dictionaries.html#d0e5582",null]
+]],
 ["B. Sanastot","appendix.glossaries.html",[
 ["Oletussanasto","appendix.glossaries.html#d0e5617",null],
 ["Käyttö","appendix.glossaries.html#d0e5641",null],
@@ -599,7 +689,6 @@ var toc_entries = [
 ["Työkalut-valikko","appendix.shortcut.custom.html#ch04.shortcuts.ToolsMenu",null],
 ["Valinnat-valikko","appendix.shortcut.custom.html#ch04.shortcuts.OptionsMenu",null],
 ["Ohjeet-valikko","appendix.shortcut.custom.html#ch04.shortcuts.HelpMenu",null]
-]]
 ]]];
 var toc_initiallyCollapsed = false;
 var messages = [
@@ -874,7 +963,7 @@ message = translation[index];
 }
 return message;
 }
-var storageId = "-djleip6fwulh-1beje4m0z26cl";
+var storageId = "-7q6wf5d07gh3-1gxq7fergniqz";
 function storageSet(key, value) {
 window.sessionStorage.setItem(key + storageId, String(value));
 }

@@ -518,13 +518,38 @@ return this;
 var wh = (function () {
 var toc_entries = [
 ["安装和运行 OmegaT\n                     ","chapter.installing.and.running.html",[
-["Windows 用户","chapter.installing.and.running.html#d0e17",null],
-["Linux（Intel）用户","chapter.installing.and.running.html#Linux.Intel.users",null],
-["macOS 用户","chapter.installing.and.running.html#MAC.OSX.users",null],
-["其它系统","chapter.installing.and.running.html#other.systems",null],
+["Windows 用户","chapter.installing.and.running.html#d0e17",[
+["下载安装包","chapter.installing.and.running.html#d0e20",null],
+["\n                                    安装 OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.Windows",null],
+["运行 OmegaT\n                                 ","chapter.installing.and.running.html#running.OmegaT.Windows",null],
+["升级 OmegaT","chapter.installing.and.running.html#d0e91",null]
+]],
+["Linux（Intel）用户","chapter.installing.and.running.html#Linux.Intel.users",[
+["下载正确的安装包","chapter.installing.and.running.html#which.package.to.download.Linux",null],
+["\n                                    安装 OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.Linux",null],
+["将 OmegaT 添加到菜单（KDE）或面板（Gnome）中","chapter.installing.and.running.html#adding.OmegaT.to.your.menus.or.panels",null],
+["运行 OmegaT\n                                 ","chapter.installing.and.running.html#running.OmegaT.Linux",null]
+]],
+["macOS 用户","chapter.installing.and.running.html#MAC.OSX.users",[
+["下载安装包","chapter.installing.and.running.html#which.package.to.download.OSX",null],
+["安装 OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.OSX",null],
+["将 OmegaT 添加到 Dock","chapter.installing.and.running.html#adding.OmegaT.to.the.dock",null],
+["运行 OmegaT\n                                 ","chapter.installing.and.running.html#running.OmegaT.OSX",null],
+["macOS 上的好事","chapter.installing.and.running.html#Mac.OSX.goodies",null]
+]],
+["其它系统","chapter.installing.and.running.html#other.systems",[
+["下载正确的安装包","chapter.installing.and.running.html#d0e465",null],
+["安装 OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.other",null],
+["安装方便的快捷方式","chapter.installing.and.running.html#installing.convenient.shortcuts",null],
+["运行 OmegaT\n                                 ","chapter.installing.and.running.html#running.OmegaT.other",null]
+]],
 ["拖放","chapter.installing.and.running.html#drag.and.drop",null],
 ["使用 Java Web Start","chapter.installing.and.running.html#using.Java.Web.Start",null],
-["从命令行启动 OmegaT","chapter.installing.and.running.html#commandline.launching",null],
+["从命令行启动 OmegaT","chapter.installing.and.running.html#commandline.launching",[
+["打开命令行窗口","chapter.installing.and.running.html#method1.opening.commandline.window",null],
+["启动命令参数","chapter.installing.and.running.html#launch.command.arguments",null],
+["命令行模式下的 OmegaT","chapter.installing.and.running.html#omegat.command.arguments",null]
+]],
 ["从源代码构建 OmegaT\n                           ","chapter.installing.and.running.html#building.OmegaT.from.source",null]
 ]],
 ["菜单","menus.html",[
@@ -537,13 +562,52 @@ var toc_entries = [
 ["帮助","menus.html#menus.help",null]
 ]],
 ["窗口与对话框","windows.and.dialogs.html",[
-["项目属性","windows.and.dialogs.html#dialogs.projectproperties",null],
+["项目属性","windows.and.dialogs.html#dialogs.projectproperties",[
+["语言","windows.and.dialogs.html#d0e2138",null],
+["选项","windows.and.dialogs.html#d0e2145",null],
+["文件位置","windows.and.dialogs.html#d0e2244",null]
+]],
 ["项目文件","windows.and.dialogs.html#windows.projectfiles",null],
-["文本查找","windows.and.dialogs.html#windows.textsearch",null],
-["文本替换","windows.and.dialogs.html#windows.textreplace",null],
-["对齐器","windows.and.dialogs.html#windows.aligner",null],
-["脚本","windows.and.dialogs.html#windows.scripts",null],
-["通用首选项","windows.and.dialogs.html#dialogs.preferences",null]
+["文本查找","windows.and.dialogs.html#windows.textsearch",[
+["使用通配符","windows.and.dialogs.html#using.wild.cards",null],
+["查找方法和选项","windows.and.dialogs.html#search.methoids",null],
+["查找结果显示","windows.and.dialogs.html#search.result.display",null],
+["在编辑器中根据查找来过滤条目","windows.and.dialogs.html#search.filter",null]
+]],
+["文本替换","windows.and.dialogs.html#windows.textreplace",[
+["查找选项","windows.and.dialogs.html#d0e2766",null]
+]],
+["对齐器","windows.and.dialogs.html#windows.aligner",[
+["第1步：调整对齐参数","windows.and.dialogs.html#d0e2794",null],
+["第2步：进行手工修正","windows.and.dialogs.html#d0e2827",null]
+]],
+["脚本","windows.and.dialogs.html#windows.scripts",[
+["使用","windows.and.dialogs.html#d0e2895",null],
+["脚本语言","windows.and.dialogs.html#d0e2944",null]
+]],
+["通用首选项","windows.and.dialogs.html#dialogs.preferences",[
+["通用","windows.and.dialogs.html#d0e2978",null],
+["机器翻译","windows.and.dialogs.html#d0e2994",null],
+["词汇表","windows.and.dialogs.html#d0e3037",null],
+["词典","windows.and.dialogs.html#dialogs.preferences.dictionary",null],
+["外观","windows.and.dialogs.html#d0e3129",null],
+["文件过滤器","windows.and.dialogs.html#dialogs.preferences.filefilters",null],
+["分割设置","windows.and.dialogs.html#dialogs.preferences.segmentationsetup",null],
+["自动完成","windows.and.dialogs.html#d0e3749",null],
+["拼写检查器","windows.and.dialogs.html#d0e3777",null],
+["LanguageTool 插件","windows.and.dialogs.html#d0e3785",null],
+["外部搜索","windows.and.dialogs.html#dialogs.preferences.externalsearch",null],
+["编辑器","windows.and.dialogs.html#dialogs.preferences.editor",null],
+["标签处理","windows.and.dialogs.html#dialogs.preferences.tagprocessing",null],
+["团队","windows.and.dialogs.html#d0e4000",null],
+["翻译记忆库匹配","windows.and.dialogs.html#d0e4010",null],
+["视图","windows.and.dialogs.html#d0e4113",null],
+["保存和输出","windows.and.dialogs.html#dialogs.preferences.savingandoutput",null],
+["代理服务器登录","windows.and.dialogs.html#d0e4162",null],
+["安全存储","windows.and.dialogs.html#d0e4167",null],
+["插件","windows.and.dialogs.html#d0e4172",null],
+["更新","windows.and.dialogs.html#d0e4180",null]
+]]
 ]],
 ["窗格","panes.html",[
 ["编辑器","panes.html#editor.pane",null],
@@ -559,7 +623,12 @@ var toc_entries = [
 ["项目文件夹","project.folder.html",[
 ["source","project.folder.html#d0e4508",null],
 ["target","project.folder.html#d0e4513",null],
-["tm","project.folder.html#d0e4536",null],
+["tm","project.folder.html#d0e4536",[
+["tm/auto","project.folder.html#d0e4561",null],
+["tm/enforce","project.folder.html#d0e4588",null],
+["tm/mt","project.folder.html#d0e4628",null],
+["tm/penalty-xxx","project.folder.html#d0e4636",null]
+]],
 ["dictionary","project.folder.html#d0e4647",null],
 ["glossary","project.folder.html#d0e4655",null],
 ["omegat","project.folder.html#folder.omegat",null],
@@ -567,15 +636,36 @@ var toc_entries = [
 [".repositories","project.folder.html#d0e4731",null]
 ]],
 ["指南","howtos.html",[
-["建立团队项目","howtos.html#howto.setupteamproject",null],
-["使用团队项目","howtos.html#howto.useteamproject",null],
-["重用翻译记忆库","howtos.html#howto.reusetm",null],
-["防止数据丢失","howtos.html#howto.preventdataloss",null],
-["翻译 PDF 文件","howtos.html#howto.translatepdf",null],
-["驾驭从右向左的语言","howtos.html#howto.managerighttoleft",null]
+["建立团队项目","howtos.html#howto.setupteamproject",[
+["第 1 步：在服务器上创建一个空项目","howtos.html#d0e4750",null],
+["第 2 步：添加要翻译的文件和其他资源","howtos.html#d0e4816",null],
+["第 3 步：向译者发送邀请","howtos.html#d0e4858",null],
+["特殊情况：选择性共享","howtos.html#d0e4898",null],
+["映射参数","howtos.html#howto.setupteamproject.mappingparameters",null],
+["示例映射","howtos.html#d0e4972",null],
+["关于 omegat.project 和映射的说明","howtos.html#d0e5046",null]
 ]],
-["Appendices","appendix.dictionaries.html",[
-["A. 词典","appendix.dictionaries.html",null],
+["使用团队项目","howtos.html#howto.useteamproject",null],
+["重用翻译记忆库","howtos.html#howto.reusetm",[
+["导入和导出翻译记忆库","howtos.html#d0e5210",null],
+["创建所选文档的翻译记忆","howtos.html#d0e5221",null],
+["共享翻译记忆库","howtos.html#d0e5265",null],
+["在另一种语言上使用 TMX","howtos.html#d0e5272",null]
+]],
+["防止数据丢失","howtos.html#howto.preventdataloss",null],
+["翻译 PDF 文件","howtos.html#howto.translatepdf",[
+["其它文件格式","howtos.html#other.file.formats",null]
+]],
+["驾驭从右向左的语言","howtos.html#howto.managerighttoleft",[
+["在片段中混合从右向左和从左向右字符串","howtos.html#d0e5493",null],
+["从右向左片段中的 OmegaT 标签","howtos.html#d0e5501",null],
+["创建从右向左的译文文档","howtos.html#d0e5511",null]
+]]
+]],
+["A. 词典","appendix.dictionaries.html",[
+["如何下载并安装词典","appendix.dictionaries.html#d0e5529",null],
+["与词典相关的问题","appendix.dictionaries.html#d0e5596",null]
+]],
 ["B. 词汇表","appendix.glossaries.html",[
 ["默认词汇表","appendix.glossaries.html#d0e5631",null],
 ["用法","appendix.glossaries.html#d0e5655",null],
@@ -599,7 +689,6 @@ var toc_entries = [
 ["工具菜单","appendix.shortcut.custom.html#ch04.shortcuts.ToolsMenu",null],
 ["选项菜单","appendix.shortcut.custom.html#ch04.shortcuts.OptionsMenu",null],
 ["帮助菜单","appendix.shortcut.custom.html#ch04.shortcuts.HelpMenu",null]
-]]
 ]]];
 var toc_initiallyCollapsed = false;
 var messages = [
@@ -874,7 +963,7 @@ message = translation[index];
 }
 return message;
 }
-var storageId = "ahbnep3t73tc-1rs94u58hnsfr";
+var storageId = "bk8cwrmt7dnh-1gf7p3wa8xo5a";
 function storageSet(key, value) {
 window.sessionStorage.setItem(key + storageId, String(value));
 }

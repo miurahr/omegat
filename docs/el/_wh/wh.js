@@ -529,22 +529,78 @@ var toc_entries = [
 ["Μερικά ακόμη πράγματα που πρέπει να θυμάστε","chapter.instant.start.guide.html#d0e302",null]
 ]],
 ["Εγκατάσταση και Λειτουργία του OmegaT\n                     ","chapter.installing.and.running.html",[
-["Χρήστες Windows","chapter.installing.and.running.html#d0e358",null],
-["Χρήστες Linux (Intel)","chapter.installing.and.running.html#Linux.Intel.users",null],
-["Χρήστες Mac OS X","chapter.installing.and.running.html#MAC.OSX.users",null],
-["Άλλα συστήματα","chapter.installing.and.running.html#other.systems",null],
+["Χρήστες Windows","chapter.installing.and.running.html#d0e358",[
+["Γίνεται μεταφόρτωση του πακέτου","chapter.installing.and.running.html#d0e366",null],
+["\n                                    Γίνεται εγκατάσταση του OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.Windows",null],
+["Λειτουργία του OmegaT","chapter.installing.and.running.html#running.OmegaT.Windows",null],
+["Αναβάθμιση του OmegaT","chapter.installing.and.running.html#d0e452",null]
+]],
+["Χρήστες Linux (Intel)","chapter.installing.and.running.html#Linux.Intel.users",[
+["Μεταφόρτωση του σωστού πακέτου","chapter.installing.and.running.html#which.package.to.download.Linux",null],
+["\n                                    Γίνεται εγκατάσταση του OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.Linux",null],
+["Πως να προσθέσετε το OmegaT στα μενού σας (KDE) ή στα panels (Gnome)","chapter.installing.and.running.html#adding.OmegaT.to.your.menus.or.panels",null],
+["Λειτουργία του OmegaT","chapter.installing.and.running.html#running.OmegaT.Linux",null]
+]],
+["Χρήστες Mac OS X","chapter.installing.and.running.html#MAC.OSX.users",[
+["Γίνεται μεταφόρτωση του πακέτου","chapter.installing.and.running.html#which.package.to.download.OSX",null],
+["\n                                    Γίνεται εγκατάσταση του OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.OSX",null],
+["Προσθήκη του OmegaT στο Dock","chapter.installing.and.running.html#adding.OmegaT.to.the.dock",null],
+["Λειτουργία του OmegaT","chapter.installing.and.running.html#running.OmegaT.OSX",null],
+["Καλούδια του Mac OS X","chapter.installing.and.running.html#Mac.OSX.goodies",null]
+]],
+["Άλλα συστήματα","chapter.installing.and.running.html#other.systems",[
+["Μεταφόρτωση του σωστού πακέτου","chapter.installing.and.running.html#d0e850",null],
+["\n                                    Γίνεται εγκατάσταση του OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.other",null],
+["Εγκατάσταση πρακτικών συντομεύσεων","chapter.installing.and.running.html#installing.convenient.shortcuts",null],
+["Λειτουργία του OmegaT","chapter.installing.and.running.html#running.OmegaT.other",null]
+]],
 ["Χρήση της Java Web Start","chapter.installing.and.running.html#using.Java.Web.Start",null],
-["Εκκίνηση του OmegaT από τη γραμμή εντολών","chapter.installing.and.running.html#d0e1001",null],
+["Εκκίνηση του OmegaT από τη γραμμή εντολών","chapter.installing.and.running.html#d0e1001",[
+["Άνοιγμα ενός παραθύρου γραμμής εντολών","chapter.installing.and.running.html#method1.opening.commandline.window",null],
+["Εκκινείστε τα ορίσματα  εντολής","chapter.installing.and.running.html#launch.command.arguments",null],
+["Το OmegaT σε τρόπο (mode) από γραμμή εντολών","chapter.installing.and.running.html#omegat.command.arguments",null]
+]],
 ["Χτίζεται το OmegaT από την πηγή","chapter.installing.and.running.html#building.OmegaT.from.source",null]
 ]],
 ["Η διεπαφή χρήστη","chapter.user.interface.html",[
 ["Το κύριο παράθυρο του OmegaT, άλλα παράθυρα και διάλογοι","chapter.user.interface.html#user.interface.items",null],
-["Τα κύρια παράθυρα του OmegaT \n                           ","chapter.user.interface.html#OmegaT.main.window",null],
-["Άλλα παράθυρα","chapter.user.interface.html#other.windows",null]
+["Τα κύρια παράθυρα του OmegaT \n                           ","chapter.user.interface.html#OmegaT.main.window",[
+["Περιοχή Επεξεργασίας","chapter.user.interface.html#editor.pane",null],
+["Περιοχή μερικών αντιστοιχίσεων","chapter.user.interface.html#match.viewer",null],
+["Περιοχή Γλωσσαρίου","chapter.user.interface.html#d0e2381",null],
+["Περιοχή λεξικού","chapter.user.interface.html#dictionaries",null],
+["Περιοχή Πολλαπλών μεταφράσεων","chapter.user.interface.html#Multiple.Translations",null],
+["Περιοχή Σημειώσεων","chapter.user.interface.html#d0e2437",null],
+["Περιοχή Σχολίων","chapter.user.interface.html#d0e2448",null],
+["Περιοχή Μηχανικής Μετάφρασης","chapter.user.interface.html#Google.Translate",null],
+["Κύριο Μενού","chapter.user.interface.html#d0e2481",null],
+["Γραμμή κατάστασης","chapter.user.interface.html#status.bar",null]
+]],
+["Άλλα παράθυρα","chapter.user.interface.html#other.windows",[
+["Αρχεία έργου","chapter.user.interface.html#section.project.files",null],
+["Παράθυρο αναζήτησης","chapter.user.interface.html#section.search.window",null],
+["Επικύρωση ετικέτας","chapter.user.interface.html#section.tag.validation",null],
+["Στατιστικές","chapter.user.interface.html#d0e2641",null],
+["Στατιστικές αντιστοίχισης","chapter.user.interface.html#d0e2691",null],
+["Περιηγητής βοήθειας (Help browser)","chapter.user.interface.html#d0e2755",null]
+]]
 ]],
 ["Μενού και Συντομεύσεις πληκτρολογίου","chapter.menu.html",[
-["Κύριο Μενού","chapter.menu.html#ch04.main.menu",null],
-["Συντομεύσεις πληκτρολογίου","chapter.menu.html#keyboard.shortcuts",null]
+["Κύριο Μενού","chapter.menu.html#ch04.main.menu",[
+["Έργο","chapter.menu.html#submenu.Project",null],
+["Επεξεργασία","chapter.menu.html#d0e2994",null],
+["Μετάβαση σε","chapter.menu.html#submenu.GoTo",null],
+["Προβολή","chapter.menu.html#submenu.View",null],
+["Εργαλεία","chapter.menu.html#submenu.Tools",null],
+["Επιλογές","chapter.menu.html#submenu.Options",null],
+["Βοήθεια","chapter.menu.html#submenu.Help",null]
+]],
+["Συντομεύσεις πληκτρολογίου","chapter.menu.html#keyboard.shortcuts",[
+["Διαχείριση έργου","chapter.menu.html#d0e3758",null],
+["Γίνεται επεξεργασία","chapter.menu.html#keyboard.editing",null],
+["Μετακίνηση στα πέριξ","chapter.menu.html#keyboard.moving.around",null],
+["Άλλα","chapter.menu.html#keyboard.other",null]
+]]
 ]],
 ["Ιδιότητες έργου","chapter.project.properties.html",[
 ["Διάλογος ιδιοτήτων","chapter.project.properties.html#properties.dialog",null]
@@ -552,17 +608,35 @@ var toc_entries = [
 ["Φίλτρα αρχείων","chapter.file.filters.html",[
 ["Διάλογος φίλτρων αρχείου","chapter.file.filters.html#file.filters.dialog",null],
 ["Επιλογές φίλτρου","chapter.file.filters.html#filters.options",null],
-["Επεξεργασία διαλόγου φίλτρου","chapter.file.filters.html#edit.filter.dialog",null]
+["Επεξεργασία διαλόγου φίλτρου","chapter.file.filters.html#edit.filter.dialog",[
+["Τύπος αρχείου προέλευσης, μοτίβο ονόματος αρχείου","chapter.file.filters.html#source.filetype.and.filename.pattern",null],
+["Κωδικοποίηση αρχείου προέλευσης και στόχου","chapter.file.filters.html#source.and.target.files.encoding",null],
+["Ονόματα αρχείων στόχου","chapter.file.filters.html#target.name",null]
+]]
 ]],
 ["\n                        OmegaT Αρχεία και Κατάλογοι","chapter.files.and.directories.html",[
-["Translation project files","chapter.files.and.directories.html#translation.project.files",null],
+["Translation project files","chapter.files.and.directories.html#translation.project.files",[
+["Top folder","chapter.files.and.directories.html#file.omegat.project",null],
+["Subfolder dictionary","chapter.files.and.directories.html#d0e4923",null],
+["Subfolder glossary","chapter.files.and.directories.html#d0e4931",null],
+["Subfolder omegat","chapter.files.and.directories.html#folder.OmegaT",null],
+["Subfolder source","chapter.files.and.directories.html#folder.source",null],
+["Subfolder target","chapter.files.and.directories.html#folder.target",null]
+]],
 ["User settings files","chapter.files.and.directories.html#user.files",null],
 ["Application files","chapter.files.and.directories.html#application.files",null]
 ]],
 ["Αρχεία προς μετάφραση","chapter.files.to.translate.html",[
-["Μορφές αρχείου","chapter.files.to.translate.html#file.formats",null],
+["Μορφές αρχείου","chapter.files.to.translate.html#file.formats",[
+["Απλά αρχεία κειμένου","chapter.files.to.translate.html#d0e5289",null],
+["Μορφοποιημένα αρχεία κειμένου","chapter.files.to.translate.html#d0e5368",null]
+]],
 ["Άλλες μορφές αρχείων","chapter.files.to.translate.html#other.file.formats",null],
-["Γλώσσες από-αριστερά-προς-τα-δεξιά","chapter.files.to.translate.html#right.to.left.languages",null]
+["Γλώσσες από-αριστερά-προς-τα-δεξιά","chapter.files.to.translate.html#right.to.left.languages",[
+["Ανάμειξη συμβολοσειρών RTL και LTR στα τμήματα","chapter.files.to.translate.html#d0e5588",null],
+["Ετικέτες του OmegaT σε τμήματα RTL","chapter.files.to.translate.html#d0e5611",null],
+["Δημιουργία μεταφρασμένων εγγράφων RTL","chapter.files.to.translate.html#d0e5626",null]
+]]
 ]],
 ["Συμπεριφορά επεξεργασίας","chapter.translation.editing.html",null],
 ["Εγασίες με απλό κείμενο","chapter.plain.text.html",[
@@ -570,8 +644,18 @@ var toc_entries = [
 ["Η λύση του OmegaT\n                           ","chapter.plain.text.html#OmegaT.solution",null]
 ]],
 ["Μεταφραστικές μνήμες","chapter.translation.memories.html",[
-["Μεταφραστικές μνήμες στο OmegaT","chapter.translation.memories.html#OmegaT.and.tmx.files",null],
-["Επανάχρηση μεταφραστικών μνημών","chapter.translation.memories.html#using.translation.memories.from.previous.projects",null],
+["Μεταφραστικές μνήμες στο OmegaT","chapter.translation.memories.html#OmegaT.and.tmx.files",[
+["κατάλογοι tmx - τοποθεσία και σκοπός","chapter.translation.memories.html#tmx.files.location.and.purpose",null],
+["αντίγραφα ασφαλείας tmx","chapter.translation.memories.html#tmx.backup",null],
+["Αρχεία και γλώσσα των tmx","chapter.translation.memories.html#tmx.files.and.language",null],
+["Ορφανά τμήματα","chapter.translation.memories.html#d0e6351",null]
+]],
+["Επανάχρηση μεταφραστικών μνημών","chapter.translation.memories.html#using.translation.memories.from.previous.projects",[
+["Εισαγωγή και Εξαγωγή μεταφραστικών μνημών","chapter.translation.memories.html#importing.and.exporting.translation.memories",null],
+["Δημιουργία μεταφραστικής μνήμης για επιλεγμένα έγγραφα","chapter.translation.memories.html#Creating.a.translation.memory.for.selected.documents",null],
+["Κοινή χρήση (διαμοιρασμός) μεταφραστικών μνημών","chapter.translation.memories.html#sharing.translation.memories",null],
+["Χρήση TMX με εναλλακτικά ζεύγη γλωσσών","chapter.translation.memories.html#d0e6504",null]
+]],
 ["Πηγές με υπάρχουσες μεταφράσεις","chapter.translation.memories.html#d0e6520",null],
 ["Ψευδο-ματαφρασμένη μνήμη","chapter.translation.memories.html#pseudo.translated.memory",null],
 ["Γίνεται αναβάθμιση μεταφραστικών μνημών","chapter.translation.memories.html#upgrading.translation.memories",null]
@@ -583,7 +667,10 @@ var toc_entries = [
 ["Μερικά απλά παραδείγματα","chapter.segmentation.html#few.simple.examples",null]
 ]],
 ["Αναζητήσεις","chapter.searches.html",[
-["Παράθυρο αναζήτησης","chapter.searches.html#search.window",null],
+["Παράθυρο αναζήτησης","chapter.searches.html#search.window",[
+["Γϊνεται αναζήτηση","chapter.searches.html#d0e6880",null],
+["Τοποθεσία αναζήτησης","chapter.searches.html#d0e6905",null]
+]],
 ["Using wild cards","chapter.searches.html#using.wild.cards",null],
 ["Μέθοδοι και επιλογές αναζήτησης ","chapter.searches.html#search.methoids",null],
 ["Εμφάνιση αποτελεσμάτων αναζήτησης","chapter.searches.html#search.result.display",null]
@@ -616,17 +703,24 @@ var toc_entries = [
 ["Συμβουλές","chapter.spellchecker.html#hints",null]
 ]],
 ["Διάφορα θέματα","chapter.misc.html",[
-["OmegaT Τρόπος κονσόλας","chapter.misc.html#omegat.misc.console.mode",null],
+["OmegaT Τρόπος κονσόλας","chapter.misc.html#omegat.misc.console.mode",[
+["Προϋποθέσεις","chapter.misc.html#misc.console.mode.prerequisites",null],
+["Εκκίνηση του OmegaT σε τρόπο κονσόλας","chapter.misc.html#starting.in.misc.console.mode",null],
+["Σιωπηλή επιλογή","chapter.misc.html#misc.console.mode.option.quiet",null],
+["Επιλογή επικύρωσης ετικέτας","chapter.misc.html#misc.console.mode.option.validatetags",null]
+]],
 ["Πρόγραμμα αυτόματης στοίχισης ιδιοτήτων Java","chapter.misc.html#d0e8469",null],
 ["Ρυθμίσεις γραμματοσειρών","chapter.misc.html#font.settings",null],
 ["Πρόληψη απώλειας δεδομένων","chapter.misc.html#preventing.data.loss",null]
 ]],
-["Appendices","appendix.languages.html",[
 ["A. Γλώσσες - Κατάλογος με κωδικούς κατά ISO 639\n  \n  \n  ","appendix.languages.html",null],
 ["B. Συντμεύσεις πληκτρολογίου στο πρόγραμμα επεξεργασίας (editor)","appendix.keyboard.html",null],
 ["C. Ομαδικά έργα του OmegaT","appendix.TeamProjects.html",[
 ["Έλεγχος έκδοσης (Version control) - Εισαγωγή","appendix.TeamProjects.html#d0e10183",null],
-["Διαμοιρασμός ενός έργου με τη χρήση SVN","appendix.TeamProjects.html#d0e10254",null],
+["Διαμοιρασμός ενός έργου με τη χρήση SVN","appendix.TeamProjects.html#d0e10254",[
+["Δημιουργία αποθετηρίου","appendix.TeamProjects.html#d0e10275",null],
+["Εισαγωγή του έργου στο αποθετήριο SVN - Windows","appendix.TeamProjects.html#d0e10335",null]
+]],
 ["Χρήση Ομαδικού έργου στο OmegaT","appendix.TeamProjects.html#d0e10472",null]
 ]],
 ["D. Πρόσθετο Σύστημα δημιουργίας λεκτικών μονάδων (Tokenizer plugin)","appendix.TokenizerPlugin.inOmegaT.html",[
@@ -664,7 +758,6 @@ var toc_entries = [
 ]],
 ["J. Αναγνώριση συνεισφορών","appendix.acknowledgements.html",[
 ["Σας ευχαριστώ όλους!","appendix.acknowledgements.html#d0e11790",null]
-]]
 ]],
 ["Ευρετήριο","ix01.html",null]];
 var toc_initiallyCollapsed = false;
@@ -940,7 +1033,7 @@ message = translation[index];
 }
 return message;
 }
-var storageId = "-yn3yh3384p29-14mu0qohzdbkj";
+var storageId = "-12aemndof0h62-19gd6he35r8f2";
 function storageSet(key, value) {
 window.sessionStorage.setItem(key + storageId, String(value));
 }

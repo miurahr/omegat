@@ -518,13 +518,38 @@ return this;
 var wh = (function () {
 var toc_entries = [
 ["Instalace a provoz programu OmegaT\n                     ","chapter.installing.and.running.html",[
-["Uživatelé Windows","chapter.installing.and.running.html#d0e17",null],
-["Uživatelé Linuxu (Intel)","chapter.installing.and.running.html#Linux.Intel.users",null],
-["Uživatelé macOS","chapter.installing.and.running.html#MAC.OSX.users",null],
-["Ostatní systémy","chapter.installing.and.running.html#other.systems",null],
+["Uživatelé Windows","chapter.installing.and.running.html#d0e17",[
+["Stažení balíčku","chapter.installing.and.running.html#d0e20",null],
+["\n                                    Instalace programu OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.Windows",null],
+["Spouštění OmegaT\n                                 ","chapter.installing.and.running.html#running.OmegaT.Windows",null],
+["Aktualizace OmegaT","chapter.installing.and.running.html#d0e90",null]
+]],
+["Uživatelé Linuxu (Intel)","chapter.installing.and.running.html#Linux.Intel.users",[
+["Stažení správného balíčku","chapter.installing.and.running.html#which.package.to.download.Linux",null],
+["\n                                    Instalace programu OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.Linux",null],
+["Přidání OmegaT do vašeho menu (KDE) či panelu (Gnome)","chapter.installing.and.running.html#adding.OmegaT.to.your.menus.or.panels",null],
+["Spouštění OmegaT\n                                 ","chapter.installing.and.running.html#running.OmegaT.Linux",null]
+]],
+["Uživatelé macOS","chapter.installing.and.running.html#MAC.OSX.users",[
+["Stažení balíčku","chapter.installing.and.running.html#which.package.to.download.OSX",null],
+["Instalace programu OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.OSX",null],
+["Přidání OmegaT na panel Dock","chapter.installing.and.running.html#adding.OmegaT.to.the.dock",null],
+["Spouštění OmegaT\n                                 ","chapter.installing.and.running.html#running.OmegaT.OSX",null],
+["goodies macOS","chapter.installing.and.running.html#Mac.OSX.goodies",null]
+]],
+["Ostatní systémy","chapter.installing.and.running.html#other.systems",[
+["Stažení správného balíčku","chapter.installing.and.running.html#d0e456",null],
+["Instalace programu OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.other",null],
+["Instalace zástupců pro spuštění","chapter.installing.and.running.html#installing.convenient.shortcuts",null],
+["Spouštění OmegaT\n                                 ","chapter.installing.and.running.html#running.OmegaT.other",null]
+]],
 ["Přetáhnout","chapter.installing.and.running.html#drag.and.drop",null],
 ["Použití Java Web Start","chapter.installing.and.running.html#using.Java.Web.Start",null],
-["Spouštění z příkazového řádku","chapter.installing.and.running.html#d0e593",null],
+["Spouštění z příkazového řádku","chapter.installing.and.running.html#d0e593",[
+["Otevření okna s příkazovým řádkem","chapter.installing.and.running.html#method1.opening.commandline.window",null],
+["Parametry spouštěcího příkazu","chapter.installing.and.running.html#launch.command.arguments",null],
+["OmegaT v režimu příkazového řádku","chapter.installing.and.running.html#omegat.command.arguments",null]
+]],
 ["Sestavení OmegaT ze zdrojového kódu","chapter.installing.and.running.html#building.OmegaT.from.source",null]
 ]],
 ["Nabídka","menus.html",[
@@ -537,13 +562,52 @@ var toc_entries = [
 ["Nápověda","menus.html#menus.help",null]
 ]],
 ["Okna a dialogová okna","windows.and.dialogs.html",[
-["Vlastnosti projektu","windows.and.dialogs.html#dialogs.projectproperties",null],
+["Vlastnosti projektu","windows.and.dialogs.html#dialogs.projectproperties",[
+["Jazyky","windows.and.dialogs.html#d0e2127",null],
+["Možnosti","windows.and.dialogs.html#d0e2134",null],
+["Umístění souborů","windows.and.dialogs.html#d0e2231",null]
+]],
 ["Soubory projektu","windows.and.dialogs.html#windows.projectfiles",null],
-["Hledat v textu","windows.and.dialogs.html#windows.textsearch",null],
-["Nahradit text","windows.and.dialogs.html#windows.textreplace",null],
-["Párovací nástroj","windows.and.dialogs.html#windows.aligner",null],
-["Skriptování","windows.and.dialogs.html#windows.scripts",null],
-["Obecné předvolby","windows.and.dialogs.html#dialogs.preferences",null]
+["Hledat v textu","windows.and.dialogs.html#windows.textsearch",[
+["Použití zástupných znaků","windows.and.dialogs.html#using.wild.cards",null],
+["Metody a možnosti vyhledávání","windows.and.dialogs.html#search.methoids",null],
+["Zobrazení výsledků hledání","windows.and.dialogs.html#search.result.display",null],
+["Filtrování záznamů v editoru podle hledání","windows.and.dialogs.html#search.filter",null]
+]],
+["Nahradit text","windows.and.dialogs.html#windows.textreplace",[
+["Možnosti vyhledávání","windows.and.dialogs.html#d0e2755",null]
+]],
+["Párovací nástroj","windows.and.dialogs.html#windows.aligner",[
+["Krok 1: Přizpůsobit parametry párování","windows.and.dialogs.html#d0e2783",null],
+["Krok 2: Provést ruční opravy","windows.and.dialogs.html#d0e2817",null]
+]],
+["Skriptování","windows.and.dialogs.html#windows.scripts",[
+["Použití","windows.and.dialogs.html#d0e2884",null],
+["Skriptovací jazyky","windows.and.dialogs.html#d0e2933",null]
+]],
+["Obecné předvolby","windows.and.dialogs.html#dialogs.preferences",[
+["Všeobecné informace","windows.and.dialogs.html#d0e2966",null],
+["Strojový překlad","windows.and.dialogs.html#d0e2982",null],
+["Glosář","windows.and.dialogs.html#d0e3026",null],
+["Slovník","windows.and.dialogs.html#dialogs.preferences.dictionary",null],
+["Vzhled","windows.and.dialogs.html#d0e3118",null],
+["Filtry souborů","windows.and.dialogs.html#dialogs.preferences.filefilters",null],
+["Nastavení segmentace","windows.and.dialogs.html#dialogs.preferences.segmentationsetup",null],
+["Automatické doplnění","windows.and.dialogs.html#d0e3737",null],
+["Kontrola pravopisu","windows.and.dialogs.html#d0e3765",null],
+["Plugin LanguageTool","windows.and.dialogs.html#d0e3773",null],
+["Externí hledání","windows.and.dialogs.html#dialogs.preferences.externalsearch",null],
+["V Editoru","windows.and.dialogs.html#dialogs.preferences.editor",null],
+["Zpracování tagů","windows.and.dialogs.html#dialogs.preferences.tagprocessing",null],
+["Tým","windows.and.dialogs.html#d0e3985",null],
+["Shody TM","windows.and.dialogs.html#d0e3995",null],
+["Zobrazit","windows.and.dialogs.html#d0e4096",null],
+["Uložení a výstup","windows.and.dialogs.html#dialogs.preferences.savingandoutput",null],
+["Proxy přihlášení ...","windows.and.dialogs.html#d0e4145",null],
+["Bezpečnost","windows.and.dialogs.html#d0e4150",null],
+["Pluginy","windows.and.dialogs.html#d0e4155",null],
+["Aktualizace","windows.and.dialogs.html#d0e4163",null]
+]]
 ]],
 ["Podokna","panes.html",[
 ["V Editoru","panes.html#editor.pane",null],
@@ -559,7 +623,12 @@ var toc_entries = [
 ["Adresář projektu","project.folder.html",[
 ["source","project.folder.html#d0e4467",null],
 ["target","project.folder.html#d0e4472",null],
-["tm","project.folder.html#d0e4495",null],
+["tm","project.folder.html#d0e4495",[
+["tm/auto","project.folder.html#d0e4523",null],
+["tm/enforce","project.folder.html#d0e4550",null],
+["tm/mt","project.folder.html#d0e4590",null],
+["tm/penalty-xxx","project.folder.html#d0e4598",null]
+]],
 ["dictionary","project.folder.html#d0e4609",null],
 ["glossary","project.folder.html#d0e4617",null],
 ["O aplikaci OmegaT","project.folder.html#folder.omegat",null],
@@ -567,15 +636,35 @@ var toc_entries = [
 [".repositories","project.folder.html#d0e4692",null]
 ]],
 ["Jak na to...","howtos.html",[
-["Nastavit týmový projekt","howtos.html#howto.setupteamproject",null],
-["Využití týmového projektu","howtos.html#howto.useteamproject",null],
-["Opětovné používání překladových pamětí","howtos.html#howto.reusetm",null],
-["Prevence ztráty dat","howtos.html#howto.preventdataloss",null],
-["Překlad souboru PDF","howtos.html#howto.translatepdf",null],
-["Spravovat jazyky se zápisem zprava doleva","howtos.html#howto.managerighttoleft",null]
+["Nastavit týmový projekt","howtos.html#howto.setupteamproject",[
+["Krok 1: Vytvořte na serveru prázdný projekt","howtos.html#d0e4711",null],
+["Krok 2: Přidat soubory pro překlad a další zdroje","howtos.html#d0e4777",null],
+["Krok 3: Poslat pozvánku překladateli","howtos.html#d0e4818",null],
+["Zvláštní případ: minimální sdílení","howtos.html#d0e4858",null],
+["Parametry zápisu","howtos.html#howto.setupteamproject.mappingparameters",null],
+["Příklad mapování","howtos.html#d0e4918",null]
 ]],
-["Appendices","appendix.dictionaries.html",[
-["A. Slovníky","appendix.dictionaries.html",null],
+["Využití týmového projektu","howtos.html#howto.useteamproject",null],
+["Opětovné používání překladových pamětí","howtos.html#howto.reusetm",[
+["Import a export překladových pamětí","howtos.html#d0e5110",null],
+["Vytvoření překladové paměti pro vybrané dokumenty","howtos.html#d0e5121",null],
+["Sdílení projektových pamětí","howtos.html#d0e5165",null],
+["Použití překladových pamětí s alternativním jazykem","howtos.html#d0e5172",null]
+]],
+["Prevence ztráty dat","howtos.html#howto.preventdataloss",null],
+["Překlad souboru PDF","howtos.html#howto.translatepdf",[
+["Jiné formáty souborů","howtos.html#other.file.formats",null]
+]],
+["Spravovat jazyky se zápisem zprava doleva","howtos.html#howto.managerighttoleft",[
+["Současné užívání řetězců LTR a RTL v segmentech","howtos.html#d0e5393",null],
+["Tagy aplikace OmegaT v segmentech typu RTL","howtos.html#d0e5401",null],
+["Vytvoření dokumentů se zápisem RTL","howtos.html#d0e5411",null]
+]]
+]],
+["A. Slovníky","appendix.dictionaries.html",[
+["Jak stáhnout a nainstalovat slovníky","appendix.dictionaries.html#d0e5429",null],
+["Problémy se slovníky","appendix.dictionaries.html#d0e5498",null]
+]],
 ["B. Glosáře","appendix.glossaries.html",[
 ["Používání","appendix.glossaries.html#d0e5550",null],
 ["Formát souboru","appendix.glossaries.html#d0e5589",null],
@@ -600,7 +689,6 @@ var toc_entries = [
 ["Nabídka ‚Nástroje‛","appendix.shortcut.custom.html#ch04.shortcuts.ToolsMenu",null],
 ["Nabídka ‚Možnosti‛","appendix.shortcut.custom.html#ch04.shortcuts.OptionsMenu",null],
 ["Nabídka ‚Nápověda‛","appendix.shortcut.custom.html#ch04.shortcuts.HelpMenu",null]
-]]
 ]]];
 var toc_initiallyCollapsed = false;
 var messages = [
@@ -875,7 +963,7 @@ message = translation[index];
 }
 return message;
 }
-var storageId = "-1epnvs9s2w7nx-14lhczz9kvfe0";
+var storageId = "-17ygei97i878f-18jhz5rjm4v87";
 function storageSet(key, value) {
 window.sessionStorage.setItem(key + storageId, String(value));
 }

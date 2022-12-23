@@ -529,22 +529,78 @@ var toc_entries = [
 ["Несколько замечаний","chapter.instant.start.guide.html#d0e317",null]
 ]],
 ["Установка и запуск ОмегаТ\n                     ","chapter.installing.and.running.html",[
-["Для пользователей Windows","chapter.installing.and.running.html#d0e407",null],
-["Для пользователей GNU/Linux (Intel)","chapter.installing.and.running.html#Linux.Intel.users",null],
-["Для пользователей Mac OS X","chapter.installing.and.running.html#MAC.OSX.users",null],
-["Другие системы","chapter.installing.and.running.html#other.systems",null],
+["Для пользователей Windows","chapter.installing.and.running.html#d0e407",[
+["Загрузка пакета","chapter.installing.and.running.html#d0e415",null],
+["\n                                    Установка ОмегаТ\n                                 ","chapter.installing.and.running.html#OmegaT.installation.Windows",null],
+["Запуск ОмегаТ","chapter.installing.and.running.html#running.OmegaT.Windows",null],
+["Обновление ОмегаТ","chapter.installing.and.running.html#d0e501",null]
+]],
+["Для пользователей GNU/Linux (Intel)","chapter.installing.and.running.html#Linux.Intel.users",[
+["Загрузка нужного пакета","chapter.installing.and.running.html#which.package.to.download.Linux",null],
+["\n                                    Установка ОмегаТ\n                                 ","chapter.installing.and.running.html#OmegaT.installation.Linux",null],
+["Добавление ОмегаТ в меню (KDE) и на панель (Gnome).","chapter.installing.and.running.html#adding.OmegaT.to.your.menus.or.panels",null],
+["Запуск ОмегаТ","chapter.installing.and.running.html#running.OmegaT.Linux",null]
+]],
+["Для пользователей Mac OS X","chapter.installing.and.running.html#MAC.OSX.users",[
+["Загрузка пакета","chapter.installing.and.running.html#which.package.to.download.OSX",null],
+["\n                                    Установка ОмегаТ\n                                 ","chapter.installing.and.running.html#OmegaT.installation.OSX",null],
+["Добавление ОмегаТ в Док","chapter.installing.and.running.html#adding.OmegaT.to.the.dock",null],
+["Запуск ОмегаТ","chapter.installing.and.running.html#running.OmegaT.OSX",null],
+["«Плюшки» для Mac OS X","chapter.installing.and.running.html#Mac.OSX.goodies",null]
+]],
+["Другие системы","chapter.installing.and.running.html#other.systems",[
+["Загрузка нужного пакета","chapter.installing.and.running.html#d0e896",null],
+["\n                                    Установка ОмегаТ\n                                 ","chapter.installing.and.running.html#OmegaT.installation.other",null],
+["Установка удобных ярлыков запуска","chapter.installing.and.running.html#installing.convenient.shortcuts",null],
+["Запуск ОмегаТ","chapter.installing.and.running.html#running.OmegaT.other",null]
+]],
 ["Использование Java Web Start","chapter.installing.and.running.html#using.Java.Web.Start",null],
-["Запуск ОмегаТ из командной строки","chapter.installing.and.running.html#d0e1045",null],
+["Запуск ОмегаТ из командной строки","chapter.installing.and.running.html#d0e1045",[
+["Открытие окна командной строки","chapter.installing.and.running.html#method1.opening.commandline.window",null],
+["Аргументы команды запуска","chapter.installing.and.running.html#launch.command.arguments",null],
+["ОмегаТ в режиме командной строки","chapter.installing.and.running.html#omegat.command.arguments",null]
+]],
 ["Сборка ОмегаТ из исходного кода","chapter.installing.and.running.html#building.OmegaT.from.source",null]
 ]],
 ["Пользовательский интерфейс","chapter.user.interface.html",[
 ["Главное окно ОмегаТ и другие окна и диалоги","chapter.user.interface.html#user.interface.items",null],
-["Главное окно ОмегаТ\n                           ","chapter.user.interface.html#OmegaT.main.window",null],
-["Другие окна","chapter.user.interface.html#other.windows",null]
+["Главное окно ОмегаТ\n                           ","chapter.user.interface.html#OmegaT.main.window",[
+["Область редактирования","chapter.user.interface.html#editor.pane",null],
+["Область просмотра нечётких совпадений","chapter.user.interface.html#match.viewer",null],
+["Область просмотра глоссария","chapter.user.interface.html#d0e2417",null],
+["Область просмотра словарей","chapter.user.interface.html#dictionaries",null],
+["Область просмотра вариантов перевода","chapter.user.interface.html#Multiple.Translations",null],
+["Область просмотра примечаний","chapter.user.interface.html#d0e2474",null],
+["Область просмотра комментариев","chapter.user.interface.html#d0e2485",null],
+["Область машинного перевода","chapter.user.interface.html#Google.Translate",null],
+["Главное меню","chapter.user.interface.html#d0e2518",null],
+["Строка состояния","chapter.user.interface.html#status.bar",null]
+]],
+["Другие окна","chapter.user.interface.html#other.windows",[
+["Файлы проекта","chapter.user.interface.html#section.project.files",null],
+["Окно поиска","chapter.user.interface.html#section.search.window",null],
+["Проверка тегов","chapter.user.interface.html#section.tag.validation",null],
+["Статистика","chapter.user.interface.html#d0e2677",null],
+["Статистика по совпадениям","chapter.user.interface.html#d0e2727",null],
+["Система помощи","chapter.user.interface.html#d0e2791",null]
+]]
 ]],
 ["Меню и сочетания клавиш","chapter.menu.html",[
-["Главное меню","chapter.menu.html#ch04.main.menu",null],
-["Сочетания клавиш","chapter.menu.html#keyboard.shortcuts",null]
+["Главное меню","chapter.menu.html#ch04.main.menu",[
+["Проект","chapter.menu.html#submenu.Project",null],
+["Правка","chapter.menu.html#d0e3027",null],
+["Переход","chapter.menu.html#submenu.GoTo",null],
+["Вид","chapter.menu.html#submenu.View",null],
+["Инструменты","chapter.menu.html#submenu.Tools",null],
+["Параметры","chapter.menu.html#submenu.Options",null],
+["Справка","chapter.menu.html#submenu.Help",null]
+]],
+["Сочетания клавиш","chapter.menu.html#keyboard.shortcuts",[
+["Управление проектом","chapter.menu.html#d0e3790",null],
+["Редактирование","chapter.menu.html#keyboard.editing",null],
+["Перемещение","chapter.menu.html#keyboard.moving.around",null],
+["Другие","chapter.menu.html#keyboard.other",null]
+]]
 ]],
 ["Свойства проекта","chapter.project.properties.html",[
 ["Диалоговое окно «Свойства»","chapter.project.properties.html#properties.dialog",null]
@@ -552,17 +608,35 @@ var toc_entries = [
 ["Файловые фильтры","chapter.file.filters.html",[
 ["Диалоговое окно «Файловые фильтры»","chapter.file.filters.html#file.filters.dialog",null],
 ["Параметры фильтров","chapter.file.filters.html#filters.options",null],
-["Диалоговое окно «Редактирование фильтра»","chapter.file.filters.html#edit.filter.dialog",null]
+["Диалоговое окно «Редактирование фильтра»","chapter.file.filters.html#edit.filter.dialog",[
+["Тип исходного файла, шаблон имени файла","chapter.file.filters.html#source.filetype.and.filename.pattern",null],
+["Кодировки исходного и переведённого файлов","chapter.file.filters.html#source.and.target.files.encoding",null],
+["Имя переведённого файла","chapter.file.filters.html#target.name",null]
+]]
 ]],
 ["Файлы и каталоги ОмегаТ\n                     ","chapter.files.and.folders.html",[
-["Файлы проекта перевода","chapter.files.and.folders.html#translation.project.files",null],
+["Файлы проекта перевода","chapter.files.and.folders.html#translation.project.files",[
+["Главная (корневая) папка","chapter.files.and.folders.html#file.omegat.project",null],
+["Подкаталог «dictionary»","chapter.files.and.folders.html#d0e4950",null],
+["Подкаталог «glossary»","chapter.files.and.folders.html#d0e4957",null],
+["Подкаталог «omegat»","chapter.files.and.folders.html#folder.OmegaT",null],
+["Подкаталог «source»","chapter.files.and.folders.html#folder.source",null],
+["Подкаталог «target»","chapter.files.and.folders.html#folder.target",null]
+]],
 ["Файлы пользовательских настроек","chapter.files.and.folders.html#user.files",null],
 ["Файлы приложения","chapter.files.and.folders.html#application.files",null]
 ]],
 ["Файлы для перевода","chapter.files.to.translate.html",[
-["Форматы файлов","chapter.files.to.translate.html#file.formats",null],
+["Форматы файлов","chapter.files.to.translate.html#file.formats",[
+["Простые текстовые файлы","chapter.files.to.translate.html#d0e5312",null],
+["Текстовые файлы с форматированием","chapter.files.to.translate.html#d0e5391",null]
+]],
 ["Другие форматы файлов","chapter.files.to.translate.html#other.file.formats",null],
-["Языки с письмом справа налево","chapter.files.to.translate.html#right.to.left.languages",null]
+["Языки с письмом справа налево","chapter.files.to.translate.html#right.to.left.languages",[
+["Комбинирование строк с разным направлением письма в одном сегменте","chapter.files.to.translate.html#d0e5608",null],
+["Теги ОмегаТ в сегментах с письмом справа налево","chapter.files.to.translate.html#d0e5631",null],
+["Создание переведённых документов с письмом справа налево","chapter.files.to.translate.html#d0e5646",null]
+]]
 ]],
 ["Параметры редактирования","chapter.translation.editing.html",null],
 ["Работа с простыми текстовыми файлами","chapter.plain.text.html",[
@@ -579,8 +653,18 @@ var toc_entries = [
 ["Советы по управлению тегами","chapter.formatted.text.html#hints.for.tag.management",null]
 ]],
 ["Память переводов","chapter.translation.memories.html",[
-["Память переводов в ОмегаТ","chapter.translation.memories.html#OmegaT.and.tmx.files",null],
-["Повторное использование памяти переводов","chapter.translation.memories.html#using.translation.memories.from.previous.projects",null],
+["Память переводов в ОмегаТ","chapter.translation.memories.html#OmegaT.and.tmx.files",[
+["Каталоги tmx - расположение и назначение","chapter.translation.memories.html#tmx.files.location.and.purpose",null],
+["Резервное копирование TMX-файлов","chapter.translation.memories.html#tmx.backup",null],
+["TMX-файлы и язык","chapter.translation.memories.html#tmx.files.and.language",null],
+["Ничейные сегменты","chapter.translation.memories.html#d0e6617",null]
+]],
+["Повторное использование памяти переводов","chapter.translation.memories.html#using.translation.memories.from.previous.projects",[
+["Импорт и экспорт памяти переводов","chapter.translation.memories.html#importing.and.exporting.translation.memories",null],
+["Создание отдельной памяти переводов для некоторых документов","chapter.translation.memories.html#Creating.a.translation.memory.for.selected.documents",null],
+["Использование общей памяти переводов","chapter.translation.memories.html#sharing.translation.memories",null],
+["Использование TMX-файлов с другими языковыми парами","chapter.translation.memories.html#d0e6764",null]
+]],
 ["Исходные документы с уже имеющимися переводами","chapter.translation.memories.html#d0e6780",null],
 ["Память псевдо-перевода","chapter.translation.memories.html#pseudo.translated.memory",null],
 ["Обновление файлов памяти переводов","chapter.translation.memories.html#upgrading.translation.memories",null]
@@ -592,7 +676,10 @@ var toc_entries = [
 ["Несколько простых примеров","chapter.segmentation.html#few.simple.examples",null]
 ]],
 ["Поиск","chapter.searches.html",[
-["Окно поиска","chapter.searches.html#search.window",null],
+["Окно поиска","chapter.searches.html#search.window",[
+["Поиск","chapter.searches.html#d0e7140",null],
+["Где искать","chapter.searches.html#d0e7164",null]
+]],
 ["Использование шаблонов","chapter.searches.html#using.wild.cards",null],
 ["Способы и параметры поиска","chapter.searches.html#search.methoids",null],
 ["Показ результатов поиска","chapter.searches.html#search.result.display",null]
@@ -625,17 +712,24 @@ var toc_entries = [
 ["Советы","chapter.spellchecker.html#hints",null]
 ]],
 ["Темы, не вошедшие в другие разделы","chapter.misc.html",[
-["ОмегаТ в режиме командной строки","chapter.misc.html#omegat.misc.console.mode",null],
+["ОмегаТ в режиме командной строки","chapter.misc.html#omegat.misc.console.mode",[
+["Что для этого нужно","chapter.misc.html#misc.console.mode.prerequisites",null],
+["Запуск ОмегаТ в режиме командной строки","chapter.misc.html#starting.in.misc.console.mode",null],
+["Параметр «quiet»","chapter.misc.html#misc.console.mode.option.quiet",null],
+["Параметр проверки тегов","chapter.misc.html#misc.console.mode.option.validatetags",null]
+]],
 ["Автоматическое выравнивание файлов Java properties","chapter.misc.html#d0e8729",null],
 ["Настройки шрифтов","chapter.misc.html#font.settings",null],
 ["Предотвращение потери данных","chapter.misc.html#preventing.data.loss",null]
 ]],
-["Appendices","appendix.languages.html",[
 ["A. Языки - список кодов ISO 639\n  \n  \n  ","appendix.languages.html",null],
 ["B. Сочетания клавиш для редактирования текста","appendix.keyboard.html",null],
 ["C. Командные проекты в ОмегаТ","appendix.TeamProjects.html",[
 ["Управление версиями — введение","appendix.TeamProjects.html#d0e10442",null],
-["Совместная работа над проектом, с использованием SVN","appendix.TeamProjects.html#d0e10513",null],
+["Совместная работа над проектом, с использованием SVN","appendix.TeamProjects.html#d0e10513",[
+["Создание репозитория","appendix.TeamProjects.html#d0e10534",null],
+["Импорт проекта в SVN-репозиторий, Windows","appendix.TeamProjects.html#d0e10594",null]
+]],
 ["Работа над командным проектом в ОмегаТ","appendix.TeamProjects.html#d0e10734",null]
 ]],
 ["D. Модуль «tokenizer»","appendix.TokenizerPlugin.inOmegaT.html",[
@@ -671,7 +765,6 @@ var toc_entries = [
 ]],
 ["J. Благодарности","appendix.acknowledgements.html",[
 ["Спасибо вам всем!","appendix.acknowledgements.html#d0e12000",null]
-]]
 ]],
 ["Предметный указатель","ix01.html",null]];
 var toc_initiallyCollapsed = false;
@@ -947,7 +1040,7 @@ message = translation[index];
 }
 return message;
 }
-var storageId = "-hzep7db4ncbe-1i32fsgnftjnz";
+var storageId = "14lq0i4266ajp-1x55tki8gkqpn";
 function storageSet(key, value) {
 window.sessionStorage.setItem(key + storageId, String(value));
 }

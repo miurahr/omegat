@@ -518,13 +518,38 @@ return this;
 var wh = (function () {
 var toc_entries = [
 ["Installeren en uitvoeren van OmegaT\n                     ","chapter.installing.and.running.html",[
-["Windows-gebruikers","chapter.installing.and.running.html#d0e17",null],
-["Linux (Intel)-gebruikers","chapter.installing.and.running.html#Linux.Intel.users",null],
-["Gebruikers van macOS","chapter.installing.and.running.html#MAC.OSX.users",null],
-["Andere systemen","chapter.installing.and.running.html#other.systems",null],
+["Windows-gebruikers","chapter.installing.and.running.html#d0e17",[
+["Downloaden van het pakket","chapter.installing.and.running.html#d0e20",null],
+["\n                                    Installeren van OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.Windows",null],
+["\n                                    OmegaT uitvoeren","chapter.installing.and.running.html#running.OmegaT.Windows",null],
+["Upgraden van OmegaT","chapter.installing.and.running.html#d0e90",null]
+]],
+["Linux (Intel)-gebruikers","chapter.installing.and.running.html#Linux.Intel.users",[
+["Downloaden van het juiste pakket","chapter.installing.and.running.html#which.package.to.download.Linux",null],
+["\n                                    Installeren van OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.Linux",null],
+["\n                                    OmegaT toevoegen aan uw menu\'s (KDE) of panelen (Gnome)","chapter.installing.and.running.html#adding.OmegaT.to.your.menus.or.panels",null],
+["\n                                    OmegaT uitvoeren","chapter.installing.and.running.html#running.OmegaT.Linux",null]
+]],
+["Gebruikers van macOS","chapter.installing.and.running.html#MAC.OSX.users",[
+["Downloaden van het pakket","chapter.installing.and.running.html#which.package.to.download.OSX",null],
+["Installeren van OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.OSX",null],
+["\n                                    OmegaT toevoegen aan het dock","chapter.installing.and.running.html#adding.OmegaT.to.the.dock",null],
+["\n                                    OmegaT uitvoeren","chapter.installing.and.running.html#running.OmegaT.OSX",null],
+["macOS goodies","chapter.installing.and.running.html#Mac.OSX.goodies",null]
+]],
+["Andere systemen","chapter.installing.and.running.html#other.systems",[
+["Downloaden van het juiste pakket","chapter.installing.and.running.html#d0e459",null],
+["Installeren van OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.other",null],
+["Installeren van handige sneltoetsen","chapter.installing.and.running.html#installing.convenient.shortcuts",null],
+["\n                                    OmegaT uitvoeren","chapter.installing.and.running.html#running.OmegaT.other",null]
+]],
 ["Slepen en neerzetten","chapter.installing.and.running.html#drag.and.drop",null],
 ["Java Web Start gebruiken","chapter.installing.and.running.html#using.Java.Web.Start",null],
-["OmegaT starten vanaf de opdrachtregel","chapter.installing.and.running.html#commandline.launching",null],
+["OmegaT starten vanaf de opdrachtregel","chapter.installing.and.running.html#commandline.launching",[
+["Openen van een venster voor de opdrachtregel","chapter.installing.and.running.html#method1.opening.commandline.window",null],
+["Argumenten voor de startopdracht","chapter.installing.and.running.html#launch.command.arguments",null],
+["OmegaT in de modus Opdrachtregel","chapter.installing.and.running.html#omegat.command.arguments",null]
+]],
 ["\n                              OmegaT bouwen vanuit de bron","chapter.installing.and.running.html#building.OmegaT.from.source",null]
 ]],
 ["Menu\'s","menus.html",[
@@ -537,13 +562,52 @@ var toc_entries = [
 ["Help","menus.html#menus.help",null]
 ]],
 ["Vensters en dialoogvensters","windows.and.dialogs.html",[
-["Projecteigenschappen","windows.and.dialogs.html#dialogs.projectproperties",null],
+["Projecteigenschappen","windows.and.dialogs.html#dialogs.projectproperties",[
+["Talen","windows.and.dialogs.html#d0e2129",null],
+["Opties","windows.and.dialogs.html#d0e2136",null],
+["Bestandslocaties","windows.and.dialogs.html#d0e2233",null]
+]],
 ["Projectbestanden","windows.and.dialogs.html#windows.projectfiles",null],
-["Tekst zoeken","windows.and.dialogs.html#windows.textsearch",null],
-["Tekst vervangen","windows.and.dialogs.html#windows.textreplace",null],
-["Uitlijnen","windows.and.dialogs.html#windows.aligner",null],
-["Scripts","windows.and.dialogs.html#windows.scripts",null],
-["Algemene voorkeuren","windows.and.dialogs.html#dialogs.preferences",null]
+["Tekst zoeken","windows.and.dialogs.html#windows.textsearch",[
+["Jokertekens gebruiken","windows.and.dialogs.html#using.wild.cards",null],
+["Zoekmethoden en opties","windows.and.dialogs.html#search.methoids",null],
+["Zoekresultaten weergeven","windows.and.dialogs.html#search.result.display",null],
+["Filteritems in venster Bewerken overeenkomstig de zoekactie","windows.and.dialogs.html#search.filter",null]
+]],
+["Tekst vervangen","windows.and.dialogs.html#windows.textreplace",[
+["Zoekopties","windows.and.dialogs.html#d0e2755",null]
+]],
+["Uitlijnen","windows.and.dialogs.html#windows.aligner",[
+["Stap 1: Parameters voor uitlijnen aanpassen","windows.and.dialogs.html#d0e2783",null],
+["Stap 2: Handmatige correcties maken","windows.and.dialogs.html#d0e2817",null]
+]],
+["Scripts","windows.and.dialogs.html#windows.scripts",[
+["Gebruiken","windows.and.dialogs.html#d0e2884",null],
+["Scripttalen","windows.and.dialogs.html#d0e2933",null]
+]],
+["Algemene voorkeuren","windows.and.dialogs.html#dialogs.preferences",[
+["Algemeen","windows.and.dialogs.html#d0e2966",null],
+["Machinevertaling","windows.and.dialogs.html#d0e2982",null],
+["Woordenlijst","windows.and.dialogs.html#d0e3026",null],
+["Woordenboek","windows.and.dialogs.html#dialogs.preferences.dictionary",null],
+["Uiterlijk","windows.and.dialogs.html#d0e3118",null],
+["Bestandsfilters","windows.and.dialogs.html#dialogs.preferences.filefilters",null],
+["Segmentatie-instellingen","windows.and.dialogs.html#dialogs.preferences.segmentationsetup",null],
+["Auto-aanvullen","windows.and.dialogs.html#d0e3737",null],
+["Spellingscontrole","windows.and.dialogs.html#d0e3765",null],
+["plug-in LanguageTool","windows.and.dialogs.html#d0e3773",null],
+["Extern zoeken","windows.and.dialogs.html#dialogs.preferences.externalsearch",null],
+["venster Bewerken","windows.and.dialogs.html#dialogs.preferences.editor",null],
+["Tag verwerken","windows.and.dialogs.html#dialogs.preferences.tagprocessing",null],
+["Team","windows.and.dialogs.html#d0e3987",null],
+["Overeenkomsten TM","windows.and.dialogs.html#d0e3997",null],
+["Weergave","windows.and.dialogs.html#d0e4100",null],
+["Opslaan en uitvoer","windows.and.dialogs.html#dialogs.preferences.savingandoutput",null],
+["Inloggen proxy","windows.and.dialogs.html#d0e4149",null],
+["Veilig opslaan","windows.and.dialogs.html#d0e4154",null],
+["Plug-ins","windows.and.dialogs.html#d0e4159",null],
+["Updates","windows.and.dialogs.html#d0e4167",null]
+]]
 ]],
 ["Vensters","panes.html",[
 ["venster Bewerken","panes.html#editor.pane",null],
@@ -559,7 +623,12 @@ var toc_entries = [
 ["Projectmap","project.folder.html",[
 ["source","project.folder.html#d0e4493",null],
 ["target","project.folder.html#d0e4498",null],
-["tm","project.folder.html#d0e4521",null],
+["tm","project.folder.html#d0e4521",[
+["tm/auto","project.folder.html#d0e4546",null],
+["tm/enforce","project.folder.html#d0e4573",null],
+["tm/mt","project.folder.html#d0e4613",null],
+["tm/penalty-xxx","project.folder.html#d0e4621",null]
+]],
 ["Woordenboek","project.folder.html#d0e4632",null],
 ["glossary","project.folder.html#d0e4640",null],
 ["omegat","project.folder.html#folder.omegat",null],
@@ -567,15 +636,36 @@ var toc_entries = [
 [".repositories","project.folder.html#d0e4715",null]
 ]],
 ["How-To…","howtos.html",[
-["Instellen van een Teamproject","howtos.html#howto.setupteamproject",null],
-["Een Teamproject gebruiken","howtos.html#howto.useteamproject",null],
-["Vertaalgeheugens opnieuw gebruiken","howtos.html#howto.reusetm",null],
-["Gegevensverlies voorkomen","howtos.html#howto.preventdataloss",null],
-["Een PDF-bestand vertalen","howtos.html#howto.translatepdf",null],
-["Van rechts naar links talen beheren","howtos.html#howto.managerighttoleft",null]
+["Instellen van een Teamproject","howtos.html#howto.setupteamproject",[
+["Stap 1: Maak een leeg project op een server","howtos.html#d0e4734",null],
+["Stap 2: Te vertalen bestanden en andere bronnen toevoegen","howtos.html#d0e4800",null],
+["Stap 3: Een invitatie sturen naar de vertaler","howtos.html#d0e4841",null],
+["Speciaal geval: selectief delen","howtos.html#d0e4881",null],
+["Parameters voor routes naar mappen","howtos.html#howto.setupteamproject.mappingparameters",null],
+["Voorbeeld routes naar mappen","howtos.html#d0e4955",null],
+["Opmerking over omegat.project en doorverwijzingen","howtos.html#d0e5032",null]
 ]],
-["Appendices","appendix.dictionaries.html",[
-["A. Woordenboeken","appendix.dictionaries.html",null],
+["Een Teamproject gebruiken","howtos.html#howto.useteamproject",null],
+["Vertaalgeheugens opnieuw gebruiken","howtos.html#howto.reusetm",[
+["Importeren en exporteren van vertaalgeheugens","howtos.html#d0e5195",null],
+["Maken van een vertaalgeheugen voor geselecteerde documenten","howtos.html#d0e5206",null],
+["Delen van vertaalgeheugens","howtos.html#d0e5250",null],
+["Gebruiken van TMX met alternatieve taal","howtos.html#d0e5257",null]
+]],
+["Gegevensverlies voorkomen","howtos.html#howto.preventdataloss",null],
+["Een PDF-bestand vertalen","howtos.html#howto.translatepdf",[
+["Andere bestandsformaten","howtos.html#other.file.formats",null]
+]],
+["Van rechts naar links talen beheren","howtos.html#howto.managerighttoleft",[
+["LTR- en RTL-tekenreeksen in segmenten mixen","howtos.html#d0e5478",null],
+["\n                                    OmegaT-tags in RTL-segmenten","howtos.html#d0e5486",null],
+["Vertaalde RTL-documenten maken","howtos.html#d0e5495",null]
+]]
+]],
+["A. Woordenboeken","appendix.dictionaries.html",[
+["Hoe woordenboeken te downloaden en te installeren","appendix.dictionaries.html#d0e5513",null],
+["Problemen met woordenboeken","appendix.dictionaries.html#d0e5582",null]
+]],
 ["B. Woordenlijsten","appendix.glossaries.html",[
 ["Standaard woordenlijst","appendix.glossaries.html#d0e5617",null],
 ["Gebruik","appendix.glossaries.html#d0e5641",null],
@@ -599,7 +689,6 @@ var toc_entries = [
 ["menu Extra","appendix.shortcut.custom.html#ch04.shortcuts.ToolsMenu",null],
 ["menu Opties","appendix.shortcut.custom.html#ch04.shortcuts.OptionsMenu",null],
 ["menu Help","appendix.shortcut.custom.html#ch04.shortcuts.HelpMenu",null]
-]]
 ]]];
 var toc_initiallyCollapsed = false;
 var messages = [
@@ -874,7 +963,7 @@ message = translation[index];
 }
 return message;
 }
-var storageId = "-1wxx11gp7z6hi-11ctmee8od6a6";
+var storageId = "-xuyx1el7824p-1erijkhrw813w";
 function storageSet(key, value) {
 window.sessionStorage.setItem(key + storageId, String(value));
 }

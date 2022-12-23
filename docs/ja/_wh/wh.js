@@ -517,14 +517,39 @@ return this;
 })(jQuery);
 var wh = (function () {
 var toc_entries = [
-["\n                        OmegaT のインストールと実行","chapter.installing.and.running.html",[
-["Windows ユーザー","chapter.installing.and.running.html#d0e17",null],
-["Linux（Intel）ユーザー","chapter.installing.and.running.html#Linux.Intel.users",null],
-["macOS ユーザー","chapter.installing.and.running.html#MAC.OSX.users",null],
-["その他のシステム","chapter.installing.and.running.html#other.systems",null],
+["OmegaT のインストールと実行","chapter.installing.and.running.html",[
+["Windows ユーザー","chapter.installing.and.running.html#Windows.users",[
+["パッケージのダウンロード","chapter.installing.and.running.html#which.package.to.download.windows",null],
+["\n                                    OmegaT をインストールする\n                                 ","chapter.installing.and.running.html#OmegaT.installation.Windows",null],
+["OmegaTの実行","chapter.installing.and.running.html#running.OmegaT.Windows",null],
+["OmegaT のアップグレード","chapter.installing.and.running.html#d0e79",null]
+]],
+["Linux（Intel）ユーザー","chapter.installing.and.running.html#Linux.Intel.users",[
+["適切なパッケージのダウンロード","chapter.installing.and.running.html#which.package.to.download.Linux",null],
+["\n                                    OmegaT をインストールする\n                                 ","chapter.installing.and.running.html#OmegaT.installation.Linux",null],
+["メニュー（KDE）またはパネル（GNOME）への OmegaT の追加","chapter.installing.and.running.html#adding.OmegaT.to.your.menus.or.panels",null],
+["OmegaTの実行","chapter.installing.and.running.html#running.OmegaT.Linux",null]
+]],
+["macOS ユーザー","chapter.installing.and.running.html#MAC.OSX.users",[
+["パッケージのダウンロード","chapter.installing.and.running.html#which.package.to.download.OSX",null],
+["OmegaT をインストールする","chapter.installing.and.running.html#OmegaT.installation.OSX",null],
+["OmegaTのドックへの追加","chapter.installing.and.running.html#adding.OmegaT.to.the.dock",null],
+["OmegaTの実行","chapter.installing.and.running.html#running.OmegaT.OSX",null],
+["macOSの特典","chapter.installing.and.running.html#Mac.OSX.goodies",null]
+]],
+["その他のシステム","chapter.installing.and.running.html#other.systems",[
+["適切なパッケージのダウンロード","chapter.installing.and.running.html#which.package.to.download.other",null],
+["OmegaT をインストールする","chapter.installing.and.running.html#OmegaT.installation.other",null],
+["起動に便利なショートカットの作成","chapter.installing.and.running.html#installing.convenient.shortcuts",null],
+["OmegaTの実行","chapter.installing.and.running.html#running.OmegaT.other",null]
+]],
 ["ドラッグ＆ドロップ","chapter.installing.and.running.html#drag.and.drop",null],
 ["Java Web Start の使用","chapter.installing.and.running.html#using.Java.Web.Start",null],
-["コマンドラインから OmegaT を起動する","chapter.installing.and.running.html#commandline.launching",null],
+["コマンドラインから OmegaT を起動する","chapter.installing.and.running.html#commandline.launching",[
+["コマンドラインウィンドウを開く","chapter.installing.and.running.html#method1.opening.commandline.window",null],
+["起動コマンドの引数","chapter.installing.and.running.html#launch.command.arguments",null],
+["OmegaT をコマンドラインモードで使う","chapter.installing.and.running.html#omegat.command.arguments",null]
+]],
 ["ソースコードからの OmegaT のビルド","chapter.installing.and.running.html#building.OmegaT.from.source",null]
 ]],
 ["メニュー","menus.html",[
@@ -537,55 +562,97 @@ var toc_entries = [
 ["ヘルプ","menus.html#menus.help",null]
 ]],
 ["ウィンドウとダイアログ","windows.and.dialogs.html",[
-["プロジェクト設定","windows.and.dialogs.html#dialogs.projectproperties",null],
+["プロジェクト設定","windows.and.dialogs.html#dialogs.projectproperties",[
+["言語設定","windows.and.dialogs.html#d0e1912",null],
+["設定","windows.and.dialogs.html#d0e1919",null],
+["ファイル場所設定","windows.and.dialogs.html#d0e2015",null]
+]],
 ["翻訳対象ファイル一覧","windows.and.dialogs.html#windows.projectfiles",null],
-["プロジェクトの検索","windows.and.dialogs.html#windows.textsearch",null],
-["テキストの置換","windows.and.dialogs.html#windows.textreplace",null],
-["整合ツール","windows.and.dialogs.html#windows.aligner",null],
-["スクリプト","windows.and.dialogs.html#windows.scripts",null],
-["一般設定","windows.and.dialogs.html#dialogs.preferences",null]
+["プロジェクトの検索","windows.and.dialogs.html#windows.textsearch",[
+["ワイルドカードの使用","windows.and.dialogs.html#using.wild.cards",null],
+["検索方法と設定","windows.and.dialogs.html#search.methoids",null],
+["検索結果の表示","windows.and.dialogs.html#search.result.display",null],
+["編集ウィンドウの分節に検索フィルターをかける","windows.and.dialogs.html#search.filter",null]
+]],
+["テキストの置換","windows.and.dialogs.html#windows.textreplace",[
+["検索オプション","windows.and.dialogs.html#d0e2535",null]
+]],
+["整合ツール","windows.and.dialogs.html#windows.aligner",[
+["手順1:整合パラメータを調整する","windows.and.dialogs.html#d0e2563",null],
+["手順2: 手動で修正","windows.and.dialogs.html#d0e2595",null]
+]],
+["スクリプト","windows.and.dialogs.html#windows.scripts",[
+["使い方","windows.and.dialogs.html#d0e2664",null],
+["スクリプト言語","windows.and.dialogs.html#d0e2719",null]
+]]
 ]],
 ["ウィンドウ","panes.html",[
-["編集","panes.html#editor.pane",null],
-["参考訳文","panes.html#d0e4310",null],
-["用語集","panes.html#d0e4359",null],
-["辞書","panes.html#d0e4372",null],
-["機械翻訳","panes.html#d0e4380",null],
-["複数訳文","panes.html#d0e4388",null],
-["メモ","panes.html#d0e4399",null],
-["コメント","panes.html#d0e4410",null],
-["ステータスバー","panes.html#d0e4415",null]
+["編集","panes.html#panes.editor",null],
+["参考訳文","panes.html#panes.fuzzymatches",null],
+["用語集","panes.html#panes.glossary",null],
+["辞書","panes.html#panes.dictionary",null],
+["機械翻訳","panes.html#panes.machinetranslation",null],
+["複数訳文","panes.html#panes.multipletranslations",null],
+["メモ","panes.html#panes.notes",null],
+["コメント","panes.html#panes.comments",null],
+["ステータスバー","panes.html#panes.statusbar",null]
 ]],
 ["プロジェクトフォルダー","project.folder.html",[
-["source","project.folder.html#d0e4455",null],
-["target","project.folder.html#d0e4460",null],
-["tm","project.folder.html#d0e4483",null],
-["辞書","project.folder.html#d0e4592",null],
-["用語集","project.folder.html#d0e4600",null],
-["omegat","project.folder.html#folder.omegat",null],
-["omegat.project（ファイル）","project.folder.html#d0e4668",null],
-[".repositories","project.folder.html#d0e4675",null]
+["source","project.folder.html#projectfolder.source",null],
+["target","project.folder.html#projectfolder.target",null],
+["tm","project.folder.html#projectfolder.tm",[
+["tm/auto","project.folder.html#projectfolder.tmauto",null],
+["tm/enforce","project.folder.html#projectfolder.tmenforce",null],
+["tm/mt","project.folder.html#projectfolder.tmmt",null],
+["tm/penalty-xxx","project.folder.html#projectfolder.tmpenalty",null]
+]],
+["辞書","project.folder.html#projectfolder.dictionary",null],
+["用語集","project.folder.html#projectfolder.glossary",null],
+["omegat","project.folder.html#projectfolder.omegat",null],
+["omegat.project（ファイル）","project.folder.html#projectfolder.omegat.project",null],
+[".repositories","project.folder.html#projectfolder.repositories",null]
 ]],
 ["操作方法...","howtos.html",[
-["チームプロジェクトを設定する","howtos.html#howto.setupteamproject",null],
-["チームプロジェクトを使用する","howtos.html#howto.useteamproject",null],
-["翻訳メモリの再利用","howtos.html#howto.reusetm",null],
-["データを失わないために","howtos.html#howto.preventdataloss",null],
-["PDFファイルの翻訳","howtos.html#howto.translatepdf",null],
-["右から左へ表記する言語","howtos.html#howto.managerighttoleft",null]
+["チームプロジェクトを設定する","howtos.html#howto.setupteamproject",[
+["ステップ 1: サーバー上に空のプロジェクトを作成する","howtos.html#d0e3367",null],
+["ステップ2:翻訳するファイルと他のリソースを追加する","howtos.html#d0e3433",null],
+["ステップ3:翻訳者に招待を送信する","howtos.html#d0e3475",null],
+["特殊なケース:選択的な共有","howtos.html#d0e3515",null],
+["マッピングパラメータ","howtos.html#howto.setupteamproject.mappingparameters",null],
+["マッピングの例","howtos.html#d0e3589",null],
+["omegat.projectおよびマッピングに関する注意","howtos.html#d0e3663",null]
 ]],
-["Appendices","appendix.dictionaries.html",[
-["A. 辞書","appendix.dictionaries.html",null],
+["チームプロジェクトを使用する","howtos.html#howto.useteamproject",null],
+["翻訳メモリの再利用","howtos.html#howto.reusetm",[
+["翻訳メモリのインポートとエクスポート","howtos.html#d0e3823",null],
+["特定文書向け翻訳メモリの作成","howtos.html#d0e3834",null],
+["翻訳メモリの共有","howtos.html#d0e3890",null],
+["TMX ファイルと代替言語","howtos.html#d0e3897",null]
+]],
+["データを失わないために","howtos.html#howto.preventdataloss",null],
+["PDFファイルの翻訳","howtos.html#howto.translatepdf",[
+["その他のファイル形式","howtos.html#other.file.formats",null]
+]],
+["右から左へ表記する言語","howtos.html#howto.managerighttoleft",[
+["分節中での LTR（左から右）と RTL（右から左）文字列の混在","howtos.html#d0e4097",null],
+["RTL 分節における OmegaT タグ","howtos.html#d0e4102",null],
+["翻訳した RTL 文書の作成","howtos.html#d0e4109",null]
+]]
+]],
+["A. 辞書","appendix.dictionaries.html",[
+["辞書のダウンロードとインストール方法","appendix.dictionaries.html#d0e4127",null],
+["辞書に関するトラブルシューティング","appendix.dictionaries.html#d0e4193",null]
+]],
 ["B. 用語集 (Glossaries)","appendix.glossaries.html",[
-["デフォルトの用語集","appendix.glossaries.html#d0e5574",null],
-["使い方","appendix.glossaries.html#d0e5598",null],
-["ファイル形式","appendix.glossaries.html#d0e5648",null],
-["用語集に関するよくある問題","appendix.glossaries.html#d0e5764",null]
+["デフォルトの用語集","appendix.glossaries.html#glossaries.defaultglossary",null],
+["使い方","appendix.glossaries.html#glossaries.usage",null],
+["ファイル形式","appendix.glossaries.html#glossaries.fileformat",null],
+["用語集に関するよくある問題","appendix.glossaries.html#glossaries.commonproblems",null]
 ]],
 ["C. 綴り確認","appendix.spellchecker.html",[
-["綴り確認用辞書の組み込み","appendix.spellchecker.html#d0e5814",null],
-["綴り確認用辞書の使用","appendix.spellchecker.html#d0e5862",null],
-["使用時のヒント","appendix.spellchecker.html#hints",null]
+["綴り確認用辞書の組み込み","appendix.spellchecker.html#spellchecker.installingdictionaries",null],
+["綴り確認用辞書の使用","appendix.spellchecker.html#spellchecker.usingdictionaries",null],
+["使用時のヒント","appendix.spellchecker.html#spellchecker.hints",null]
 ]],
 ["D. 正規表現","appendix.regexp.html",[
 ["正規表現関連ツールとその使用例","appendix.regexp.html#regex.tools.and.examples.of.use",null]
@@ -599,7 +666,6 @@ var toc_entries = [
 ["ツールメニュー","appendix.shortcut.custom.html#ch04.shortcuts.ToolsMenu",null],
 ["設定メニュー","appendix.shortcut.custom.html#ch04.shortcuts.OptionsMenu",null],
 ["ヘルプメニュー","appendix.shortcut.custom.html#ch04.shortcuts.HelpMenu",null]
-]]
 ]]];
 var toc_initiallyCollapsed = false;
 var messages = [
@@ -874,7 +940,7 @@ message = translation[index];
 }
 return message;
 }
-var storageId = "1q1htkuizgoo-1hk8qojkah2bp";
+var storageId = "-qxkg6l6djit7-1p9d9l9q8zzro";
 function storageSet(key, value) {
 window.sessionStorage.setItem(key + storageId, String(value));
 }

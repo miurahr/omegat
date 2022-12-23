@@ -518,13 +518,38 @@ return this;
 var wh = (function () {
 var toc_entries = [
 ["Встановлення та запуск OmegaT\n                     ","chapter.installing.and.running.html",[
-["Користувачам Windows","chapter.installing.and.running.html#d0e17",null],
-["Користувачам Linux (Intel)","chapter.installing.and.running.html#Linux.Intel.users",null],
-["Користувачам macOS","chapter.installing.and.running.html#MAC.OSX.users",null],
-["Інші операційні системи","chapter.installing.and.running.html#other.systems",null],
+["Користувачам Windows","chapter.installing.and.running.html#d0e17",[
+["Завантажте пакет","chapter.installing.and.running.html#d0e20",null],
+["\n                                    Встановлення OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.Windows",null],
+["Запуск OmegaT\n                                 ","chapter.installing.and.running.html#running.OmegaT.Windows",null],
+["Оновлення OmegaT","chapter.installing.and.running.html#d0e91",null]
+]],
+["Користувачам Linux (Intel)","chapter.installing.and.running.html#Linux.Intel.users",[
+["Завантажте правильний пакет","chapter.installing.and.running.html#which.package.to.download.Linux",null],
+["\n                                    Встановлення OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.Linux",null],
+["Додавання OmegaT до меню (KDE) чи панелей (Gnome)","chapter.installing.and.running.html#adding.OmegaT.to.your.menus.or.panels",null],
+["Запуск OmegaT\n                                 ","chapter.installing.and.running.html#running.OmegaT.Linux",null]
+]],
+["Користувачам macOS","chapter.installing.and.running.html#MAC.OSX.users",[
+["Завантажте пакет","chapter.installing.and.running.html#which.package.to.download.OSX",null],
+["Встановлення OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.OSX",null],
+["Додавання OmegaT у док","chapter.installing.and.running.html#adding.OmegaT.to.the.dock",null],
+["Запуск OmegaT\n                                 ","chapter.installing.and.running.html#running.OmegaT.OSX",null],
+["Зручності, доступні у macOS","chapter.installing.and.running.html#Mac.OSX.goodies",null]
+]],
+["Інші операційні системи","chapter.installing.and.running.html#other.systems",[
+["Завантажте правильний пакет","chapter.installing.and.running.html#d0e463",null],
+["Встановлення OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.other",null],
+["Створення зручних ярликів","chapter.installing.and.running.html#installing.convenient.shortcuts",null],
+["Запуск OmegaT\n                                 ","chapter.installing.and.running.html#running.OmegaT.other",null]
+]],
 ["Функція drag and drop","chapter.installing.and.running.html#drag.and.drop",null],
 ["Використання Java Web Start","chapter.installing.and.running.html#using.Java.Web.Start",null],
-["Запуск OmegaT з командного рядка","chapter.installing.and.running.html#commandline.launching",null],
+["Запуск OmegaT з командного рядка","chapter.installing.and.running.html#commandline.launching",[
+["Відкриття вікна командного рядка","chapter.installing.and.running.html#method1.opening.commandline.window",null],
+["Аргументи команди запуску","chapter.installing.and.running.html#launch.command.arguments",null],
+["OmegaT в режимі командного рядка","chapter.installing.and.running.html#omegat.command.arguments",null]
+]],
 ["Компіляція OmegaT\n                           ","chapter.installing.and.running.html#building.OmegaT.from.source",null]
 ]],
 ["Меню","menus.html",[
@@ -537,13 +562,52 @@ var toc_entries = [
 ["Довідка","menus.html#menus.help",null]
 ]],
 ["Вікна та діалогові вікна","windows.and.dialogs.html",[
-["Властивості проєкту","windows.and.dialogs.html#dialogs.projectproperties",null],
+["Властивості проєкту","windows.and.dialogs.html#dialogs.projectproperties",[
+["Мови","windows.and.dialogs.html#d0e2135",null],
+["Налаштування","windows.and.dialogs.html#d0e2142",null],
+["Розміщення файлів","windows.and.dialogs.html#d0e2239",null]
+]],
 ["Файли проєкту","windows.and.dialogs.html#windows.projectfiles",null],
-["Пошук тексту","windows.and.dialogs.html#windows.textsearch",null],
-["Заміна тексту","windows.and.dialogs.html#windows.textreplace",null],
-["Вирівнювання файлів","windows.and.dialogs.html#windows.aligner",null],
-["Скрипти","windows.and.dialogs.html#windows.scripts",null],
-["Параметри","windows.and.dialogs.html#dialogs.preferences",null]
+["Пошук тексту","windows.and.dialogs.html#windows.textsearch",[
+["Використання символів узагальнення","windows.and.dialogs.html#using.wild.cards",null],
+["Методи та параметри пошуку","windows.and.dialogs.html#search.methoids",null],
+["Відображення результатів пошуку","windows.and.dialogs.html#search.result.display",null],
+["Фільтрування записів в області редагування відповідно до пошуку","windows.and.dialogs.html#search.filter",null]
+]],
+["Заміна тексту","windows.and.dialogs.html#windows.textreplace",[
+["Параметри пошуку","windows.and.dialogs.html#d0e2762",null]
+]],
+["Вирівнювання файлів","windows.and.dialogs.html#windows.aligner",[
+["Крок 1. Налаштуйте параметри вирівнювання","windows.and.dialogs.html#d0e2790",null],
+["Крок 2. Зробити виправлення вручну","windows.and.dialogs.html#d0e2824",null]
+]],
+["Скрипти","windows.and.dialogs.html#windows.scripts",[
+["Використання","windows.and.dialogs.html#d0e2892",null],
+["Скриптові мови","windows.and.dialogs.html#d0e2941",null]
+]],
+["Параметри","windows.and.dialogs.html#dialogs.preferences",[
+["Загальні налаштування","windows.and.dialogs.html#d0e2974",null],
+["Машинний переклад","windows.and.dialogs.html#d0e2990",null],
+["Глосарій","windows.and.dialogs.html#d0e3034",null],
+["Словник","windows.and.dialogs.html#dialogs.preferences.dictionary",null],
+["Оформлення програми","windows.and.dialogs.html#d0e3126",null],
+["Фільтри файлів","windows.and.dialogs.html#dialogs.preferences.filefilters",null],
+["Налаштування сегментації","windows.and.dialogs.html#dialogs.preferences.segmentationsetup",null],
+["Автодоповнення","windows.and.dialogs.html#d0e3747",null],
+["Перевірка правопису","windows.and.dialogs.html#d0e3775",null],
+["Плагін LanguageTool","windows.and.dialogs.html#d0e3783",null],
+["Зовнішній пошук","windows.and.dialogs.html#dialogs.preferences.externalsearch",null],
+["Область редагування","windows.and.dialogs.html#dialogs.preferences.editor",null],
+["Обробка теґів","windows.and.dialogs.html#dialogs.preferences.tagprocessing",null],
+["Командна робота","windows.and.dialogs.html#d0e3998",null],
+["Збіги з пам’яті перекладів","windows.and.dialogs.html#d0e4008",null],
+["Вигляд","windows.and.dialogs.html#d0e4111",null],
+["Збереження та вивід","windows.and.dialogs.html#dialogs.preferences.savingandoutput",null],
+["Авторизація на проксі-сервері","windows.and.dialogs.html#d0e4160",null],
+["Захищене збереження паролів","windows.and.dialogs.html#d0e4165",null],
+["Плагіни","windows.and.dialogs.html#d0e4170",null],
+["Оновлення","windows.and.dialogs.html#d0e4178",null]
+]]
 ]],
 ["Області вікна","panes.html",[
 ["Область редагування","panes.html#editor.pane",null],
@@ -559,7 +623,12 @@ var toc_entries = [
 ["Тека проєкту","project.folder.html",[
 ["./source","project.folder.html#d0e4504",null],
 ["./target","project.folder.html#d0e4509",null],
-["./tm","project.folder.html#d0e4532",null],
+["./tm","project.folder.html#d0e4532",[
+["./tm/auto","project.folder.html#d0e4557",null],
+["tm/enforce","project.folder.html#d0e4584",null],
+["./tm/mt","project.folder.html#d0e4624",null],
+["./tm/penalty-xxx","project.folder.html#d0e4632",null]
+]],
 ["./dictionary","project.folder.html#d0e4643",null],
 ["./glossary","project.folder.html#d0e4651",null],
 ["./omegat","project.folder.html#folder.omegat",null],
@@ -567,15 +636,36 @@ var toc_entries = [
 ["./.repositories","project.folder.html#d0e4726",null]
 ]],
 ["Практичні рекомендації","howtos.html",[
-["Налаштування командного проєкту","howtos.html#howto.setupteamproject",null],
-["Командні проєкти","howtos.html#howto.useteamproject",null],
-["Використання вже наявної пам’яті перекладів","howtos.html#howto.reusetm",null],
-["Захист від втрати даних","howtos.html#howto.preventdataloss",null],
-["Переклад файлів PDF","howtos.html#howto.translatepdf",null],
-["Підтримка мов з письмом справа наліво","howtos.html#howto.managerighttoleft",null]
+["Налаштування командного проєкту","howtos.html#howto.setupteamproject",[
+["Крок 1: Створіть порожній проєкт на сервері","howtos.html#d0e4745",null],
+["Крок 2: Додайте файли для перекладу та інші ресурси","howtos.html#d0e4811",null],
+["Крок 3: Надіслати запрошення перекладачеві","howtos.html#d0e4852",null],
+["Особливий випадок: лише частини проєкту є спільними","howtos.html#d0e4892",null],
+["Параметри прив’язки","howtos.html#howto.setupteamproject.mappingparameters",null],
+["Приклади прив’язки","howtos.html#d0e4966",null],
+["Примітка щодо файлу omegat.project та прив’язок","howtos.html#d0e5043",null]
 ]],
-["Appendices","appendix.dictionaries.html",[
-["A. Словники","appendix.dictionaries.html",null],
+["Командні проєкти","howtos.html#howto.useteamproject",null],
+["Використання вже наявної пам’яті перекладів","howtos.html#howto.reusetm",[
+["Імпортування та експортування пам’яті перекладів","howtos.html#d0e5206",null],
+["Створення пам’яті перекладів для окремих документів","howtos.html#d0e5217",null],
+["Спільна пам’ять перекладів","howtos.html#d0e5261",null],
+["Використання TMX з альтернативною мовою","howtos.html#d0e5268",null]
+]],
+["Захист від втрати даних","howtos.html#howto.preventdataloss",null],
+["Переклад файлів PDF","howtos.html#howto.translatepdf",[
+["Інші формати файлів","howtos.html#other.file.formats",null]
+]],
+["Підтримка мов з письмом справа наліво","howtos.html#howto.managerighttoleft",[
+["Різні напрямки письма в одному сегменті","howtos.html#d0e5489",null],
+["Теґи OmegaT у сегментах, написаних справа наліво","howtos.html#d0e5497",null],
+["Створення перекладених документів з напрямком письма справа наліво","howtos.html#d0e5507",null]
+]]
+]],
+["A. Словники","appendix.dictionaries.html",[
+["Як завантажити та встановити словники","appendix.dictionaries.html#d0e5525",null],
+["Проблеми зі словниками","appendix.dictionaries.html#d0e5594",null]
+]],
 ["B. Глосарії","appendix.glossaries.html",[
 ["Типовий глосарій","appendix.glossaries.html#d0e5631",null],
 ["Використання","appendix.glossaries.html#d0e5655",null],
@@ -599,7 +689,6 @@ var toc_entries = [
 ["Меню «Інструменти»","appendix.shortcut.custom.html#ch04.shortcuts.ToolsMenu",null],
 ["Меню «Налаштування»","appendix.shortcut.custom.html#ch04.shortcuts.OptionsMenu",null],
 ["Меню «Довідка»","appendix.shortcut.custom.html#ch04.shortcuts.HelpMenu",null]
-]]
 ]]];
 var toc_initiallyCollapsed = false;
 var messages = [
@@ -874,7 +963,7 @@ message = translation[index];
 }
 return message;
 }
-var storageId = "-o1l1lq5ar6in-1hfeliyuia928";
+var storageId = "-e1xmlrqd1cvk-1tq5xdlq0r1z9";
 function storageSet(key, value) {
 window.sessionStorage.setItem(key + storageId, String(value));
 }

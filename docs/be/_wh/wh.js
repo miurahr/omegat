@@ -518,13 +518,38 @@ return this;
 var wh = (function () {
 var toc_entries = [
 ["Усталяваньне і запуск OmegaT\n                     ","chapter.installing.and.running.html",[
-["Карыстальнікі Windows","chapter.installing.and.running.html#d0e17",null],
-["Карыстальнікі Linux (Intel)","chapter.installing.and.running.html#Linux.Intel.users",null],
-["Карыстальнікі macOS","chapter.installing.and.running.html#MAC.OSX.users",null],
-["Іншыя сыстэмы","chapter.installing.and.running.html#other.systems",null],
+["Карыстальнікі Windows","chapter.installing.and.running.html#d0e17",[
+["Спампаваньне пакета","chapter.installing.and.running.html#d0e20",null],
+["\n                                    Усталёўка OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.Windows",null],
+["Запуск OmegaT\n                                 ","chapter.installing.and.running.html#running.OmegaT.Windows",null],
+["Абнаўленьне OmegaT","chapter.installing.and.running.html#d0e91",null]
+]],
+["Карыстальнікі Linux (Intel)","chapter.installing.and.running.html#Linux.Intel.users",[
+["Спампаваньне патрэбнага пакета","chapter.installing.and.running.html#which.package.to.download.Linux",null],
+["\n                                    Усталёўка OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.Linux",null],
+["Даданьне OmegaT да мэню (KDE) або панэляў (Gnome)","chapter.installing.and.running.html#adding.OmegaT.to.your.menus.or.panels",null],
+["Запуск OmegaT\n                                 ","chapter.installing.and.running.html#running.OmegaT.Linux",null]
+]],
+["Карыстальнікі macOS","chapter.installing.and.running.html#MAC.OSX.users",[
+["Спампаваньне пакета","chapter.installing.and.running.html#which.package.to.download.OSX",null],
+["Усталяваньне OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.OSX",null],
+["Даданьне OmegaT да Dock","chapter.installing.and.running.html#adding.OmegaT.to.the.dock",null],
+["Запуск OmegaT\n                                 ","chapter.installing.and.running.html#running.OmegaT.OSX",null],
+["Дадатковыя магчымасьці macOS","chapter.installing.and.running.html#Mac.OSX.goodies",null]
+]],
+["Іншыя сыстэмы","chapter.installing.and.running.html#other.systems",[
+["Спампаваньне патрэбнага пакета","chapter.installing.and.running.html#d0e460",null],
+["Усталяваньне OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.other",null],
+["Усталяваньне зручных цэтлікаў","chapter.installing.and.running.html#installing.convenient.shortcuts",null],
+["Запуск OmegaT\n                                 ","chapter.installing.and.running.html#running.OmegaT.other",null]
+]],
 ["Перацягваньне","chapter.installing.and.running.html#drag.and.drop",null],
 ["Выкарыстаньне Java Web Start","chapter.installing.and.running.html#using.Java.Web.Start",null],
-["Запуск OmegaT з каманднага радка","chapter.installing.and.running.html#d0e597",null],
+["Запуск OmegaT з каманднага радка","chapter.installing.and.running.html#d0e597",[
+["Адчыніць акно каманднага радка","chapter.installing.and.running.html#method1.opening.commandline.window",null],
+["Аргумэнты каманды запуску","chapter.installing.and.running.html#launch.command.arguments",null],
+["OmegaT у рэжыме каманднага радка","chapter.installing.and.running.html#omegat.command.arguments",null]
+]],
 ["Зборка OmegaT з зыходных тэкстаў","chapter.installing.and.running.html#building.OmegaT.from.source",null]
 ]],
 ["Мэню","menus.html",[
@@ -537,13 +562,52 @@ var toc_entries = [
 ["Даведка","menus.html#menus.help",null]
 ]],
 ["Вокны і дыялёгавыя вокны","windows.and.dialogs.html",[
-["Уласьцівасьці праекта","windows.and.dialogs.html#dialogs.projectproperties",null],
+["Уласьцівасьці праекта","windows.and.dialogs.html#dialogs.projectproperties",[
+["Мовы","windows.and.dialogs.html#d0e2140",null],
+["Налады","windows.and.dialogs.html#d0e2147",null],
+["Разьмяшчэньне файлаў","windows.and.dialogs.html#d0e2244",null]
+]],
 ["Файлы праекта","windows.and.dialogs.html#windows.projectfiles",null],
-["Пошук тэксту","windows.and.dialogs.html#windows.textsearch",null],
-["Замена тэксту","windows.and.dialogs.html#windows.textreplace",null],
-["Сродак выраўноўваньня","windows.and.dialogs.html#windows.aligner",null],
-["Сцэнары","windows.and.dialogs.html#windows.scripts",null],
-["Агульныя налады","windows.and.dialogs.html#dialogs.preferences",null]
+["Пошук тэксту","windows.and.dialogs.html#windows.textsearch",[
+["Ужываньне знакаў падстаноўкі","windows.and.dialogs.html#using.wild.cards",null],
+["Мэтады і парамэтры пошуку","windows.and.dialogs.html#search.methoids",null],
+["Паказ вынікаў пошуку","windows.and.dialogs.html#search.result.display",null],
+["Фільтрацыя вынікаў пошуку ў акне рэдагаваньня","windows.and.dialogs.html#search.filter",null]
+]],
+["Замена тэксту","windows.and.dialogs.html#windows.textreplace",[
+["Парамэтры пошуку","windows.and.dialogs.html#d0e2770",null]
+]],
+["Сродак выраўноўваньня","windows.and.dialogs.html#windows.aligner",[
+["Этап 1: Наладзіць парамэтры выраўноўваньня","windows.and.dialogs.html#d0e2799",null],
+["Этап 2: Зрабіць выпраўленьні ўручную","windows.and.dialogs.html#d0e2833",null]
+]],
+["Сцэнары","windows.and.dialogs.html#windows.scripts",[
+["Ужываньне","windows.and.dialogs.html#d0e2903",null],
+["Мовы сцэнароў","windows.and.dialogs.html#d0e2952",null]
+]],
+["Агульныя налады","windows.and.dialogs.html#dialogs.preferences",[
+["Агульныя","windows.and.dialogs.html#d0e2986",null],
+["Машынны пераклад","windows.and.dialogs.html#d0e3002",null],
+["Глясар","windows.and.dialogs.html#d0e3046",null],
+["Слоўнік","windows.and.dialogs.html#dialogs.preferences.dictionary",null],
+["Выгляд","windows.and.dialogs.html#d0e3138",null],
+["Файлавыя фільтры","windows.and.dialogs.html#dialogs.preferences.filefilters",null],
+["Наладка сэгмэнтаваньня","windows.and.dialogs.html#dialogs.preferences.segmentationsetup",null],
+["Аўтазавяршэньне","windows.and.dialogs.html#d0e3756",null],
+["Сродак праверкі правапісу","windows.and.dialogs.html#d0e3784",null],
+["Плагін LanguageTool","windows.and.dialogs.html#d0e3792",null],
+["Пошук па-за праектам","windows.and.dialogs.html#dialogs.preferences.externalsearch",null],
+["Акно рэдагаваньня","windows.and.dialogs.html#dialogs.preferences.editor",null],
+["Апрацоўка тэгаў","windows.and.dialogs.html#dialogs.preferences.tagprocessing",null],
+["Каманда","windows.and.dialogs.html#d0e4007",null],
+["Супадзеньні з памяці перакладаў","windows.and.dialogs.html#d0e4017",null],
+["Выгляд","windows.and.dialogs.html#d0e4120",null],
+["Захаваньне і вывад","windows.and.dialogs.html#dialogs.preferences.savingandoutput",null],
+["Злучэньне з проксі-сэрвэрам","windows.and.dialogs.html#d0e4169",null],
+["Бясьпечнае захоўваньне","windows.and.dialogs.html#d0e4174",null],
+["Плагіны","windows.and.dialogs.html#d0e4179",null],
+["Абнаўленьні","windows.and.dialogs.html#d0e4187",null]
+]]
 ]],
 ["Панэлі","panes.html",[
 ["Акно рэдагаваньня","panes.html#editor.pane",null],
@@ -559,7 +623,12 @@ var toc_entries = [
 ["Каталёг праекта","project.folder.html",[
 ["source","project.folder.html#d0e4515",null],
 ["target","project.folder.html#d0e4520",null],
-["tm","project.folder.html#d0e4543",null],
+["tm","project.folder.html#d0e4543",[
+["tm/auto","project.folder.html#d0e4571",null],
+["tm/enforce","project.folder.html#d0e4598",null],
+["tm/mt","project.folder.html#d0e4638",null],
+["tm/penalty-xxx","project.folder.html#d0e4646",null]
+]],
 ["dictionary","project.folder.html#d0e4657",null],
 ["glossary","project.folder.html#d0e4665",null],
 ["omegat","project.folder.html#folder.omegat",null],
@@ -567,15 +636,36 @@ var toc_entries = [
 [".repositories","project.folder.html#d0e4740",null]
 ]],
 ["Дапаможнікі…","howtos.html",[
-["Стварыць камандны праект","howtos.html#howto.setupteamproject",null],
-["Ужываньне камандных праектаў","howtos.html#howto.useteamproject",null],
-["Паўторнае выкарыстаньне файлаў памяці перакладаў","howtos.html#howto.reusetm",null],
-["Прадухіленьне страты даніх","howtos.html#howto.preventdataloss",null],
-["Перакладаньне файлаў PDF","howtos.html#howto.translatepdf",null],
-["Мовы зь пісьмовасьцю справа-налева","howtos.html#howto.managerighttoleft",null]
+["Стварыць камандны праект","howtos.html#howto.setupteamproject",[
+["Этап 1. Стварэньне пустога праекта на сэрвэры","howtos.html#d0e4759",null],
+["Этап 2. Дадаць файлы да перакладу і іншыя рэсурсы","howtos.html#d0e4825",null],
+["Этап 3. Адправіць запрашэньне перакладчыку","howtos.html#d0e4866",null],
+["Асаблівы выпадак: мінімальнае абагульваньне","howtos.html#d0e4906",null],
+["Парамэтры вызначэньня адпаведнасьці","howtos.html#howto.setupteamproject.mappingparameters",null],
+["Прыклады вызначэньняў адпаведнасьці","howtos.html#d0e4982",null],
+["Заўвага аб файле omegat.project і вызначэньнях адпаведнасьцяў","howtos.html#d0e5059",null]
 ]],
-["Appendices","appendix.dictionaries.html",[
-["A. Слоўнікі","appendix.dictionaries.html",null],
+["Ужываньне камандных праектаў","howtos.html#howto.useteamproject",null],
+["Паўторнае выкарыстаньне файлаў памяці перакладаў","howtos.html#howto.reusetm",[
+["Імпарт і экспарт файлаў памяці перакладаў","howtos.html#d0e5222",null],
+["Стварэньне памяці перакладаў для выбраных дакумэнтаў","howtos.html#d0e5233",null],
+["Агульны доступ да памяці перакладаў","howtos.html#d0e5277",null],
+["Выкарыстаньне файлаў TMX з альтэрнатыўнымі моўнымі парамі","howtos.html#d0e5284",null]
+]],
+["Прадухіленьне страты даніх","howtos.html#howto.preventdataloss",null],
+["Перакладаньне файлаў PDF","howtos.html#howto.translatepdf",[
+["Іншыя фарматы файлаў","howtos.html#other.file.formats",null]
+]],
+["Мовы зь пісьмовасьцю справа-налева","howtos.html#howto.managerighttoleft",[
+["Радкі з рознымі напрамкамі пісьмовасьці ў сэгмэнтах","howtos.html#d0e5505",null],
+["Тэгі OmegaT OmegaT у сэгмэнтах зь пісьмовасьцю справа-налева","howtos.html#d0e5513",null],
+["Кампіляцыя перакладаў зь пісьмовасьцю справа-налева","howtos.html#d0e5523",null]
+]]
+]],
+["A. Слоўнікі","appendix.dictionaries.html",[
+["Як спампаваць і ўсталяваць слоўнікі","appendix.dictionaries.html#d0e5541",null],
+["Праблемы са слоўнікамі","appendix.dictionaries.html#d0e5610",null]
+]],
 ["B. Глясары","appendix.glossaries.html",[
 ["Ужываньне","appendix.glossaries.html#d0e5663",null],
 ["Фармат файла","appendix.glossaries.html#d0e5702",null],
@@ -600,7 +690,6 @@ var toc_entries = [
 ["Мэню “Сэрвіс”","appendix.shortcut.custom.html#ch04.shortcuts.ToolsMenu",null],
 ["Мэню “Налады”","appendix.shortcut.custom.html#ch04.shortcuts.OptionsMenu",null],
 ["Мэню “Даведка”","appendix.shortcut.custom.html#ch04.shortcuts.HelpMenu",null]
-]]
 ]]];
 var toc_initiallyCollapsed = false;
 var messages = [
@@ -875,7 +964,7 @@ message = translation[index];
 }
 return message;
 }
-var storageId = "1skdgdxfpgb96-zy64341dxyl2";
+var storageId = "6dj484i5d5hj-1slxgxwx3hkye";
 function storageSet(key, value) {
 window.sessionStorage.setItem(key + storageId, String(value));
 }

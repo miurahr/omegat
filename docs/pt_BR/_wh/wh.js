@@ -529,22 +529,78 @@ var toc_entries = [
 ["Mais algumas coisas a serem lembradas","chapter.instant.start.guide.html#d0e315",null]
 ]],
 ["Como instalar e usar o OmegaT\n                     ","chapter.installing.and.running.html",[
-["Usuários do Windows","chapter.installing.and.running.html#d0e400",null],
-["Usuários do Linux (Intel)","chapter.installing.and.running.html#Linux.Intel.users",null],
-["Usuários do Mac OS X","chapter.installing.and.running.html#MAC.OSX.users",null],
-["Outros sistemas","chapter.installing.and.running.html#other.systems",null],
+["Usuários do Windows","chapter.installing.and.running.html#d0e400",[
+["Baixando o pacote","chapter.installing.and.running.html#d0e408",null],
+["\n                                    Instalando o OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.Windows",null],
+["Executando o OmegaT","chapter.installing.and.running.html#running.OmegaT.Windows",null],
+["Atualizar o OmegaT","chapter.installing.and.running.html#d0e499",null]
+]],
+["Usuários do Linux (Intel)","chapter.installing.and.running.html#Linux.Intel.users",[
+["Baixando o pacote correto","chapter.installing.and.running.html#which.package.to.download.Linux",null],
+["\n                                    Instalando o OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.Linux",null],
+["Acrescente o OmegaT nos menus (KDE) ou painéis (Gnome)","chapter.installing.and.running.html#adding.OmegaT.to.your.menus.or.panels",null],
+["Executando o OmegaT","chapter.installing.and.running.html#running.OmegaT.Linux",null]
+]],
+["Usuários do Mac OS X","chapter.installing.and.running.html#MAC.OSX.users",[
+["Baixando o pacote","chapter.installing.and.running.html#which.package.to.download.OSX",null],
+["\n                                    Instalando o OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.OSX",null],
+["Adicionando o OmegaT na Dock","chapter.installing.and.running.html#adding.OmegaT.to.the.dock",null],
+["Executando o OmegaT","chapter.installing.and.running.html#running.OmegaT.OSX",null],
+["Mac OS X goodies","chapter.installing.and.running.html#Mac.OSX.goodies",null]
+]],
+["Outros sistemas","chapter.installing.and.running.html#other.systems",[
+["Baixando o pacote correto","chapter.installing.and.running.html#d0e896",null],
+["\n                                    Instalando o OmegaT\n                                 ","chapter.installing.and.running.html#OmegaT.installation.other",null],
+["Instalando atalhos úteis","chapter.installing.and.running.html#installing.convenient.shortcuts",null],
+["Executando o OmegaT","chapter.installing.and.running.html#running.OmegaT.other",null]
+]],
 ["Usando o Java Web Start","chapter.installing.and.running.html#using.Java.Web.Start",null],
-["Iniciando o OmegaT a partir da linha de comando","chapter.installing.and.running.html#d0e1046",null],
+["Iniciando o OmegaT a partir da linha de comando","chapter.installing.and.running.html#d0e1046",[
+["Abrir uma janela da linha de comando","chapter.installing.and.running.html#method1.opening.commandline.window",null],
+["Parâmetros do comando de inicialização do programa","chapter.installing.and.running.html#launch.command.arguments",null],
+["OmegaT no modo de linha de comando","chapter.installing.and.running.html#omegat.command.arguments",null]
+]],
 ["Compilando oOmegaT a partir do código-fonte","chapter.installing.and.running.html#building.OmegaT.from.source",null]
 ]],
 ["A interface do usuário","chapter.user.interface.html",[
 ["Janela principal do OmegaT, outras janelas e caixas de diálogo","chapter.user.interface.html#user.interface.items",null],
-["\n                              OmegaT Janela principal","chapter.user.interface.html#OmegaT.main.window",null],
-["Outras janelas","chapter.user.interface.html#other.windows",null]
+["\n                              OmegaT Janela principal","chapter.user.interface.html#OmegaT.main.window",[
+["Painel Editor","chapter.user.interface.html#editor.pane",null],
+["Painel de correspondências parciais","chapter.user.interface.html#match.viewer",null],
+["Painel Glossário","chapter.user.interface.html#d0e2404",null],
+["Painel Dicionário","chapter.user.interface.html#dictionaries",null],
+["Painel Traduções Múltiplas","chapter.user.interface.html#Multiple.Translations",null],
+["Painel Notas","chapter.user.interface.html#d0e2460",null],
+["Painel Comentários","chapter.user.interface.html#d0e2471",null],
+["Painel de Tradução Automática","chapter.user.interface.html#Google.Translate",null],
+["Menu principal","chapter.user.interface.html#d0e2504",null],
+["Barra de status","chapter.user.interface.html#status.bar",null]
+]],
+["Outras janelas","chapter.user.interface.html#other.windows",[
+["Arquivos do projeto","chapter.user.interface.html#section.project.files",null],
+["Janela Busca","chapter.user.interface.html#section.search.window",null],
+["Verificação de tags","chapter.user.interface.html#section.tag.validation",null],
+["Estatísticas","chapter.user.interface.html#d0e2690",null],
+["Estatísticas das correspondências","chapter.user.interface.html#d0e2740",null],
+["Navegador da Ajuda","chapter.user.interface.html#d0e2804",null]
+]]
 ]],
 ["Menu principal e atalhos de teclado","chapter.menu.html",[
-["Menu principal","chapter.menu.html#ch04.main.menu",null],
-["Atalhos de teclado","chapter.menu.html#keyboard.shortcuts",null]
+["Menu principal","chapter.menu.html#ch04.main.menu",[
+["Projeto","chapter.menu.html#submenu.Project",null],
+["Editar","chapter.menu.html#d0e3077",null],
+["Ir para","chapter.menu.html#submenu.GoTo",null],
+["Exibir","chapter.menu.html#submenu.View",null],
+["Ferramentas","chapter.menu.html#submenu.Tools",null],
+["Opções","chapter.menu.html#submenu.Options",null],
+["Ajuda","chapter.menu.html#submenu.Help",null]
+]],
+["Atalhos de teclado","chapter.menu.html#keyboard.shortcuts",[
+["Gerenciamento do projeto","chapter.menu.html#d0e4067",null],
+["Edição","chapter.menu.html#keyboard.editing",null],
+["Movimentação","chapter.menu.html#keyboard.moving.around",null],
+["Outros","chapter.menu.html#keyboard.other",null]
+]]
 ]],
 ["Propriedades do projeto","chapter.project.properties.html",[
 ["Geral","chapter.project.properties.html#properties.dialog",null],
@@ -555,17 +611,35 @@ var toc_entries = [
 ["Filtros de Arquivos","chapter.file.filters.html",[
 ["Caixa de diálogo \'Filtros de arquivos\'","chapter.file.filters.html#file.filters.dialog",null],
 ["Opções de filtro","chapter.file.filters.html#filters.options",null],
-["Caixa de diálogo \'Editar filtro\'","chapter.file.filters.html#edit.filter.dialog",null]
+["Caixa de diálogo \'Editar filtro\'","chapter.file.filters.html#edit.filter.dialog",[
+["Tipo de arquivo fonte, padrão do nome de arquivo","chapter.file.filters.html#source.filetype.and.filename.pattern",null],
+["Codificação dos arquivos fonte e destino","chapter.file.filters.html#source.and.target.files.encoding",null],
+["Nome de arquivo traduzido","chapter.file.filters.html#target.name",null]
+]]
 ]],
 ["\n                        OmegaT Arquivos e pastas","chapter.files.and.folders.html",[
-["Arquivos do projeto de tradução","chapter.files.and.folders.html#translation.project.files",null],
+["Arquivos do projeto de tradução","chapter.files.and.folders.html#translation.project.files",[
+["Pasta superior","chapter.files.and.folders.html#file.omegat.project",null],
+["Subpasta dictionary","chapter.files.and.folders.html#d0e5232",null],
+["Subpasta glossary","chapter.files.and.folders.html#d0e5240",null],
+["Subpasta omegat","chapter.files.and.folders.html#folder.OmegaT",null],
+["Subpasta source","chapter.files.and.folders.html#folder.source",null],
+["Subpasta target","chapter.files.and.folders.html#folder.target",null]
+]],
 ["Arquivos de configuração do usuário","chapter.files.and.folders.html#user.files",null],
 ["Arquivos do programa","chapter.files.and.folders.html#application.files",null]
 ]],
 ["Arquivos para traduzir","chapter.files.to.translate.html",[
-["Formatos de arquivos","chapter.files.to.translate.html#file.formats",null],
+["Formatos de arquivos","chapter.files.to.translate.html#file.formats",[
+["Arquivos de texto simples","chapter.files.to.translate.html#d0e5598",null],
+["Arquivos de texto formatado","chapter.files.to.translate.html#d0e5677",null]
+]],
 ["Outros formatos de arquivos","chapter.files.to.translate.html#other.file.formats",null],
-["Línguas da Direita para Esquerda (DPE)","chapter.files.to.translate.html#right.to.left.languages",null]
+["Línguas da Direita para Esquerda (DPE)","chapter.files.to.translate.html#right.to.left.languages",[
+["Combinação de sequências de texto EPD (esquerda para direita) e DPE (direita para esquerda) nos segmentos","chapter.files.to.translate.html#d0e5897",null],
+["Tags do OmegaT nos segmentos DPE","chapter.files.to.translate.html#d0e5920",null],
+["Criação de documentos DPE","chapter.files.to.translate.html#d0e5935",null]
+]]
 ]],
 ["Modo de trabalho","chapter.translation.editing.html",null],
 ["Trabalhar com texto simples","chapter.plain.text.html",[
@@ -582,8 +656,18 @@ var toc_entries = [
 ["Dicas para controle de tags","chapter.formatted.text.html#hints.for.tag.management",null]
 ]],
 ["Memórias de tradução","chapter.translation.memories.html",[
-["As memórias de tradução no OmegaT","chapter.translation.memories.html#OmegaT.and.tmx.files",null],
-["Reutilizando memórias de tradução","chapter.translation.memories.html#using.translation.memories.from.previous.projects",null],
+["As memórias de tradução no OmegaT","chapter.translation.memories.html#OmegaT.and.tmx.files",[
+["pastas tmx - localização e propósito","chapter.translation.memories.html#tmx.files.location.and.purpose",null],
+["Backup de tmx","chapter.translation.memories.html#tmx.backup",null],
+["arquivos e idiomas de tmx","chapter.translation.memories.html#tmx.files.and.language",null],
+["Segmentos órfãos","chapter.translation.memories.html#d0e6947",null]
+]],
+["Reutilizando memórias de tradução","chapter.translation.memories.html#using.translation.memories.from.previous.projects",[
+["Importação e exportação de memórias de tradução","chapter.translation.memories.html#importing.and.exporting.translation.memories",null],
+["Criação de uma memória de tradução de documentos selecionados","chapter.translation.memories.html#Creating.a.translation.memory.for.selected.documents",null],
+["Compartilhando memórias de tradução","chapter.translation.memories.html#sharing.translation.memories",null],
+["Utilização da TMX com pares de idiomas alternativos","chapter.translation.memories.html#d0e7100",null]
+]],
 ["Fontes com traduções existentes","chapter.translation.memories.html#d0e7116",null],
 ["Memória pseudo-traduzida","chapter.translation.memories.html#pseudo.translated.memory",null],
 ["Utualizar memórias de tradução","chapter.translation.memories.html#upgrading.translation.memories",null]
@@ -602,7 +686,9 @@ var toc_entries = [
 ["Filtra as entradas no Editor de acordo com a busca","chapter.searches.html#search.filter",null]
 ]],
 ["Buscar e substituir","chapter.searchandreplace.html",[
-["Janela Busca","chapter.searchandreplace.html#section.searchreplace.window",null]
+["Janela Busca","chapter.searchandreplace.html#section.searchreplace.window",[
+["Opções de busca","chapter.searchandreplace.html#d0e7792",null]
+]]
 ]],
 ["Expressões regulares","chapter.regexp.html",[
 ["Ferramentas e exemplos de uso das Regex","chapter.regexp.html#regex.tools.and.examples.of.use",null]
@@ -640,17 +726,24 @@ var toc_entries = [
 ["Dicas","chapter.spellchecker.html#hints",null]
 ]],
 ["Diversos assuntos","chapter.misc.html",[
-["OmegaT Modo Console","chapter.misc.html#omegat.misc.console.mode",null],
+["OmegaT Modo Console","chapter.misc.html#omegat.misc.console.mode",[
+["Pré-requisitos","chapter.misc.html#misc.console.mode.prerequisites",null],
+["Iniciar o OmegaT no modo console","chapter.misc.html#starting.in.misc.console.mode",null],
+["Opção Quiet","chapter.misc.html#misc.console.mode.option.quiet",null],
+["Opção para verificação de tags","chapter.misc.html#misc.console.mode.option.validatetags",null]
+]],
 ["Alinhador de propriedades Java automático","chapter.misc.html#d0e9309",null],
 ["Definições de fontes","chapter.misc.html#font.settings",null],
 ["Evitar perda de dados","chapter.misc.html#preventing.data.loss",null]
 ]],
-["Appendices","appendix.languages.html",[
 ["A. Línguas - lista de códigos ISO 639\n  \n  \n  ","appendix.languages.html",null],
 ["B. Atalhos de teclado no editor","appendix.keyboard.html",null],
 ["C. Projetos de equipe no OmegaT","appendix.TeamProjects.html",[
 ["Controle de versão - introdução","appendix.TeamProjects.html#d0e11062",null],
-["Compartilhando um projeto usando SVN","appendix.TeamProjects.html#d0e11133",null],
+["Compartilhando um projeto usando SVN","appendix.TeamProjects.html#d0e11133",[
+["Criação de um repositório","appendix.TeamProjects.html#d0e11154",null],
+["Importação do projeto para o repositório SVN - Windows","appendix.TeamProjects.html#d0e11214",null]
+]],
 ["Uso do projeto de equipe no OmegaT","appendix.TeamProjects.html#d0e11351",null]
 ]],
 ["D. Tokenizers","appendix.Tokenizers.inOmegaT.html",[
@@ -687,7 +780,6 @@ var toc_entries = [
 ]],
 ["J. Agradecimentos","appendix.acknowledgements.html",[
 ["Obrigado a todos!","appendix.acknowledgements.html#d0e12714",null]
-]]
 ]],
 ["Index","ix01.html",null]];
 var toc_initiallyCollapsed = false;
@@ -963,7 +1055,7 @@ message = translation[index];
 }
 return message;
 }
-var storageId = "-1rd7hk5k3m21x-1ozji7h8e6j8j";
+var storageId = "-1rr2lkjk8vwoy-1kjnzz12t0rg2";
 function storageSet(key, value) {
 window.sessionStorage.setItem(key + storageId, String(value));
 }
