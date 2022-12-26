@@ -52,6 +52,7 @@ import org.omegat.util.PreferencesImpl.IPrefsPersistence;
 import org.omegat.util.xml.XMLBlock;
 import org.omegat.util.xml.XMLStreamReader;
 
+@Deprecated
 public class PreferencesXML implements IPrefsPersistence {
 
     private final File loadFile;
