@@ -31,7 +31,7 @@ import java.io.FileOutputStream;
 import org.omegat.util.Preferences;
 import org.omegat.util.Preferences.IPreferences;
 import org.omegat.util.PreferencesImpl;
-import org.omegat.util.PreferencesXML;
+import org.omegat.util.PreferencesXML2;
 import org.omegat.util.StaticUtils;
 
 /**
@@ -49,7 +49,7 @@ public final class ConvertTo213 {
         if (!prefsFile.isFile()) {
             return;
         }
-        IPreferences prefs = new PreferencesImpl(new PreferencesXML(prefsFile, null));
+        IPreferences prefs = new PreferencesImpl(new PreferencesXML2(prefsFile, null));
         String layout = prefs.getPreference(Preferences.MAINWINDOW_LAYOUT);
         if (!layout.isEmpty()) {
             byte[] bytes = StaticUtils.uudecode(layout);
