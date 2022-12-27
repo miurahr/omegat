@@ -42,9 +42,14 @@ import java.util.TreeMap;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
 import org.apache.commons.io.FileUtils;
 
 public class PreferencesXML implements IPrefsPersistence {
@@ -59,48 +64,33 @@ public class PreferencesXML implements IPrefsPersistence {
 
     @Override
     public void load(final List<String> keys, final List<String> values) {
-        if (loadFile != null) {
-            try (InputStream is = Files.newInputStream(loadFile.toPath())) {
-                loadXml(is, keys, values);
-            } catch (IOException e) {
-                Log.logErrorRB(e, "PM_ERROR_READING_FILE");
-                makeBackup(loadFile);
-            }
-        } else {
-            // If no prefs file is present, look inside JAR for defaults.
-            try (InputStream is = getClass().getResourceAsStream(Preferences.FILE_PREFERENCES)) {
-                if (is != null) {
-                    loadXml(is, keys, values);
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        if (loadFile == null) {
+            return;
+        }
+        try (InputStream is = Files.newInputStream(loadFile.toPath())) {
+            loadXml(is, keys, values);
+        } catch (IOException e) {
+            Log.logErrorRB(e, "PM_ERROR_READING_FILE");
+            makeBackup(loadFile);
         }
     }
 
     private void loadXml(InputStream is, List<String> keys, List<String> values) throws IOException {
-        OmegaT rootComponent;
         XmlMapper mapper = new XmlMapper();
-        rootComponent = mapper.readValue(is, OmegaT.class);
-        Preference preference = rootComponent.getPreference();
-        if (preference != null) {
-            preference.getRecords().forEach((key, value) -> {
-                keys.add(key);
-                values.add(value);
-            });
-        }
+        OmegaT rootComponent = mapper.readValue(is, OmegaT.class);
+        rootComponent.preference.getRows().forEach((key, value) -> {
+            keys.add(key);
+            values.add(value);
+        });
     }
 
     @Override
     public void save(final List<String> keys, final List<String> values) throws Exception {
-        OmegaT rootComponent = new OmegaT();
-        Preference preference = new Preference();
-        preference.version = "1.0";
-        preference.setRecords(new TreeMap<>());
-        for (int i = 0; i < keys.size(); i++) {
-            preference.setRecords(keys.get(i), values.get(i));
-        }
         XmlMapper mapper = new XmlMapper();
+        OmegaT rootComponent = new OmegaT();
+        for (int i = 0; i < keys.size(); i++) {
+            rootComponent.preference.put(keys.get(i), values.get(i));
+        }
         String xmlString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootComponent);
         try (BufferedWriter writer = Files.newBufferedWriter(saveFile.toPath(), StandardCharsets.UTF_8)) {
             writer.write(xmlString);
@@ -121,38 +111,83 @@ public class PreferencesXML implements IPrefsPersistence {
         }
     }
 
+    /**
+     * POJO for omegat.prefs.
+     */
     @JacksonXmlRootElement(localName = "omegat")
     static class OmegaT {
         @JacksonXmlProperty(localName = "preference")
-        private Preference preference;
-
-        public Preference getPreference() {
-            return preference;
-        }
-
-        public void setPreference(final Preference preference) {
-            this.preference = preference;
-        }
+        public Preference preference = new Preference();
     }
 
+    /**
+     * POJO for omegat.prefs, preference entries.
+     */
+    @JsonSerialize(using = Serializer.class)
     static class Preference {
-        @JacksonXmlProperty(localName = "version", isAttribute = true)
         public String version;
-        private Map<String, String> records;
-
-        @JsonAnyGetter
-        public Map<String, String> getRecords() {
-            return records;
-        }
-
-        public void setRecords(final Map<String, String> records) {
-            this.records = records;
-        }
+        private Map<String, String> rows = new TreeMap<>();
 
         @JsonAnySetter
-        public void setRecords(final String key, final String value) {
-            this.records.put(key, value);
+        public void put(String key, String value) {
+            rows.put(key, value);
+        }
+
+        @JsonAnyGetter
+        public Map<String, String> getRows() {
+            return rows;
+        }
+
+        public String get(String key) {
+            return rows.get(key);
         }
     }
 
+    /**
+     * Custom serializer for Preference class.
+     */
+    public static class Serializer extends StdSerializer<Preference> {
+
+        private static final long serialVersionUID = 1L;
+
+        public Serializer() {
+            this(null);
+        }
+
+        public Serializer(Class<Preference> t) {
+            super(t);
+        }
+
+        /**
+         * Custom serialize method for preference values.
+         *
+         * @param preference Value to serialize; can <b>not</b> be null.
+         * @param gen Generator used to output resulting Json content
+         * @param provider Provider that can be used to get serializers for
+         *   serializing Objects value contains, if any.
+         * @throws IOException when write error.
+         */
+        @Override
+        public void serialize(final Preference preference, final JsonGenerator gen,
+                final SerializerProvider provider) throws IOException {
+            if (gen instanceof ToXmlGenerator) {
+                gen.writeStartObject();
+                ((ToXmlGenerator) gen).setNextIsAttribute(true);
+                String version = preference.version;
+                if (version == null) {
+                    version = "1.0";
+                }
+                gen.writeStringField("version", version);
+                ((ToXmlGenerator) gen).setNextIsAttribute(false);
+                for (Map.Entry<String, String> item : preference.getRows().entrySet()) {
+                    if (item.getValue() == null) {
+                        continue;
+                    }
+                    gen.writeFieldName(item.getKey());
+                    gen.writeString(item.getValue());
+                }
+                gen.writeEndObject();
+            }
+        }
+    }
 }
