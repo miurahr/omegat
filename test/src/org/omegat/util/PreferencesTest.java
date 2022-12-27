@@ -77,7 +77,7 @@ public class PreferencesTest {
         assertFalse(out.checkError());
 
         // Load bad prefs file.
-        new PreferencesImpl(new PreferencesXML2(prefsFile, null));
+        new PreferencesImpl(new PreferencesXML(prefsFile, null));
 
         // The actual backup file will have a timestamp in the filename,
         // so we have to loop through looking for it.
@@ -112,7 +112,7 @@ public class PreferencesTest {
     public void testPreferencesLoadStore() throws Exception {
         File prefsFile = new File(tmpDir, Preferences.FILE_PREFERENCES);
 
-        IPreferences prefs = new PreferencesImpl(new PreferencesXML2(null, prefsFile));
+        IPreferences prefs = new PreferencesImpl(new PreferencesXML(null, prefsFile));
 
         // Set values normally
         assertEquals(null, prefs.setPreference("MyString", "foo"));
@@ -141,7 +141,7 @@ public class PreferencesTest {
         prefs.save();
 
         // Load prefs from persisted version
-        prefs = new PreferencesImpl(new PreferencesXML2(prefsFile, null));
+        prefs = new PreferencesImpl(new PreferencesXML(prefsFile, null));
 
         // Check values
         assertEquals("foo", prefs.getPreference("MyString"));

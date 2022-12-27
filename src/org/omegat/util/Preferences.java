@@ -775,7 +775,7 @@ public final class Preferences {
 
         File loadFile = getPreferencesFile();
         File saveFile = new File(StaticUtils.getConfigDir(), Preferences.FILE_PREFERENCES);
-        preferences = new PreferencesImpl(new PreferencesXML2(loadFile, saveFile));
+        preferences = new PreferencesImpl(new PreferencesXML(loadFile, saveFile));
     }
 
     public static synchronized void initFilters() {
