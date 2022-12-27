@@ -460,7 +460,7 @@ public class FilterMaster {
         try {
             XmlMapper mapper = new XmlMapper();
             mapper.registerModule(new JaxbAnnotationModule());
-            mapper.writeValue(configFile, config);
+            mapper.writerWithDefaultPrettyPrinter().writeValue(configFile, config);
         } catch (Exception e) {
             Log.logErrorRB("FILTERMASTER_ERROR_SAVING_FILTERS_CONFIG");
             Log.log(e);
@@ -503,7 +503,7 @@ public class FilterMaster {
 
     /**
      * Calculate the target path corresponding to the given source file.
-     * 
+     *
      * @param sourceDir
      *            Path to the project's <code>source</code> dir
      * @param srcRelPath
@@ -772,7 +772,7 @@ public class FilterMaster {
         }
         Filter fc = new Filter();
         fc.setClassName(f.getClass().getName());
-        fc.setEnabled(f.isEnabledInDefault());
+        fc.setEnabled(true);
         for (Instance ins : f.getDefaultInstances()) {
             Files ff = new Files();
             ff.setSourceEncoding(ins.getSourceEncoding());
