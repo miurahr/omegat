@@ -43,6 +43,7 @@ import org.omegat.core.data.ProjectProperties;
 import org.omegat.core.data.ProjectTMX;
 import org.omegat.filters2.master.PluginUtils;
 import org.omegat.gui.glossary.GlossaryManager;
+import org.omegat.gui.main.ProjectUICommands;
 import org.omegat.util.Language;
 import org.omegat.util.Log;
 import org.omegat.util.OConsts;
@@ -63,6 +64,8 @@ public final class TeamTool {
     }
 
     public static final String COMMAND_INIT = "init";
+
+    public static final String COMMAND_CHECKOUT = "checkout";
 
     /**
      * Utility function to create a minimal project to serve as a base for a
@@ -129,6 +132,18 @@ public final class TeamTool {
         System.out.println(StringUtil.format(OStrings.getString("TEAM_TOOL_INIT_COMPLETE"), srcLang, trgLang));
     }
 
+    public static void checkoutTeamProject(String remote) throws IOException {
+        String projName = remote.substring(remote.lastIndexOf("/"));
+        if (projName.endsWith(".git") || projName.endsWith(".svn")) {
+            projName = projName.substring(0, projName.length() - 4);
+        }
+        File dir = new File(new File("").getAbsoluteFile(), projName);
+        if (dir.exists()) {
+            throw new IllegalArgumentException("Target directory is already exist: " + dir.getPath());
+        }
+        ProjectUICommands.projectRemote(remote, dir);
+    }
+
     public static void showHelp() {
         System.out.println(StringUtil.format(OStrings.getString("TEAM_TOOL_HELP"), OStrings.getNameAndVersion()));
     }
@@ -150,6 +165,9 @@ public final class TeamTool {
             PluginUtils.loadPlugins(Collections.emptyMap());
             if (COMMAND_INIT.equals(args[0]) && args.length == 3) {
                 initTeamProject(new File("").getAbsoluteFile(), args[1], args[2]);
+                System.exit(0);
+            } else if (COMMAND_CHECKOUT.equals(args[0]) && args.length == 2) {
+                checkoutTeamProject(args[1]);
                 System.exit(0);
             }
         } catch (Exception ex) {

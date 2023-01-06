@@ -598,7 +598,6 @@ public final class Main {
         ProjectProperties projectProperties = null;
         try {
             projectProperties = ProjectFileStorage.loadProjectProperties(projectLocation);
-            projectProperties.verifyProject();
         } catch (Exception ex) {
             Log.logErrorRB(ex, "PP_ERROR_UNABLE_TO_READ_PROJECT_FILE");
             System.out.println(OStrings.getString("PP_ERROR_UNABLE_TO_READ_PROJECT_FILE"));
@@ -608,13 +607,12 @@ public final class Main {
         RealProject p = new RealProject(projectProperties);
         Core.setProject(p);
         if (loadProject) {
-            p.loadProject(true);
+            ProjectUICommands.projectOpenConsole(projectProperties.getProjectRootDir());
             if (!p.isProjectLoaded()) {
                 Core.setProject(new NotLoadedProject());
             } else {
                 executeConsoleScript(IProjectEventListener.PROJECT_CHANGE_TYPE.LOAD);
             }
-
         }
         return p;
     }
