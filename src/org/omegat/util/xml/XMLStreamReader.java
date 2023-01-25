@@ -77,8 +77,8 @@ public class XMLStreamReader implements Closeable {
      * pass <code>null</code> as encoding, then we'll try to auto-sense the
      * encoding.
      */
-    private void setStream(File file, String encoding) throws FileNotFoundException,
-            UnsupportedEncodingException, IOException, TranslationException {
+    private void setStream(File file, String encoding)
+            throws FileNotFoundException, UnsupportedEncodingException, IOException, TranslationException {
         mReader = new XMLReader(file.getAbsolutePath(), encoding);
         setStreamImpl();
     }
@@ -113,8 +113,7 @@ public class XMLStreamReader implements Closeable {
             if (ver == null || ver.equals("")) {
                 // no version declared - assume it's readable
             } else if (!ver.equals("1.0")) {
-                throw new IOException(OStrings.getString("XSR_ERROR_NONVALID_XML")
-                        + "\n"
+                throw new IOException(OStrings.getString("XSR_ERROR_NONVALID_XML") + "\n"
                         + StringUtil.format(OStrings.getString("XSR_ERROR_UNSUPPORTED_XML_VERSION"), ver));
             }
             mHeadBlock = blk;
@@ -657,7 +656,8 @@ public class XMLStreamReader implements Closeable {
             data += OStrings.getString("XSR_ERROR_CLOSE_TAG");
         }
         if (blk.numAttributes() > 0) {
-            data += StringUtil.format(OStrings.getString("XSR_ERROR_LOADED"), String.valueOf(blk.numAttributes()));
+            data += StringUtil.format(OStrings.getString("XSR_ERROR_LOADED"),
+                    String.valueOf(blk.numAttributes()));
         }
         throw new TranslationException(msg + data);
     }
@@ -716,8 +716,7 @@ public class XMLStreamReader implements Closeable {
                     break;
 
                 default:
-                    throwErrorInGetNextTag(
-                            blk,
+                    throwErrorInGetNextTag(blk,
                             StringUtil.format(OStrings.getString("XSR_ERROR_UNEXPECTED_CHAR"),
                                     String.valueOf(Character.toChars(cp)), state));
                 }
@@ -751,8 +750,7 @@ public class XMLStreamReader implements Closeable {
                     break;
 
                 default:
-                    throwErrorInGetNextTag(
-                            blk,
+                    throwErrorInGetNextTag(blk,
                             StringUtil.format(OStrings.getString("XSR_ERROR_UNEXPECTED_CHAR"),
                                     String.valueOf(Character.toChars(cp)), state));
                 }
@@ -771,8 +769,7 @@ public class XMLStreamReader implements Closeable {
                     break;
 
                 default:
-                    throwErrorInGetNextTag(
-                            blk,
+                    throwErrorInGetNextTag(blk,
                             StringUtil.format(OStrings.getString("XSR_ERROR_UNEXPECTED_CHAR"),
                                     String.valueOf(Character.toChars(cp)), state));
                 }
@@ -790,8 +787,7 @@ public class XMLStreamReader implements Closeable {
                     break;
 
                 default:
-                    throwErrorInGetNextTag(
-                            blk,
+                    throwErrorInGetNextTag(blk,
                             StringUtil.format(OStrings.getString("XSR_ERROR_UNEXPECTED_CHAR"),
                                     String.valueOf(Character.toChars(cp)), state));
                 }
@@ -822,8 +818,7 @@ public class XMLStreamReader implements Closeable {
                     break;
 
                 default:
-                    throwErrorInGetNextTag(
-                            blk,
+                    throwErrorInGetNextTag(blk,
                             StringUtil.format(OStrings.getString("XSR_ERROR_UNEXPECTED_CHAR"),
                                     String.valueOf(Character.toChars(cp)), state));
                 }
@@ -853,8 +848,7 @@ public class XMLStreamReader implements Closeable {
                     break;
 
                 default:
-                    throwErrorInGetNextTag(
-                            blk,
+                    throwErrorInGetNextTag(blk,
                             StringUtil.format(OStrings.getString("XSR_ERROR_UNEXPECTED_CHAR"),
                                     String.valueOf(Character.toChars(cp)), state));
                 }
@@ -870,8 +864,7 @@ public class XMLStreamReader implements Closeable {
                     break;
 
                 default:
-                    throwErrorInGetNextTag(
-                            blk,
+                    throwErrorInGetNextTag(blk,
                             StringUtil.format(OStrings.getString("XSR_ERROR_UNEXPECTED_CHAR"),
                                     String.valueOf(Character.toChars(cp)), state));
                 }
@@ -889,7 +882,7 @@ public class XMLStreamReader implements Closeable {
                         attr = new StringBuilder();
                         val = new StringBuilder();
                         state = stateCloseValueQuote;
-                    // else -- an error!
+                        // else -- an error!
                     } else {
                         // this is a quoted value - be lenient on OK chars
                         val.appendCodePoint(cp);
@@ -933,8 +926,7 @@ public class XMLStreamReader implements Closeable {
                     break;
 
                 default:
-                    throwErrorInGetNextTag(
-                            blk,
+                    throwErrorInGetNextTag(blk,
                             StringUtil.format(OStrings.getString("XSR_ERROR_UNEXPECTED_CHAR"),
                                     String.valueOf(Character.toChars(cp)), state));
                 }
@@ -1035,8 +1027,8 @@ public class XMLStreamReader implements Closeable {
     }
 
     /**
-     * Converts a single code point into valid XML. Output stream must convert stream
-     * to UTF-8 when saving to disk.
+     * Converts a single code point into valid XML. Output stream must convert
+     * stream to UTF-8 when saving to disk.
      */
     public String makeValidXML(int cp) {
         String res = StringUtil.escapeXMLChars(cp);
@@ -1192,23 +1184,23 @@ public class XMLStreamReader implements Closeable {
             try {
                 cp = Integer.valueOf(valString, 16);
             } catch (NumberFormatException ex) {
-                throw new TranslationException(StringUtil.format(
-                            OStrings.getString("XSR_ERROR_BAD_BINARY_CHAR"), val), ex);
+                throw new TranslationException(
+                        StringUtil.format(OStrings.getString("XSR_ERROR_BAD_BINARY_CHAR"), val), ex);
             }
             if (!StringUtil.isValidXMLChar(cp)) {
-                throw new TranslationException(StringUtil.format(
-                        OStrings.getString("XSR_ERROR_BAD_BINARY_CHAR"), val));
+                throw new TranslationException(
+                        StringUtil.format(OStrings.getString("XSR_ERROR_BAD_BINARY_CHAR"), val));
             }
         } else {
             try {
                 cp = Integer.valueOf(valString, 10);
             } catch (NumberFormatException ex) {
-                throw new TranslationException(StringUtil.format(
-                        OStrings.getString("XSR_ERROR_BAD_DECIMAL_CHAR"), val), ex);
+                throw new TranslationException(
+                        StringUtil.format(OStrings.getString("XSR_ERROR_BAD_DECIMAL_CHAR"), val), ex);
             }
             if (!StringUtil.isValidXMLChar(cp)) {
-                throw new TranslationException(StringUtil.format(
-                        OStrings.getString("XSR_ERROR_BAD_DECIMAL_CHAR"), val));
+                throw new TranslationException(
+                        StringUtil.format(OStrings.getString("XSR_ERROR_BAD_DECIMAL_CHAR"), val));
             }
         }
 
