@@ -63,7 +63,8 @@ public class EditingPanelController {
     }
 
     /**
-     * Show the dialog. The dialog is modal, so this method will block until complete.
+     * Show the dialog. The dialog is modal, so this method will block until
+     * complete.
      *
      * @param parent
      *            The parent window of the dialog
@@ -103,8 +104,8 @@ public class EditingPanelController {
         panel.editorPane.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER
-                        && ((e.getModifiersEx() & Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()) != 0)) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER && ((e.getModifiersEx()
+                        & Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()) != 0)) {
                     panel.okButton.doClick();
                 }
             }
