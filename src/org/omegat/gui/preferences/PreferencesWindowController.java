@@ -37,6 +37,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Shape;
+import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ComponentAdapter;
@@ -312,7 +313,7 @@ public class PreferencesWindowController implements FurtherActionListener {
             }
         });
         KeyStroke searchKeyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_F,
-                Java8Compat.getMenuShortcutKeyMaskEx());
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx());
         inputMap.put(searchKeyStroke, ACTION_KEY_NEW_SEARCH);
         actionMap.put(ACTION_KEY_CLEAR_OR_CLOSE, new AbstractAction() {
             @Override

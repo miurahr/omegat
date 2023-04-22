@@ -25,6 +25,7 @@
 
 package org.omegat.gui.search;
 
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JMenu;
@@ -32,12 +33,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import org.openide.awt.Mnemonics;
+
 import org.omegat.core.Core;
 import org.omegat.gui.shortcuts.PropertiesShortcuts;
-import org.omegat.util.Java8Compat;
 import org.omegat.util.OStrings;
 import org.omegat.util.StringUtil;
-import org.openide.awt.Mnemonics;
 
 @SuppressWarnings("serial")
 public class SearchWindowMenu extends JMenuBar {
@@ -69,7 +70,7 @@ public class SearchWindowMenu extends JMenuBar {
         item = fileMenu.add(new JMenuItem());
         Mnemonics.setLocalizedText(item, OStrings.getString("SW_FILE_MENU_CLOSE"));
         item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W,
-                Java8Compat.getMenuShortcutKeyMaskEx()));
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
         item.addActionListener(e -> controller.doCancel());
 
         JMenu editMenu = add(new JMenu());

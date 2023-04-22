@@ -36,6 +36,7 @@ package org.omegat.gui.search;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -79,7 +80,6 @@ import org.omegat.gui.editor.IEditor.CaretPosition;
 import org.omegat.gui.editor.IEditorFilter;
 import org.omegat.gui.editor.filter.ReplaceFilter;
 import org.omegat.gui.editor.filter.SearchFilter;
-import org.omegat.util.Java8Compat;
 import org.omegat.util.Log;
 import org.omegat.util.OConsts;
 import org.omegat.util.OStrings;
@@ -374,10 +374,10 @@ public class SearchWindowController {
                 form.m_replaceAllButton.setEnabled(false);
             }
         });
+        int keyMaskEx = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
 
         // Set up undo/redo handling
-        KeyStroke undoKey = KeyStroke.getKeyStroke(KeyEvent.VK_Z, Java8Compat.getMenuShortcutKeyMaskEx(),
-                false);
+        KeyStroke undoKey = KeyStroke.getKeyStroke(KeyEvent.VK_Z, keyMaskEx, false);
         map.put(undoKey, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -386,8 +386,7 @@ public class SearchWindowController {
                 }
             }
         });
-        KeyStroke redoKey = KeyStroke.getKeyStroke(KeyEvent.VK_Y, Java8Compat.getMenuShortcutKeyMaskEx(),
-                false);
+        KeyStroke redoKey = KeyStroke.getKeyStroke(KeyEvent.VK_Y, keyMaskEx, false);
         map.put(redoKey, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -29,6 +29,7 @@ package org.omegat.gui.scripting;
 
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
@@ -61,9 +62,9 @@ import org.fife.ui.rtextarea.RTextScrollPane;
 import org.fife.ui.rtextarea.SearchContext;
 import org.fife.ui.rtextarea.SearchEngine;
 import org.fife.ui.rtextarea.SearchResult;
-import org.omegat.util.Java8Compat;
-import org.omegat.util.OStrings;
 import org.openide.awt.Mnemonics;
+
+import org.omegat.util.OStrings;
 
 @SuppressWarnings("serial")
 public class RichScriptEditor extends AbstractScriptEditor implements SearchListener {
@@ -194,27 +195,28 @@ public class RichScriptEditor extends AbstractScriptEditor implements SearchList
 
         Mnemonics.setLocalizedText(menu, OStrings.getString("SCW_MENU_EDIT"));
 
+        int keyMaskEx = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
         JMenuItem item = new JMenuItem();
         Mnemonics.setLocalizedText(item, OStrings.getString("SCW_MENU_FIND"));
-        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, Java8Compat.getMenuShortcutKeyMaskEx()));
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, keyMaskEx));
         item.addActionListener(new ShowFindDialogAction());
         menu.add(item);
 
         item = new JMenuItem();
         Mnemonics.setLocalizedText(item, OStrings.getString("SCW_MENU_REPLACE"));
-        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, Java8Compat.getMenuShortcutKeyMaskEx()));
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, keyMaskEx));
         item.addActionListener(new ShowReplaceDialogAction());
         menu.add(item);
 
         item = new JMenuItem();
         Mnemonics.setLocalizedText(item, OStrings.getString("SCW_MENU_GOTO_LINE"));
-        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, Java8Compat.getMenuShortcutKeyMaskEx()));
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, keyMaskEx));
         item.addActionListener(new GoToLineAction());
         menu.add(item);
 
         menu.addSeparator();
 
-        int metaShiftMask = Java8Compat.getMenuShortcutKeyMaskEx() | InputEvent.SHIFT_DOWN_MASK;
+        int metaShiftMask = keyMaskEx | InputEvent.SHIFT_DOWN_MASK;
         KeyStroke ks = KeyStroke.getKeyStroke(KeyEvent.VK_F, metaShiftMask);
         Action a = m_csp.addBottomComponent(ks, m_findToolBar);
         a.putValue(Action.NAME, OStrings.getString("SCW_MENU_SHOW_FIND_BAR"));

@@ -391,7 +391,7 @@ public class ProjectFilesListController {
         }
         JMenuItem item = menu.add(defaultTitle);
         item.addActionListener(e -> {
-            boolean openParent = (e.getModifiers() & Java8Compat.getMenuShortcutKeyMaskEx()) != 0;
+            boolean openParent = (e.getModifiers() & Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()) != 0;
             Stream<File> stream;
             if (openParent) {
                 stream = files.stream().map(File::getParentFile).distinct().filter(File::isDirectory);

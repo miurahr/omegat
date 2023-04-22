@@ -29,6 +29,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -301,7 +302,7 @@ public class AlignPanelController {
                 boolean up = e.getSource().equals(panel.moveUpButton)
                         || e.getSource().equals(frame.moveUpItem);
                 BeadTableModel model = (BeadTableModel) panel.table.getModel();
-                if ((e.getModifiers() & Java8Compat.getMenuShortcutKeyMaskEx()) != 0) {
+                if ((e.getModifiers() & Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()) != 0) {
                     int trgRow = up ? model.prevBeadFromRow(rows[0])
                             : model.nextBeadFromRow(rows[rows.length - 1]);
                     moveRows(rows, col, trgRow);

@@ -31,6 +31,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
@@ -95,7 +96,6 @@ import org.omegat.core.CoreEvents;
 import org.omegat.core.events.IApplicationEventListener;
 import org.omegat.gui.shortcuts.PropertiesShortcuts;
 import org.omegat.help.Help;
-import org.omegat.util.Java8Compat;
 import org.omegat.util.Log;
 import org.omegat.util.OStrings;
 import org.omegat.util.Preferences;
@@ -922,32 +922,29 @@ public class ScriptingWindow {
         JMenuItem item;
 
         // https://sourceforge.net/p/omegat/feature-requests/1314/
+        int keyMaskEx = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
         item = new JMenuItem();
         Mnemonics.setLocalizedText(item, OStrings.getString("SCW_LOAD_FILE"));
         item.addActionListener(new OpenScriptAction());
-        item.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_O, Java8Compat.getMenuShortcutKeyMaskEx()));
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, keyMaskEx));
         menu.add(item);
 
         item = new JMenuItem();
         Mnemonics.setLocalizedText(item, OStrings.getString("SCW_NEW_SCRIPT"));
         item.addActionListener(new NewScriptAction());
-        item.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_N, Java8Compat.getMenuShortcutKeyMaskEx()));
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, keyMaskEx));
         menu.add(item);
 
         item = new JMenuItem();
         Mnemonics.setLocalizedText(item, OStrings.getString("SCW_SAVE_SCRIPT"));
         item.addActionListener(new SaveScriptAction());
-        item.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_S, Java8Compat.getMenuShortcutKeyMaskEx()));
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, keyMaskEx));
         menu.add(item);
 
         item = new JMenuItem();
         Mnemonics.setLocalizedText(item, OStrings.getString("SCW_RUN_SCRIPT"));
         item.addActionListener(new RunScriptAction());
-        item.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_R, Java8Compat.getMenuShortcutKeyMaskEx()));
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, keyMaskEx));
         menu.add(item);
 
         menu.addSeparator();
@@ -966,8 +963,7 @@ public class ScriptingWindow {
 
         item = new JMenuItem();
         Mnemonics.setLocalizedText(item, OStrings.getString("SCW_MENU_CLOSE"));
-        item.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_W, Java8Compat.getMenuShortcutKeyMaskEx()));
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, keyMaskEx));
         item.addActionListener(e -> {
             frame.setVisible(false);
             frame.dispose();
