@@ -40,6 +40,7 @@ import org.omegat.core.events.IEditorEventListener;
 import org.omegat.core.events.IEntryEventListener;
 import org.omegat.core.events.IFontChangedEventListener;
 import org.omegat.core.events.IProjectEventListener;
+import org.omegat.core.events.ISearchEventListener;
 import org.omegat.gui.main.IMainWindow;
 import org.omegat.util.Log;
 import org.omegat.util.OStrings;
@@ -58,6 +59,7 @@ public final class CoreEvents {
     private static final List<IEntryEventListener> ENTRY_EVENT_LISTENERS = new CopyOnWriteArrayList<>();
     private static final List<IFontChangedEventListener> FONT_CHANGED_EVENT_LISTENERS = new CopyOnWriteArrayList<>();
     private static final List<IEditorEventListener> EDITOR_EVENT_LISTENERS = new CopyOnWriteArrayList<>();
+    private static final List<ISearchEventListener> SEARCH_EVENT_LISTENERS = new CopyOnWriteArrayList<>();
 
     private CoreEvents() {
     }
@@ -110,6 +112,16 @@ public final class CoreEvents {
     /** Unregister listener. */
     public static void unregisterEditorEventListener(final IEditorEventListener listener) {
         EDITOR_EVENT_LISTENERS.remove(listener);
+    }
+
+    /** Register listener */
+    public static void registerSearchEventListener(final ISearchEventListener listener) {
+        SEARCH_EVENT_LISTENERS.add(listener);
+    }
+
+    /** Unregister listener. */
+    public static void unregisterSearchEventListener(final ISearchEventListener listener) {
+        SEARCH_EVENT_LISTENERS.remove(listener);
     }
 
     /** Fire event. */
@@ -203,6 +215,23 @@ public final class CoreEvents {
                     listener.onNewWord(newWord);
                 } catch (Throwable t) {
                     log("ERROR_EVENT_EDITOR_NEW_WORD", t);
+                }
+            }
+        });
+    }
+
+    /** Fire event. */
+    public static void fireSearchEvent(final String type, boolean start) {
+        SwingUtilities.invokeLater(() -> {
+            for (ISearchEventListener listener: SEARCH_EVENT_LISTENERS) {
+                try {
+                    if (start) {
+                        listener.onSearchStart(type);
+                    } else {
+                        listener.onSearchEnd(type);
+                    }
+                } catch (Throwable t) {
+                    log("ERROR_EVENT_SEARCH", t);
                 }
             }
         });

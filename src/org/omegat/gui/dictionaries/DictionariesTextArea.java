@@ -315,12 +315,12 @@ public class DictionariesTextArea extends EntryInfoThreadPane<List<DictionaryEnt
         }
         txt.append("</html>");
         fastReplaceContent(txt.toString());
-        stopProgressNotification(scrollPane);
+        stopProgressNotification(this.getClass().getName(), scrollPane);
     }
 
     @Override
     protected void abortSearch(String reason) {
-        stopProgressNotification(scrollPane);
+        stopProgressNotification(this.getClass().getName(), scrollPane);
         Core.getMainWindow().showTimedStatusMessageRB("GUI_DICTIONARYWINDOW_ABORT_SEARCH", reason);
     }
 

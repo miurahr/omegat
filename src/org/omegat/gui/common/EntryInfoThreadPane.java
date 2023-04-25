@@ -106,11 +106,13 @@ public abstract class EntryInfoThreadPane<T> extends EntryInfoPane<T> implements
     protected void abortSearch(String reason) {
     }
 
-    protected void startProgressNotification(DockableScrollPane scrollPane) {
-        scrollPane.startProgressNotification(null, false);
+    protected void startProgressNotification(String type, DockableScrollPane scrollPane) {
+        // scrollPane.startProgressNotification(icon, false);
+        CoreEvents.fireSearchEvent(type, true);
     }
 
-    protected void stopProgressNotification(DockableScrollPane scrollPane) {
-        scrollPane.stopProgressNotification(null, false);
+    protected void stopProgressNotification(String type, DockableScrollPane scrollPane) {
+        // scrollPane.stopProgressNotification(null, false);
+        CoreEvents.fireSearchEvent(type, false);
     }
 }

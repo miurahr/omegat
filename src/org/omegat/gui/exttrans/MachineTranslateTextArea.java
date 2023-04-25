@@ -208,7 +208,7 @@ public class MachineTranslateTextArea extends EntryInfoThreadPane<MachineTransla
                         .collect(Collectors.toList());
         int numThread = machineTranslations.size();
         if (numThread > 0) {
-            startProgressNotification(scrollPane);
+            startProgressNotification(this.getClass().getName(), scrollPane);
             final CountDownLatch countDownLatch = new CountDownLatch(numThread);
             for (IMachineTranslation mt : machineTranslations) {
                 new FindThread(mt, newEntry, force, countDownLatch).start();
@@ -257,7 +257,7 @@ public class MachineTranslateTextArea extends EntryInfoThreadPane<MachineTransla
                 countDownLatch.await();
             } catch (InterruptedException ignored) {
             }
-            stopProgressNotification(scrollPane);
+            stopProgressNotification(this.getClass().getName(), scrollPane);
         }
     }
 
