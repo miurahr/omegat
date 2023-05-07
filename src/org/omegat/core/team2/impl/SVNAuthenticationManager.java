@@ -25,16 +25,12 @@
 
 package org.omegat.core.team2.impl;
 
+import java.io.Console;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 import javax.net.ssl.TrustManager;
 
-import org.omegat.core.Core;
-import org.omegat.core.KnownException;
-import org.omegat.core.team2.ProjectTeamSettings;
-import org.omegat.core.team2.TeamSettings;
-import org.omegat.util.Log;
-import org.omegat.util.OStrings;
 import org.tmatesoft.svn.core.SVNErrorCode;
 import org.tmatesoft.svn.core.SVNErrorMessage;
 import org.tmatesoft.svn.core.SVNException;
@@ -45,18 +41,27 @@ import org.tmatesoft.svn.core.auth.ISVNProxyManager;
 import org.tmatesoft.svn.core.auth.SVNAuthentication;
 import org.tmatesoft.svn.core.auth.SVNPasswordAuthentication;
 import org.tmatesoft.svn.core.auth.SVNSSHAuthentication;
+import org.tmatesoft.svn.core.auth.SVNSSLAuthentication;
 import org.tmatesoft.svn.core.auth.SVNUserNameAuthentication;
 import org.tmatesoft.svn.core.io.SVNRepository;
 
-import com.jcraft.jsch.agentproxy.AgentProxyException;
-import com.jcraft.jsch.agentproxy.ConnectorFactory;
-import com.jcraft.jsch.agentproxy.TrileadAgentProxy;
+import org.omegat.core.Core;
+import org.omegat.core.KnownException;
+import org.omegat.core.team2.ProjectTeamSettings;
+import org.omegat.core.team2.TeamSettings;
+import org.omegat.gui.main.ConsoleWindow;
+import org.omegat.util.Log;
+import org.omegat.util.OStrings;
+
+import gen.core.project.RepositoryDefinition;
 
 /**
  * Authentication manager for SVN. See details about authentication at the
- * http://wiki.svnkit.com/Authentication. Authentication manager created for each repository instance.
+ * http://wiki.svnkit.com/Authentication. Authentication manager created for
+ * each repository instance.
  *
- * Only username+password authentication supported. Proxy not supported for https:// repositories.
+ * Only username+password authentication supported. Proxy not supported for
+ * https:// repositories.
  *
  * @author Alex Buloichik (alex73mail@gmail.com)
  */
@@ -68,17 +73,17 @@ public class SVNAuthenticationManager implements ISVNAuthenticationManager {
 
     private static final Logger LOGGER = Logger.getLogger(SVNAuthenticationManager.class.getName());
 
-    private final String repoUrl;
+    private final RepositoryDefinition repoDef;
     private final String predefinedUser;
     private final String predefinedPass;
-    //private final ProjectTeamSettings teamSettings;
+    private final ProjectTeamSettings teamSettings;
 
-    public SVNAuthenticationManager(String repoUrl, String predefinedUser, String predefinedPass,
-            ProjectTeamSettings teamSettings) {
-        this.repoUrl = repoUrl;
+    public SVNAuthenticationManager(RepositoryDefinition repoDef, String predefinedUser,
+            String predefinedPass, ProjectTeamSettings teamSettings) {
+        this.repoDef = repoDef;
         this.predefinedUser = predefinedUser;
         this.predefinedPass = predefinedPass;
-        //this.teamSettings = teamSettings;
+        this.teamSettings = teamSettings;
     }
 
     @Override
@@ -105,22 +110,6 @@ public class SVNAuthenticationManager implements ISVNAuthenticationManager {
     }
 
     protected SVNAuthentication ask(String kind, SVNURL url, String message) throws SVNException {
-        if (ISVNAuthenticationManager.PASSWORD.equals(kind)) {
-            // ask username+password
-        } else if (ISVNAuthenticationManager.SSH.equals(kind)) {
-            // ask username+password
-        } else if (ISVNAuthenticationManager.USERNAME.equals(kind)) {
-            // user auth shouldn't be null.
-            return SVNUserNameAuthentication.newInstance("", false, url, false);
-        } else {
-            // auth type not supported for OmegaT
-            throw new SVNException(SVNErrorMessage.create(SVNErrorCode.RA_UNKNOWN_AUTH));
-        }
-        if (Core.getMainWindow() == null) {
-            // run on headless.
-            Log.log("called ask in headless mode. return null");
-            return null;
-        }
         SVNUserPassDialog userPassDialog = new SVNUserPassDialog(Core.getMainWindow().getApplicationFrame());
         userPassDialog.setLocationRelativeTo(Core.getMainWindow().getApplicationFrame());
         userPassDialog.descriptionTextArea.setText(message);
@@ -130,66 +119,84 @@ public class SVNAuthenticationManager implements ISVNAuthenticationManager {
         }
 
         String user = userPassDialog.userText.getText();
-        String pass = new String(userPassDialog.passwordField.getPassword());
-        String saveUri = "" + url.getProtocol() + "://" + url.getHost() + ":" + url.getPort();
-        TeamSettings.set(saveUri + "!" + KEY_USERNAME_SUFFIX, user);
-        TeamSettings.set(saveUri + "!" + KEY_PASSWORD_SUFFIX, TeamUtils.encodePassword(pass));
+        char[] pass = userPassDialog.passwordField.getPassword();
+        saveCredentials(url, user, Arrays.toString(pass));
+        return getResult(kind, url, user, pass);
+    }
 
-        if (ISVNAuthenticationManager.PASSWORD.equals(kind)) {
-            return SVNPasswordAuthentication.newInstance(user, pass.toCharArray(), false, url, false);
-        } else if (ISVNAuthenticationManager.SSH.equals(kind)) {
-            return SVNSSHAuthentication.newInstance(user, pass.toCharArray(), -1, false, url, false);
-        } else {
-            // auth type not supported for OmegaT
-            throw new SVNException(SVNErrorMessage.create(SVNErrorCode.RA_UNKNOWN_AUTH));
+    protected SVNAuthentication askCUI(String kind, SVNURL url, String message) throws SVNException {
+        Console console = System.console();
+        if (console == null) {
+            Log.log("No console found.");
+            if (ISVNAuthenticationManager.USERNAME.equals(kind)) {
+                // user auth shouldn't be null.
+                return SVNUserNameAuthentication.newInstance("", false, url, false);
+            }
+            return null;
         }
+        String user;
+        if (predefinedUser != null) {
+            user = predefinedUser;
+        } else {
+            user = console.readLine(message);
+        }
+        char[] pass = console.readPassword(message);
+        saveCredentials(url, user, Arrays.toString(pass));
+        return getResult(kind, url, user, pass);
     }
 
     @Override
     public SVNAuthentication getFirstAuthentication(String kind, String realm, SVNURL url)
             throws SVNException {
-        if (predefinedUser != null && predefinedPass != null) {
-            if (ISVNAuthenticationManager.PASSWORD.equals(kind)) {
+        // Check supported kind and return when there are predefined credentials
+        switch (kind) {
+        case SSL:
+            return SVNSSLAuthentication.newInstance(kind, null, false, url, false);
+        case USERNAME:
+            if (predefinedUser != null) {
+                return SVNUserNameAuthentication.newInstance(predefinedUser, false, url, false);
+            }
+            break;
+        case PASSWORD:
+            if (predefinedUser != null && predefinedPass != null) {
                 return SVNPasswordAuthentication.newInstance(predefinedUser, predefinedPass.toCharArray(),
                         false, url, false);
-            } else if (ISVNAuthenticationManager.SSH.equals(kind)) {
+            }
+            break;
+        case SSH:
+            if (predefinedUser != null && predefinedPass != null) {
                 return SVNSSHAuthentication.newInstance(predefinedUser, predefinedPass.toCharArray(), -1,
                         false, url, false);
-            } else {
-                throw new SVNException(SVNErrorMessage.create(SVNErrorCode.AUTHN_NO_PROVIDER));
             }
-        } else if (predefinedUser != null) {
-            try {
-                return SVNSSHAuthentication.newInstance(predefinedUser,
-                        new TrileadAgentProxy(ConnectorFactory.getDefault().createConnector()), -1, url, false);
-            } catch (AgentProxyException e) {
-                Log.logDebug(LOGGER, "ssh-agent support couldn't be initialized: {0}", e.getMessage());
-            }
+            break;
+        default:
+            throw new SVNException(SVNErrorMessage.create(SVNErrorCode.AUTHN_NO_PROVIDER));
         }
-        String user = TeamSettings.get(repoUrl + "!" + KEY_USERNAME_SUFFIX);
-        String pass = TeamUtils.decodePassword(TeamSettings.get(repoUrl + "!" + KEY_PASSWORD_SUFFIX));
-        if (user == null) {
-            String saveUri = "" + url.getProtocol() + "://" + url.getHost() + ":" + url.getPort();
-            user = TeamSettings.get(saveUri + "!" + KEY_USERNAME_SUFFIX);
-            pass = TeamUtils.decodePassword(TeamSettings.get(saveUri + "!" + KEY_PASSWORD_SUFFIX));
+
+        Credentials credentials = loadCredentials(url);
+        if (credentials.username != null) {
+            return getResult(kind, url, credentials.username, credentials.password.toCharArray());
         }
-        if (user != null && pass != null) {
-            if (ISVNAuthenticationManager.PASSWORD.equals(kind)) {
-                return SVNPasswordAuthentication.newInstance(user, pass.toCharArray(), false, url, false);
-            } else if (ISVNAuthenticationManager.SSH.equals(kind)) {
-                return SVNSSHAuthentication.newInstance(user, pass.toCharArray(), -1, false, url, false);
-            } else {
-                throw new SVNException(SVNErrorMessage.create(SVNErrorCode.AUTHN_NO_PROVIDER));
-            }
+
+        if (Core.getMainWindow() == null || Core.getMainWindow() instanceof ConsoleWindow) {
+            // run on headless.
+            return askCUI(kind, url, OStrings.getString("TEAM_USERPASS_FIRST", url.getPath()));
+        } else {
+            return ask(kind, url, OStrings.getString("TEAM_USERPASS_FIRST", url.getPath()));
         }
-        return ask(kind, url, OStrings.getString("TEAM_USERPASS_FIRST", url.getPath()));
     }
 
-    public SVNAuthentication getNextAuthentication(String kind, String realm, SVNURL url) throws SVNException {
+    public SVNAuthentication getNextAuthentication(String kind, String realm, SVNURL url)
+            throws SVNException {
         if (predefinedUser != null && predefinedPass != null) {
             throw new KnownException("TEAM_PREDEFINED_CREDENTIALS_ERROR");
         }
-        return ask(kind, url, OStrings.getString("TEAM_USERPASS_WRONG", url.getPath()));
+        if (Core.getMainWindow() == null) {
+            // run on headless.
+            return askCUI(kind, url, OStrings.getString("TEAM_USERPASS_WRONG", url.getPath()));
+        } else {
+            return ask(kind, url, OStrings.getString("TEAM_USERPASS_WRONG", url.getPath()));
+        }
     };
 
     @Override
@@ -232,4 +239,46 @@ public class SVNAuthenticationManager implements ISVNAuthenticationManager {
         public void acknowledgeProxyContext(boolean accepted, SVNErrorMessage errorMessage) {
         }
     };
+
+    private SVNAuthentication getResult(String kind, SVNURL url, String user, char[] pass)
+            throws SVNException {
+        if (ISVNAuthenticationManager.PASSWORD.equals(kind)) {
+            return SVNPasswordAuthentication.newInstance(user, pass, false, url, false);
+        } else if (ISVNAuthenticationManager.SSH.equals(kind)) {
+            return SVNSSHAuthentication.newInstance(user, pass, -1, false, url, false);
+        } else if (ISVNAuthenticationManager.USERNAME.equals(kind)) {
+            return SVNUserNameAuthentication.newInstance(user, false, url, false);
+        } else {
+            throw new SVNException(SVNErrorMessage.create(SVNErrorCode.RA_UNKNOWN_AUTH));
+        }
+    }
+
+    private Credentials loadCredentials(SVNURL url) {
+        Credentials credentials = new Credentials();
+        // check stored credential
+        credentials.username = TeamSettings.get(repoDef.getUrl() + "!" + KEY_USERNAME_SUFFIX);
+        credentials.password = TeamUtils
+                .decodePassword(TeamSettings.get(repoDef.getUrl() + "!" + KEY_PASSWORD_SUFFIX));
+        if (credentials.username == null) {
+            String saveUri = url.getProtocol() + "://" + url.getHost() + ":" + url.getPort();
+            credentials.username = TeamSettings.get(saveUri + "!" + KEY_USERNAME_SUFFIX);
+            credentials.password = TeamUtils
+                    .decodePassword(TeamSettings.get(saveUri + "!" + KEY_PASSWORD_SUFFIX));
+        }
+        return credentials;
+    }
+
+    private void saveCredentials(SVNURL url, String user, String password) {
+        String saveUri = url.getProtocol() + "://" + url.getHost() + ":" + url.getPort();
+        TeamSettings.set(saveUri + "!" + KEY_USERNAME_SUFFIX, user);
+        TeamSettings.set(saveUri + "!" + KEY_PASSWORD_SUFFIX, TeamUtils.encodePassword(password));
+    }
+
+    /**
+     * POJO to hold credentials.
+     */
+    public static class Credentials {
+        public String username = null;
+        public String password = null;
+    }
 }
