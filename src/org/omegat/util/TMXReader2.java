@@ -47,10 +47,8 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.ZipInputStream;
 
 import javax.xml.namespace.QName;
-import javax.xml.stream.Location;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLReporter;
 import javax.xml.stream.XMLResolver;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.Attribute;
@@ -63,6 +61,8 @@ import org.apache.commons.io.input.XmlStreamReader;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 
+import org.omegat.util.logging.OmegaTXMLReporter;
+
 /**
  * Helper for read TMX files, using StAX.
  *
@@ -73,7 +73,10 @@ import org.xml.sax.InputSource;
 public class TMXReader2 {
 
     private final XMLInputFactory factory;
-    private final SimpleDateFormat dateFormat1, dateFormat2, dateFormatOut;
+    private final OmegaTXMLReporter omegaTXMLReporter;
+    private final SimpleDateFormat dateFormat1;
+    private final SimpleDateFormat dateFormat2;
+    private final SimpleDateFormat dateFormatOut;
 
     /** Segment Type attribute value: "paragraph" */
     public static final String SEG_PARAGRAPH = "paragraph";
@@ -89,8 +92,6 @@ public class TMXReader2 {
     private boolean extTmxLevel2;
     private boolean useSlash;
     private boolean isSegmentingEnabled;
-
-    private int errorsCount, warningsCount;
 
     ParsedTu currentTu = new ParsedTu();
 
@@ -113,15 +114,8 @@ public class TMXReader2 {
     public TMXReader2() {
         factory = XMLInputFactory.newInstance();
         factory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, false);
-        factory.setXMLReporter(new XMLReporter() {
-            public void report(String message, String errorType, Object info, Location location)
-                    throws XMLStreamException {
-                Log.logWarningRB("TMXR_WARNING_WHILE_PARSING", location.getLineNumber(),
-                        location.getColumnNumber());
-                Log.log(message + ": " + info);
-                warningsCount++;
-            }
-        });
+        omegaTXMLReporter = new OmegaTXMLReporter();
+        factory.setXMLReporter(omegaTXMLReporter);
         factory.setXMLResolver(TMX_DTD_RESOLVER_2);
         dateFormat1 = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'", Locale.ENGLISH);
         dateFormat1.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -180,14 +174,12 @@ public class TMXReader2 {
         }
 
         if (!allFound) {
-            Log.logWarningRB("TMXR_WARNING_SOURCE_NOT_FOUND");
-            warningsCount++;
+            omegaTXMLReporter.report("TMXR_WARNING_SOURCE_NOT_FOUND");
         }
         Log.logRB("TMXR_INFO_READING_COMPLETE");
-        Log.log("");
-        if (errorsCount > 0 || warningsCount > 0) {
-            Log.logDebug(Logger.getLogger(getClass().getName()), "Errors: {0}, Warnings: {1}", errorsCount,
-                    warningsCount);
+        if (!omegaTXMLReporter.isSuccess()) {
+            Log.logDebug(Logger.getLogger(getClass().getName()), "Errors: {0}, Warnings: {1}",
+                    omegaTXMLReporter.getErrorsCount(), omegaTXMLReporter.getWarningsCount());
         }
     }
 
@@ -546,9 +538,8 @@ public class TMXReader2 {
                 }
                 if (tagN == null) {
                     // check error of TMX reading
-                    Log.logErrorRB("TMX_ERROR_READING_LEVEL2", e.getLocation().getLineNumber(),
+                    omegaTXMLReporter.report("TMX_ERROR_READING_LEVEL2", e.getLocation().getLineNumber(),
                             e.getLocation().getColumnNumber());
-                    errorsCount++;
                     segContent.setLength(0);
                     return;
                 }
