@@ -25,6 +25,8 @@ jobs:
     - name: Send coverage to codacy
       run: bash <(curl -Ls https://coverage.codacy.com/get.sh)
       id: codacy
+      env:
+        CODACY_PROJECT_TOKEN: ${{secret.CODACY_PROJECT_TOKEN}}
     - name: "Add Build Scan URL as PR comment"
       uses: actions/github-script@v7
       if: github.event_name == 'pull_request' && failure()
