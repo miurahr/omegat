@@ -20,7 +20,7 @@ jobs:
       name: Setup Gradle
       id: setup-gradle
     - name: Run gradle build
-      run: ./gradlew -PenvIsCi=true -Pheadless=true --scan check
+      run: ./gradlew -PenvIsCi=true -Pheadless=true --scan check jacocoTestReport
       id: gradle
     - name: Send coverage to codacy
       run: bash <(curl -Ls https://coverage.codacy.com/get.sh)
