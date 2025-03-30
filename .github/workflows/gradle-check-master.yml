@@ -3,7 +3,7 @@ name: Quality checks
 on:
   push:
     branches:
-      - master
+      - main
       - releases/*
   pull_request:
 
@@ -22,6 +22,9 @@ jobs:
     - name: Run gradle build
       run: ./gradlew -PenvIsCi=true -Pheadless=true --scan check
       id: gradle
+    - name: Send coverage to codacy
+      run: bash <(curl -Ls https://coverage.codacy.com/get.sh)
+      id: codacy
     - name: "Add Build Scan URL as PR comment"
       uses: actions/github-script@v7
       if: github.event_name == 'pull_request' && failure()
