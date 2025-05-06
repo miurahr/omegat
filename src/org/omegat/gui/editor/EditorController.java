@@ -65,8 +65,6 @@ import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Predicate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import javax.swing.JComponent;
@@ -130,6 +128,8 @@ import org.omegat.util.gui.UIDesignManager;
 import org.omegat.util.gui.UIThreadsUtil;
 
 import com.vlsolutions.swing.docking.DockingDesktop;
+import tokyo.northside.logging.ILogger;
+import tokyo.northside.logging.LoggerFactory;
 
 /**
  * Class for control all editor operations.
@@ -157,13 +157,29 @@ import com.vlsolutions.swing.docking.DockingDesktop;
 public class EditorController implements IEditor {
 
     /** Local logger. */
-    private static final Logger LOGGER = Logger.getLogger(EditorController.class.getName());
+    private static final ILogger LOGGER = LoggerFactory.getLogger(EditorController.class);
 
     private static final double PAGE_LOAD_THRESHOLD = 0.25;
 
     /** Some predefined translations that OmegaT can assign by popup. */
     enum ForceTranslation {
-        UNTRANSLATED, EMPTY, EQUALS_TO_SOURCE;
+        /**
+         * Represents a state where a segment is not translated. It indicates that the
+         * segment is left untranslated, possibly intentionally, or hasn't been
+         * processed yet.
+         */
+        UNTRANSLATED,
+        /**
+         * Represents a state where a segment is empty. It indicates that the segment
+         * has no content, implying it does not contain any translatable or source text.
+         */
+        EMPTY,
+        /**
+         * Represents a state where a segment's translation is identical to its source text.
+         * It indicates that the segment's translation has been manually or automatically
+         * set to match the original source content.
+         */
+        EQUALS_TO_SOURCE;
     }
 
     /** Dockable pane for editor. */
@@ -211,8 +227,28 @@ public class EditorController implements IEditor {
     protected Font font;
 
     private enum SHOW_TYPE {
-        INTRO, EMPTY_PROJECT, FIRST_ENTRY, NO_CHANGE
-    };
+        /**
+         * Represents the introductory state or type within the SHOW_TYPE enum.
+         * Used to signify the beginning or initial phase of a specific process or situation.
+         */
+        INTRO,
+        /**
+         * Denotes an empty or uninitialized project state within the context of the SHOW_TYPE enum.
+         * Can be used to represent scenarios where no project is currently active or defined.
+         */
+        EMPTY_PROJECT,
+        /**
+         * Represents the first entry state or type within the SHOW_TYPE enum.
+         * Used to specifically identify the initial point of entry or the first occurrence
+         * in a sequence of actions or events within the defined context.
+         */
+        FIRST_ENTRY,
+        /**
+         * Represents a state indicating no change within the context of the SHOW_TYPE enum.
+         * Used to signify that the current status or condition remains unaltered.
+         */
+        NO_CHANGE
+    }
 
     BiDiUtils.ORIENTATION currentOrientation;
     protected boolean sourceLangIsRTL;
@@ -307,9 +343,8 @@ public class EditorController implements IEditor {
         });
 
         // register Swing error logger
-        Thread.setDefaultUncaughtExceptionHandler((t, e) -> {
-            LOGGER.log(Level.SEVERE, "Uncatched exception in thread [" + t.getName() + "]", e);
-        });
+        Thread.setDefaultUncaughtExceptionHandler((t, e) -> LOGGER.atError().setCause(e)
+                .setMessage("Uncatched exception in thread [{0}]").addArgument(t.getName()).log());
 
         EditorPopups.init(this);
 
@@ -427,7 +462,7 @@ public class EditorController implements IEditor {
         lastLoaded = loadTo;
         SegmentBuilder[] loaded = Arrays.copyOfRange(m_docSegList, loadFrom, loadTo + 1);
         markerController.process(loaded);
-    };
+    }
 
     private synchronized void loadUp(int count) {
         if (firstLoaded <= 0 || firstLoaded >= m_docSegList.length) {
@@ -447,7 +482,7 @@ public class EditorController implements IEditor {
             insertStartParagraphMark(editor.getOmDocument(), builder, 0);
         }
         firstLoaded = loadTo;
-    };
+    }
 
     private void updateState(SHOW_TYPE showType) {
         UIThreadsUtil.mustBeSwingThread();
@@ -590,7 +625,7 @@ public class EditorController implements IEditor {
 
     /**
      * The orientation of the document is all LtR.
-     * 
+     *
      * @return true when the orientation is all RtL. otherwise false.
      */
     @Override
@@ -1244,7 +1279,7 @@ public class EditorController implements IEditor {
                             Core.getIssues().showForFiles(Pattern.quote(file), entry.entryNum());
                         }
                     } catch (InterruptedException | ExecutionException e) {
-                        LOGGER.log(Level.SEVERE, "Exception when validating tags on leave", e);
+                        LOGGER.atError().setCause(e).setMessage("Exception when validating tags on leave").log();
                     }
                 }
             }.execute();
@@ -1254,7 +1289,7 @@ public class EditorController implements IEditor {
         if (Core.getProject().isTeamSyncPrepared()) {
             try {
                 Core.executeExclusively(false, Core.getProject()::teamSync);
-            } catch (InterruptedException | TimeoutException ex) {
+            } catch (InterruptedException | TimeoutException ignored) {
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
@@ -1281,9 +1316,6 @@ public class EditorController implements IEditor {
         resetOrigin();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public void commitAndLeave() {
         if (Core.getProject().getAllEntries().isEmpty()) {
             return; // empty project
@@ -1394,7 +1426,7 @@ public class EditorController implements IEditor {
 
     /**
      * Find the next (un)translated entry.
-     * 
+     *
      * @param findTranslated
      *            should the next entry be translated or not.
      */
