@@ -1,0 +1,3 @@
+configs:
+  - p/default
+  - ./config/semgrep/ignore-singular-field.yml

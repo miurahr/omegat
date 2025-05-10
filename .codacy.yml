@@ -1,0 +1,20 @@
+engines:
+  semgrep:
+    enabled: true
+    patterns:
+      - pattern: p/default
+      - pattern: ./config/semgrep/ignore-singular-field.yml
+
+  lizard:
+    enabled: true
+    configuration:
+      cyclomaticComplexity: 10
+
+  checkstyle:
+    enabled: true
+    configuration:
+      file: ./config/checkstyle/checkstyle.xml
+
+  pmd:
+    enabled: true
+    configuration: {}
