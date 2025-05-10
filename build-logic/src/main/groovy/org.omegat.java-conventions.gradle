@@ -128,3 +128,7 @@ pmd {
     toolVersion = '6.38.0'
     ruleSetFiles = layout.settingsDirectory.files("config/pmd/ruleset.xml")
 }
+
+pmdMain {
+    exclude '**/gen/**'
+}
