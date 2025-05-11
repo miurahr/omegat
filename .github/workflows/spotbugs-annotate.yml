@@ -3,7 +3,7 @@ name: Run SpotBugs
 on:
   push:
     branches:
-      - master
+      - main
       - releases/*
   pull_request:
 
