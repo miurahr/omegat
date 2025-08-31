@@ -51,7 +51,6 @@ import javax.swing.SwingWorker;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
-import org.omegat.CLIParameters;
 import org.omegat.Main;
 import org.omegat.convert.ConvertProject;
 import org.omegat.core.Core;
@@ -59,6 +58,7 @@ import org.omegat.core.CoreEvents;
 import org.omegat.core.KnownException;
 import org.omegat.core.data.ProjectFactory;
 import org.omegat.core.data.ProjectProperties;
+import org.omegat.core.data.RuntimePreferenceStore;
 import org.omegat.core.events.IProjectEventListener;
 import org.omegat.core.segmentation.SRX;
 import org.omegat.core.segmentation.Segmenter;
@@ -434,7 +434,7 @@ public final class ProjectUICommands {
                  * this does not seem to be the intention of the current mapping
                  * usage.
                  */
-                if (!Core.getParams().containsKey(CLIParameters.NO_TEAM)) {
+                if (!RuntimePreferenceStore.getInstance().isNoTeam()) {
                     ProjectProperties localProps = props;
                     List<RepositoryDefinition> localRepos = props.getRepositories();
                     mainWindow.showStatusMessageRB("TEAM_OPEN");
@@ -846,23 +846,22 @@ public final class ProjectUICommands {
         if (!Core.getProject().isProjectLoaded()) {
             return;
         }
+        var frame = Core.getMainWindow().getApplicationFrame();
 
         // commit the current entry first
         Core.getEditor().commitAndLeave();
 
         // displaying the dialog to change paths and other properties
         final ProjectProperties newProps =
-                ProjectPropertiesDialogController.showDialog(Core.getMainWindow().getApplicationFrame(),
-                Core.getProject().getProjectProperties(),
+                ProjectPropertiesDialogController.showDialog(frame, Core.getProject().getProjectProperties(),
                 Core.getProject().getProjectProperties().getProjectName(),
                 ProjectPropertiesDialog.Mode.EDIT_PROJECT);
         if (newProps == null) {
             return;
         }
 
-        int res = JOptionPane.showConfirmDialog(Core.getMainWindow().getApplicationFrame(),
-                OStrings.getString("MW_REOPEN_QUESTION"), OStrings.getString("MW_REOPEN_TITLE"),
-                JOptionPane.YES_NO_OPTION);
+        int res = JOptionPane.showConfirmDialog(frame, OStrings.getString("MW_REOPEN_QUESTION"),
+                OStrings.getString("MW_REOPEN_TITLE"), JOptionPane.YES_NO_OPTION);
         if (res != JOptionPane.YES_OPTION) {
             return;
         }

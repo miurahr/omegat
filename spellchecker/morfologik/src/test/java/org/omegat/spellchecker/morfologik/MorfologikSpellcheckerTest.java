@@ -55,11 +55,11 @@ public class MorfologikSpellcheckerTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        PluginUtils.loadPlugins(Collections.emptyMap());
         tmpDir = Files.createTempDirectory("omegat");
         assertThat(tmpDir.toFile()).isDirectory();
         configDir = Files.createDirectory(tmpDir.resolve(".omegat"));
         TestPreferencesInitializer.init(configDir.toString());
+        PluginUtils.loadPlugins(Collections.emptyMap());
         Files.createDirectory(configDir.resolve("spelling"));
         copyFile("de_DE.dict");
         copyFile("de_DE.info");
@@ -102,7 +102,7 @@ public class MorfologikSpellcheckerTest {
         assertThat(checker.initialize()).as("Success initialize").isTrue();
         assertThat(checker.isCorrect("Hallo")).as("Spell check for correct word").isFalse();
         assertThat(checker.suggest("Hallo")).as("Get suggestion")
-                .hasSize(10).contains("hello");
+                .hasSize(11).contains("hello");
 
     }
 

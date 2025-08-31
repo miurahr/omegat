@@ -26,19 +26,12 @@
 
 package org.omegat.filters2.html2;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import org.omegat.util.BufferedFileReader;
 
-import org.omegat.util.OConsts;
-import org.omegat.util.PatternConsts;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import static org.omegat.util.EncodingDetector.detectHtmlEncoding;
 
 /**
  * This class automatically detects encoding of an inner HTML file and
@@ -54,9 +47,7 @@ import org.omegat.util.PatternConsts;
  * @author Maxym Mykhalchuk
  * @author Didier Briel
  */
-public class HTMLReader extends Reader implements AutoCloseable {
-    /** Inner reader */
-    private final BufferedReader reader;
+public class HTMLReader extends BufferedFileReader implements AutoCloseable {
 
     /**
      * Creates a new instance of HTMLReader. If encoding cannot be detected,
@@ -66,101 +57,45 @@ public class HTMLReader extends Reader implements AutoCloseable {
      *
      * @param fileName
      *            The file to read.
-     * @param encoding
+     * @param defaultEncoding
      *            The encoding to use if we can't autodetect.
      */
-    public HTMLReader(String fileName, String encoding) throws IOException {
-        reader = new BufferedReader(createReader(fileName, encoding));
-    }
-
-    private Charset encoding = null;
-
-    /**
-     * Returns encoding that was used to read the HTML file.
-     */
-    public String getEncoding() {
-        return encoding.name();
-    }
-
-    private Reader createReader(String fileName, String defaultEncoding) throws IOException {
-
-        try (BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(fileName))) {
-            encoding = detectBOM(inputStream);
-            if (encoding == null) {
-                encoding = detectEncodingFromContent(inputStream, defaultEncoding);
-            }
-            return new InputStreamReader(inputStream, encoding != null ? encoding : Charset.defaultCharset());
-        }
-    }
-
-    private Charset detectBOM(BufferedInputStream inputStream) throws IOException {
-        inputStream.mark(OConsts.READ_AHEAD_LIMIT);
-        int firstByte = inputStream.read();
-        int secondByte = inputStream.read();
-        int thirdByte = inputStream.read();
-        inputStream.reset();
-
-        if (firstByte == 0xFE && secondByte == 0xFF) {
-            return StandardCharsets.UTF_16BE;
-        } else if (firstByte == 0xFF && secondByte == 0xFE) {
-            return StandardCharsets.UTF_16LE;
-        } else if (firstByte == 0xEF && secondByte == 0xBB && thirdByte == 0xBF) {
-            return StandardCharsets.UTF_8;
-        }
-        return null;
-    }
-
-    private Charset detectEncodingFromContent(BufferedInputStream inputStream, String defaultEncoding) throws IOException {
-        inputStream.mark(OConsts.READ_AHEAD_LIMIT);
-
-        byte[] buffer = new byte[OConsts.READ_AHEAD_LIMIT];
-        int length = inputStream.read(buffer);
-        inputStream.reset();
-
-        if (length <= 0) {
-            return null;
-        }
-
-        String content = defaultEncoding == null
-            ? new String(buffer, 0, length, Charset.defaultCharset())
-            : new String(buffer, 0, length, defaultEncoding);
-
-        // Extracted helper method to detect charset
-        return detectCharset(content, PatternConsts.HTML_ENCODING, PatternConsts.HTML5_ENCODING, PatternConsts.XML_ENCODING);
-    }
-
-    // Helper method to handle repetitive charset detection
-    private Charset detectCharset(String content, Pattern... patterns) {
-        for (Pattern pattern : patterns) {
-            Matcher matcher = pattern.matcher(content);
-            if (matcher.find()) {
-                try {
-                    return Charset.forName(matcher.group(1));
-                } catch (Exception ignored) {
-                    // ignore and try next.
-                }
-            }
-        }
-        return null;
-    }
-
-    public void close() throws IOException {
-        reader.close();
+    public HTMLReader(String fileName, String defaultEncoding) throws FileNotFoundException {
+        super(fileName, detectHtmlEncoding(fileName, defaultEncoding));
     }
 
     boolean readFirstTime = true;
 
+    /**
+     * Reads characters into a portion of an array. If this is the first time
+     * the method is invoked, it ensures that the Byte Order Mark (BOM) is
+     * handled correctly by resetting the stream if a BOM is not present.
+     * Subsequent reads proceed as normal.
+     *
+     * @param cbuf
+     *            the destination buffer to hold the characters read from the
+     *            stream
+     * @param off
+     *            the start offset in the buffer where characters are written
+     * @param len
+     *            the maximum number of characters to read
+     * @return the number of characters read into the buffer or -1 if the end of
+     *         the stream has been reached
+     * @throws IOException
+     *             if an I/O error occurs
+     */
+    @Override
     public int read(char[] cbuf, int off, int len) throws IOException {
         // BOM (byte order mark) bugfix
         if (readFirstTime) {
             readFirstTime = false;
-            reader.mark(1);
-            int ch = reader.read();
+            super.mark(1);
+            int ch = super.read();
             if (ch != 0xFEFF) {
-                reader.reset();
+                super.reset();
             }
         }
-        return reader.read(cbuf, off, len);
+        return super.read(cbuf, off, len);
     }
 
 }

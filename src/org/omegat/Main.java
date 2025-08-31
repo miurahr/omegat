@@ -54,14 +54,15 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.PropertyResourceBundle;
+import java.util.TimeZone;
 import java.util.TreeMap;
 
 import javax.swing.JOptionPane;
@@ -69,12 +70,13 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.Nullable;
 import org.languagetool.JLanguageTool;
+import org.omegat.core.data.RuntimePreferenceStore;
 import tokyo.northside.logging.ILogger;
 
 import org.omegat.CLIParameters.PSEUDO_TRANSLATE_TYPE;
 import org.omegat.CLIParameters.TAG_VALIDATION_MODE;
-import org.omegat.convert.ConvertConfigs;
 import org.omegat.core.Core;
 import org.omegat.core.CoreEvents;
 import org.omegat.core.data.NotLoadedProject;
@@ -102,7 +104,6 @@ import org.omegat.util.OStrings;
 import org.omegat.util.Platform;
 import org.omegat.util.Preferences;
 import org.omegat.util.ProjectFileStorage;
-import org.omegat.util.RuntimePreferences;
 import org.omegat.util.StaticUtils;
 import org.omegat.util.StringUtil;
 import org.omegat.util.TMXWriter2;
@@ -127,16 +128,16 @@ public final class Main {
     }
 
     /** Project location for a load on startup. */
-    private static File projectLocation = null;
+    private static @Nullable File projectLocation = null;
 
     /** Remote project location. */
-    private static String remoteProject = null;
+    private static @Nullable String remoteProject = null;
 
     /** Execution command line parameters. */
     private static final Map<String, String> PARAMS = new TreeMap<>();
 
     /** Execution mode. */
-    private static CLIParameters.RUN_MODE runMode = CLIParameters.RUN_MODE.GUI;
+    private static @Nullable CLIParameters.RUN_MODE runMode = CLIParameters.RUN_MODE.GUI;
 
     public static void main(String[] args) {
         if (args.length > 0
@@ -173,19 +174,39 @@ public final class Main {
 
         String configDir = PARAMS.get(CLIParameters.CONFIG_DIR);
         if (configDir != null) {
-            RuntimePreferences.setConfigDir(FileUtil.expandTildeHomeDir(configDir));
+            RuntimePreferenceStore.getInstance().setConfigDir(FileUtil.expandTildeHomeDir(configDir));
         }
 
         if (PARAMS.containsKey(CLIParameters.QUIET)) {
-            RuntimePreferences.setQuietMode(true);
+            RuntimePreferenceStore.getInstance().setQuietMode(true);
         }
 
         if (PARAMS.containsKey(CLIParameters.DISABLE_PROJECT_LOCKING)) {
-            RuntimePreferences.setProjectLockingEnabled(false);
+            RuntimePreferenceStore.getInstance().setProjectLockingDisabled();
         }
 
         if (PARAMS.containsKey(CLIParameters.DISABLE_LOCATION_SAVE)) {
-            RuntimePreferences.setLocationSaveEnabled(false);
+            RuntimePreferenceStore.getInstance().setLocationSaveDisable();
+        }
+
+        if (PARAMS.containsKey(CLIParameters.NO_TEAM)) {
+            RuntimePreferenceStore.getInstance().setNoTeam();
+        }
+        String alternateFrom = PARAMS.get(CLIParameters.ALTERNATE_FILENAME_FROM);
+        if (alternateFrom != null) {
+            RuntimePreferenceStore.getInstance().setAlternateFilenameFrom(alternateFrom);
+        }
+        String alternateTo = PARAMS.get(CLIParameters.ALTERNATE_FILENAME_TO);
+        if (alternateTo != null) {
+            RuntimePreferenceStore.getInstance().setAlternateFilenameTo(alternateTo);
+        }
+        String tokenizerSource = PARAMS.get(CLIParameters.TOKENIZER_SOURCE);
+        if (tokenizerSource != null) {
+            RuntimePreferenceStore.getInstance().setTokenizerSource(tokenizerSource);
+        }
+        String tokenizerTarget = PARAMS.get(CLIParameters.TOKENIZER_TARGET);
+        if (tokenizerTarget != null) {
+            RuntimePreferenceStore.getInstance().setTokenizerTarget(tokenizerTarget);
         }
 
         // initialize logging backend and loading configuration.
@@ -194,8 +215,8 @@ public final class Main {
         logger.atInfo().setMessage("\n{0}\n{1} (started on {2} {3}) Locale {4}")
                 .addArgument(StringUtils.repeat('=', 120)).addArgument(OStrings.getNameAndVersion())
                 .addArgument(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
-                        .withLocale(Locale.getDefault()).format(ZonedDateTime.now()))
-                .addArgument(ZoneId.systemDefault().getDisplayName(TextStyle.SHORT, Locale.getDefault()))
+                        .withLocale(Locale.getDefault()).format(ZonedDateTime.now(ZoneId.systemDefault())))
+                .addArgument(TimeZone.getDefault().getDisplayName(false, TimeZone.SHORT, Locale.getDefault()))
                 .addArgument(Locale.getDefault().toLanguageTag()).log();
         logger.atInfo().logRB("LOG_STARTUP_INFO", System.getProperty("java.vendor"),
                 System.getProperty("java.version"), System.getProperty("java.home"));
@@ -203,7 +224,6 @@ public final class Main {
         System.setProperty("http.agent", OStrings.getDisplayNameAndVersion());
 
         // Do migration and load various settings. The order is important!
-        ConvertConfigs.convert();
         Preferences.init();
         // broker should be loaded before module loading
         JLanguageTool.setClassBrokerBroker(new LanguageClassBroker());
@@ -215,28 +235,32 @@ public final class Main {
 
         int result;
         try {
-            switch (runMode) {
-            case GUI:
-                result = runGUI();
-                // GUI has own shutdown code
-                break;
-            case CONSOLE_TRANSLATE:
-                result = runConsoleTranslate();
-                PluginUtils.unloadPlugins();
-                break;
-            case CONSOLE_CREATEPSEUDOTRANSLATETMX:
-                result = runCreatePseudoTranslateTMX();
-                PluginUtils.unloadPlugins();
-                break;
-            case CONSOLE_ALIGN:
-                result = runConsoleAlign();
-                PluginUtils.unloadPlugins();
-                break;
-            case CONSOLE_STATS:
-                result = runConsoleStats();
-                PluginUtils.unloadPlugins();
-                break;
-            default:
+            if (runMode != null) {
+                switch (runMode) {
+                case GUI:
+                    result = runGUI();
+                    // GUI has own shutdown code
+                    break;
+                case CONSOLE_TRANSLATE:
+                    result = runConsoleTranslate();
+                    PluginUtils.unloadPlugins();
+                    break;
+                case CONSOLE_CREATEPSEUDOTRANSLATETMX:
+                    result = runCreatePseudoTranslateTMX();
+                    PluginUtils.unloadPlugins();
+                    break;
+                case CONSOLE_ALIGN:
+                    result = runConsoleAlign();
+                    PluginUtils.unloadPlugins();
+                    break;
+                case CONSOLE_STATS:
+                    result = runConsoleStats();
+                    PluginUtils.unloadPlugins();
+                    break;
+                default:
+                    result = 1;
+                }
+            } else {
                 result = 1;
             }
         } catch (Throwable ex) {
@@ -264,11 +288,15 @@ public final class Main {
             command.addAll(CLIParameters.unparseArgs(PARAMS));
         } else {
             // assumes jpackage
-            var installDir = StaticUtils.installDir();
+            String installDir = StaticUtils.installDir();
             if (installDir == null) {
                 return;
             } else {
-                javaBin = Paths.get(installDir).getParent().resolve("bin/OmegaT");
+                Path parent = Paths.get(installDir).getParent();
+                if (parent == null) {
+                    return;
+                }
+                javaBin = parent.resolve("bin/OmegaT");
                 if (!javaBin.toFile().exists()) {
                     // abort restart
                     Core.getMainWindow().displayWarningRB("LOG_RESTART_FAILED_NOT_FOUND");
@@ -301,7 +329,7 @@ public final class Main {
      * @param path
      *            to config file
      */
-    private static void applyConfigFile(String path) {
+    private static void applyConfigFile(@Nullable String path) {
         if (path == null) {
             return;
         }
@@ -341,7 +369,7 @@ public final class Main {
      * Execute standard GUI.
      */
     private static int runGUI() {
-        UIManager.put("ClassLoader", PluginUtils.getThemeClassLoader());
+        UIManager.put("ClassLoader", PluginUtils.getClassLoader(PluginUtils.PluginType.THEME));
 
         // macOS-specific - they must be set BEFORE any GUI calls
         if (Platform.isMacOSX()) {
@@ -412,11 +440,7 @@ public final class Main {
         System.out.println(OStrings.getString("CONSOLE_TRANSLATING"));
 
         String sourceMask = PARAMS.get(CLIParameters.SOURCE_PATTERN);
-        if (sourceMask != null) {
-            p.compileProject(sourceMask, false);
-        } else {
-            p.compileProject(".*", false);
-        }
+        p.compileProject(Objects.requireNonNullElse(sourceMask, ".*"), false);
 
         // Called *after* executing post processing command (unlike the
         // regular PROJECT_CHANGE_TYPE.COMPILE)
@@ -700,14 +724,11 @@ public final class Main {
         } else {
             msg = ex.getMessage();
         }
-        switch (runMode) {
-        case GUI:
+        if (CLIParameters.RUN_MODE.GUI == runMode) {
             JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), msg,
                     OStrings.getString("STARTUP_ERRORBOX_TITLE"), JOptionPane.ERROR_MESSAGE);
-            break;
-        default:
+        } else {
             System.err.println(MessageFormat.format(OStrings.getString("CONSOLE_ERROR"), msg));
-            break;
         }
     }
 }

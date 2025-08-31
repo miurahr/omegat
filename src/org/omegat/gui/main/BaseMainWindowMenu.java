@@ -61,9 +61,9 @@ import javax.swing.UIManager;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
+import org.omegat.core.data.RuntimePreferenceStore;
 import org.openide.awt.Mnemonics;
 
-import org.omegat.CLIParameters;
 import org.omegat.core.Core;
 import org.omegat.core.CoreEvents;
 import org.omegat.core.events.IApplicationEventListener;
@@ -217,6 +217,7 @@ public abstract class BaseMainWindowMenu implements ActionListener, MenuListener
         projectCompileMenuItem = createMenuItem("TF_MENU_FILE_COMPILE");
         projectSingleCompileMenuItem = createMenuItem("TF_MENU_FILE_SINGLE_COMPILE");
         projectEditMenuItem = createMenuItem("MW_PROJECTMENU_EDIT");
+        projectEditMenuItem.setName(PROJECT_EDIT_MENUITEM);
         viewFileListMenuItem = createMenuItem("TF_MENU_FILE_PROJWIN");
 
         projectAccessProjectFilesMenu = createMenu("TF_MENU_FILE_ACCESS_PROJECT_FILES",
@@ -844,7 +845,7 @@ public abstract class BaseMainWindowMenu implements ActionListener, MenuListener
         for (JMenuItem item : itemsToSwitchOn) {
             item.setEnabled(isProjectOpened);
         }
-        if (Core.getParams().containsKey(CLIParameters.NO_TEAM)) {
+        if (RuntimePreferenceStore.getInstance().isNoTeam()) {
             projectTeamNewMenuItem.setEnabled(false);
         }
         projectCommitSourceFiles.setEnabled(isProjectOpened && Core.getProject().isRemoteProject()
@@ -1151,6 +1152,7 @@ public abstract class BaseMainWindowMenu implements ActionListener, MenuListener
     public static final String HELP_MENU = "help_menu";
     public static final String PROJECT_OPEN_RECENT_SUBMENU = "project_open_recent_submenu";
     public static final String PROJECT_ACCESS_PROJECT_FILES_SUBMENU = "project_access_project_files_submenu";
+    public static final String PROJECT_EDIT_MENUITEM = "project_edit_menuitem";
     public static final String SELECT_FUZZY_SUBMENU = "select_fuzzy_submenu";
     public static final String INSERT_CHARS_SUBMENU = "insert_chars_submenu";
     public static final String SWITCH_CASE_SUBMENU = "switch_case_submenu";

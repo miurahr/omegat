@@ -28,17 +28,18 @@
 
 package org.omegat.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Tests for (some) static utility methods.
@@ -366,6 +367,23 @@ public class StringUtilTest {
     private static final String ALPHA_WITH_NOBREAK_SPACE = "ABC\u00a0";
 
     @Test
+    public void testNormalizeWidthSpaces() {
+        List<String> texts = Arrays.asList(
+                " Normal Space",
+                "\u00A0Non-Breaking Space",
+                "\u2007Figure Space",
+                "\u2008Punctuation Space",
+                "\u2009Thin Space",
+                "\u202FNarrow No-Break Space",
+                "\u3000Ideographic Space"
+        );
+        for (String text : texts) {
+            String expectation = " " + text.substring(1);
+            assertEquals(expectation, StringUtil.normalizeWidth(text));
+        }
+    }
+
+    @Test
     public void testRstrip() {
         assertEquals("", StringUtil.rstrip(""));
         assertEquals("", StringUtil.rstrip(" "));
@@ -557,4 +575,62 @@ public class StringUtilTest {
         assertEquals(-32, StringUtil.compareToNullable("A", "a"));
     }
 
+    @Test
+    public void testReplaceSquaredLatinAbbreviations() {
+        // Test valid squared Latin abbreviations
+        assertEquals("hPa", StringUtil.normalizeWidth("\u3371"));
+        assertEquals("gal", StringUtil.normalizeWidth("\u33FF"));
+        // Test valid squared Latin abbreviations with multiple replacements
+        assertEquals("cm³", StringUtil.normalizeWidth("㎤"));
+        // Test valid squared Latin abbreviations in edge case 0x33DF
+        assertEquals("a/m", StringUtil.normalizeWidth("㏟"));
+    }
+
+    @Test
+    public void testProcessKatakana() {
+        // Test valid Half-width Katakana
+        assertEquals("\u30AB", StringUtil.normalizeWidth("\uFF76"));
+        // Half-width "Voicing mark"
+        assertEquals("\u3099", StringUtil.normalizeWidth("\uFF9E"));
+        // Combine Katakana and symbols
+        // Half-width "Ka" + "Voicing mark" -> "Ga"
+        assertEquals("\u30AC", StringUtil.normalizeWidth("\uFF76\uFF9E"));
+    }
+
+    @Test
+    public void testProcessHangul() {
+        // Test valid Hangul compatibility characters
+        assertEquals("\u3164", StringUtil.normalizeWidth("\uFFA0")); // Ensure it's replaced correctly
+        // First valid Hangul char in the range
+        assertEquals("\u3161", StringUtil.normalizeWidth("\uFFDA"));
+        // Last valid Hangul char in the range
+        assertEquals("\u25CB", StringUtil.normalizeWidth("\uFFEE"));
+        // Hangul character in range with no replacement
+        assertEquals("\uFFDD", StringUtil.normalizeWidth("\uFFDD"));
+    }
+
+    @Test
+    public void testStripFromEnd() {
+        // Test removing a single suffix
+        assertEquals("Hello World", StringUtil.stripFromEnd("Hello World!!!", "!!!"));
+        assertEquals("Hello", StringUtil.stripFromEnd("Hello..", ".."));
+
+        // Test removing multiple suffixes
+        assertEquals("Hello World", StringUtil.stripFromEnd("Hello World!!!", "!!!", "...", "??"));
+        assertEquals("Hello", StringUtil.stripFromEnd("Hello..!!", "!!", ".."));
+
+        // Test no match
+        assertEquals("Hello World", StringUtil.stripFromEnd("Hello World", "!!!"));
+        assertEquals("SampleText", StringUtil.stripFromEnd("SampleText", "Suffix"));
+
+        // Test empty suffix
+        assertEquals("TestString", StringUtil.stripFromEnd("TestString", ""));
+
+        // Test null inputs
+        assertNull(StringUtil.stripFromEnd(null, "suffix"));
+        assertEquals("String", StringUtil.stripFromEnd("String", (String[]) null));
+
+        // Test empty string
+        assertEquals("", StringUtil.stripFromEnd("", "suffix"));
+    }
 }
