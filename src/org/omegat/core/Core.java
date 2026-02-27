@@ -34,6 +34,10 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.locks.ReentrantLock;
 
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
+import org.omegat.cli.BaseSubCommand;
+import org.omegat.cli.SubCommands;
 import org.omegat.core.data.CoreState;
 import org.omegat.core.data.EntryKey;
 import org.omegat.core.data.IProject;
@@ -94,6 +98,7 @@ import org.omegat.util.gui.UIDesignManager;
  * @author Alex Buloichik (alex73mail@gmail.com)
  * @author Wildrich Fourie
  */
+@NullMarked
 public final class Core {
 
     private Core() {
@@ -342,6 +347,18 @@ public final class Core {
     }
 
     /**
+     * Registers a console command by associating a command name with its corresponding subcommand class.
+     * This method adds the specified command to a collection of subcommands, enabling it to be later
+     * utilized or executed through the command-line interface.
+     *
+     * @param name       the subcommand name of the console command to be registered.
+     * @param subcommand the class representing the subcommand implementation associated with the given name.
+     */
+    public static void registerConsoleCommand(String name, Class<? extends BaseSubCommand> subcommand) {
+        SubCommands.registerConsoleCommand(name, subcommand);
+    }
+
+    /**
      * Get all plugin loading errors.
      */
     public static List<String> getPluginsLoadingErrors() {
@@ -367,7 +384,7 @@ public final class Core {
      * @param run
      *            code for execute
      * @throws Exception
-     *            Throw exception from runnable if received.
+     *            Throw an exception from runnable if received.
      */
     public static void executeExclusively(boolean waitForUnlock, RunnableWithException run)
             throws Exception {
@@ -389,7 +406,7 @@ public final class Core {
         }
     }
 
-    private static StackTraceElement[] runningStackTrace;
+    private static StackTraceElement @Nullable [] runningStackTrace;
 
     public interface RunnableWithException {
         void run() throws Exception;
